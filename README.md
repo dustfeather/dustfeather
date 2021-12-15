@@ -1,3 +1,7 @@
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg" alt="Catalin Teodorescu" />
+</h1>
+
 - 👋 Hi, I’m @dustfeather
 - 👀 I’m interested in ...
 - 🌱 I’m currently learning ...
