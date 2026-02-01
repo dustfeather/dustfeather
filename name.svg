@@ -124,10 +124,10 @@
           position: relative;
         }
 
-        .logo {
+        .logo-placeholder {
+          display: inline-block;
           width: 28px;
           height: 28px;
-          border-radius: 50%;
         }
 
         .subtitle {
@@ -195,11 +195,18 @@
         <div class="name">CATALIN TEODORESCU</div>
 
         <div class="subtitle-row">
-          <img class="logo" src="data:image/png;base64,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" alt="ITGuys" />
+          <span class="logo-placeholder"></span>
           <span class="subtitle">CEO @ ITGUYS-RO // BUCHAREST, ROMANIA</span>
           <span class="cursor"></span>
         </div>
       </div>
     </div>
   </foreignObject>
+  <defs>
+    <clipPath id="logo-clip" clipPathUnits="objectBoundingBox">
+      <circle cx="0.5" cy="0.5" r="0.5" />
+    </clipPath>
+  </defs>
+  <image href="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" x="155" y="118" width="28" height="28" clip-path="url(#logo-clip)" />
+
 </svg>
