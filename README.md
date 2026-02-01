@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <em>Full-stack engineer turned <a href="https://itguys.ro">company builder</a>.</em><br>
+  <em><a href="https://www.linkedin.com/in/dustfeather/">Full-stack engineer</a> turned <a href="https://itguys.ro">company builder</a>.</em><br>
   <em>Most of my work lives in private repos, but here's the gist:</em>
 </p>
 
