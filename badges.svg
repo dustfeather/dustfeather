@@ -1,10 +1,18 @@
-<svg viewBox="0 0 800 310" width="800" height="310" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 800 420" width="800" height="420" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
       <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
     </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
     <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-yellow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur" />
       <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
     </filter>
@@ -22,91 +30,102 @@
     </filter>
   </defs>
 
-  <rect width="800" height="310" rx="8" fill="#0a0a0f" />
+  <rect width="800" height="420" rx="8" fill="#0a0a0f" />
 
   <!-- Grid overlay -->
   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
     <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,240,255,0.04)" stroke-width="0.5" />
   </pattern>
-  <rect width="800" height="310" fill="url(#grid)" />
+  <rect width="800" height="420" fill="url(#grid)" />
 
   <!-- Row 1: Enterprise SaaS — cyan #00f0ff -->
   <text x="30" y="42" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00f0ff" filter="url(#glow-cyan)" letter-spacing="1">ENTERPRISE SAAS</text>
-  <!-- Badges -->
   <rect x="200" y="25" width="55" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
   <text x="227" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">PHP</text>
-
   <rect x="265" y="25" width="85" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
   <text x="307" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Symfony</text>
-
   <rect x="360" y="25" width="82" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
   <text x="401" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Laravel</text>
-
-  <rect x="452" y="25" width="105" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="504" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">E-Commerce</text>
-
-  <rect x="567" y="25" width="90" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="612" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Gov-Tech</text>
-
-  <!-- Separator -->
+  <rect x="452" y="25" width="110" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="507" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Multi-tenant</text>
+  <rect x="572" y="25" width="55" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="599" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">SSO</text>
+  <rect x="637" y="25" width="100" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="687" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Doc Mgmt</text>
   <line x1="30" y1="62" x2="770" y2="62" stroke="#00f0ff" stroke-width="0.3" opacity="0.3" />
 
-  <!-- Row 2: Automation — green #39ff14 -->
-  <text x="30" y="98" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#39ff14" filter="url(#glow-green)" letter-spacing="1">AUTOMATION</text>
-  <rect x="200" y="81" width="90" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="245" y="97" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Telegram</text>
+  <!-- Row 2: E-Commerce & Gov-Tech — teal #00ffa0 -->
+  <text x="30" y="98" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00ffa0" filter="url(#glow-teal)" letter-spacing="1">E-COMMERCE &amp; GOV</text>
+  <rect x="220" y="81" width="120" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="280" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">ContentSpeed</text>
+  <rect x="350" y="81" width="110" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="405" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Marketplace</text>
+  <rect x="470" y="81" width="120" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="530" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Digitization</text>
+  <rect x="600" y="81" width="80" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="640" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">HR-Tech</text>
+  <line x1="30" y1="118" x2="770" y2="118" stroke="#00ffa0" stroke-width="0.3" opacity="0.3" />
 
-  <rect x="300" y="81" width="120" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="360" y="97" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Browser Ext</text>
+  <!-- Row 3: Scrapers & Data — green #39ff14 -->
+  <text x="30" y="154" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#39ff14" filter="url(#glow-green)" letter-spacing="1">SCRAPERS &amp; DATA</text>
+  <rect x="210" y="137" width="115" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="267" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Web Crawlers</text>
+  <rect x="335" y="137" width="110" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="390" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">DOM Parsing</text>
+  <rect x="455" y="137" width="110" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="510" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Data Mining</text>
+  <rect x="575" y="137" width="70" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="610" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">News</text>
+  <line x1="30" y1="174" x2="770" y2="174" stroke="#39ff14" stroke-width="0.3" opacity="0.3" />
 
-  <rect x="430" y="81" width="60" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="460" y="97" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Plex</text>
+  <!-- Row 4: Automation & Bots — yellow #ffee00 -->
+  <text x="30" y="210" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ffee00" filter="url(#glow-yellow)" letter-spacing="1">AUTOMATION</text>
+  <rect x="200" y="193" width="90" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="245" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Telegram</text>
+  <rect x="300" y="193" width="120" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="360" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Browser Ext</text>
+  <rect x="430" y="193" width="120" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="490" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Device Mon.</text>
+  <rect x="560" y="193" width="70" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="595" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Gmail</text>
+  <line x1="30" y1="230" x2="770" y2="230" stroke="#ffee00" stroke-width="0.3" opacity="0.3" />
 
-  <rect x="500" y="81" width="70" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="535" y="97" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Gmail</text>
+  <!-- Row 5: Finance & AI — magenta #ff00aa -->
+  <text x="30" y="266" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff00aa" filter="url(#glow-magenta)" letter-spacing="1">FINANCE &amp; AI</text>
+  <rect x="200" y="249" width="130" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="265" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">NeuralProphet</text>
+  <rect x="340" y="249" width="105" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="392" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Sentiment</text>
+  <rect x="455" y="249" width="82" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="496" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Trading</text>
+  <rect x="547" y="249" width="100" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="597" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Stocks ML</text>
+  <line x1="30" y1="286" x2="770" y2="286" stroke="#ff00aa" stroke-width="0.3" opacity="0.3" />
 
-  <line x1="30" y1="118" x2="770" y2="118" stroke="#39ff14" stroke-width="0.3" opacity="0.3" />
+  <!-- Row 6: Infrastructure — purple #bd00ff -->
+  <text x="30" y="322" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#bd00ff" filter="url(#glow-purple)" letter-spacing="1">INFRASTRUCTURE</text>
+  <rect x="200" y="305" width="170" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
+  <text x="285" y="321" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">Cloudflare Workers</text>
+  <rect x="380" y="305" width="65" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
+  <text x="412" y="321" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">CI/CD</text>
+  <rect x="455" y="305" width="120" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
+  <text x="515" y="321" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">SaaS Scaling</text>
+  <rect x="585" y="305" width="100" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
+  <text x="635" y="321" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">TypeScript</text>
+  <line x1="30" y1="342" x2="770" y2="342" stroke="#bd00ff" stroke-width="0.3" opacity="0.3" />
 
-  <!-- Row 3: Finance & AI — magenta #ff00aa -->
-  <text x="30" y="154" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff00aa" filter="url(#glow-magenta)" letter-spacing="1">FINANCE &amp; AI</text>
-  <rect x="200" y="137" width="130" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="265" y="153" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">NeuralProphet</text>
-
-  <rect x="340" y="137" width="105" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="392" y="153" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Sentiment</text>
-
-  <rect x="455" y="137" width="82" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="496" y="153" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Trading</text>
-
-  <line x1="30" y1="174" x2="770" y2="174" stroke="#ff00aa" stroke-width="0.3" opacity="0.3" />
-
-  <!-- Row 4: Infrastructure — purple #bd00ff -->
-  <text x="30" y="210" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#bd00ff" filter="url(#glow-purple)" letter-spacing="1">INFRASTRUCTURE</text>
-  <rect x="200" y="193" width="170" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
-  <text x="285" y="209" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">Cloudflare Workers</text>
-
-  <rect x="380" y="193" width="65" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
-  <text x="412" y="209" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">CI/CD</text>
-
-  <rect x="455" y="193" width="120" height="24" rx="12" fill="none" stroke="#bd00ff" stroke-width="1" opacity="0.7" />
-  <text x="515" y="209" font-family="Courier New, monospace" font-size="11" fill="#bd00ff" text-anchor="middle">SaaS Scaling</text>
-
-  <line x1="30" y1="230" x2="770" y2="230" stroke="#bd00ff" stroke-width="0.3" opacity="0.3" />
-
-  <!-- Row 5: Mobile — orange #ff6a00 -->
-  <text x="30" y="266" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff6a00" filter="url(#glow-orange)" letter-spacing="1">MOBILE</text>
-  <rect x="200" y="249" width="70" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
-  <text x="235" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Swift</text>
-
-  <rect x="280" y="249" width="70" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
-  <text x="315" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Obj-C</text>
-
-  <rect x="360" y="249" width="62" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
-  <text x="391" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Java</text>
-
-  <rect x="432" y="249" width="85" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
-  <text x="474" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Android</text>
-
-  <rect x="527" y="249" width="55" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
-  <text x="554" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">iOS</text>
+  <!-- Row 7: Mobile — orange #ff6a00 -->
+  <text x="30" y="378" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff6a00" filter="url(#glow-orange)" letter-spacing="1">MOBILE</text>
+  <rect x="200" y="361" width="70" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="235" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Swift</text>
+  <rect x="280" y="361" width="70" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="315" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Obj-C</text>
+  <rect x="360" y="361" width="62" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="391" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Java</text>
+  <rect x="432" y="361" width="115" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="489" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Dart/Flutter</text>
+  <rect x="557" y="361" width="85" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="599" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">Android</text>
+  <rect x="652" y="361" width="55" height="24" rx="12" fill="none" stroke="#ff6a00" stroke-width="1" opacity="0.7" />
+  <text x="679" y="377" font-family="Courier New, monospace" font-size="11" fill="#ff6a00" text-anchor="middle">iOS</text>
 </svg>

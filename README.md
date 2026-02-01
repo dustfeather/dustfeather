@@ -1,31 +1,23 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg" alt="Catalin Teodorescu" width="800" />
-</p>
+![Catalin Teodorescu](https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg)
 
+*[Full-stack engineer](https://www.linkedin.com/in/dustfeather/) turned [company builder](https://itguys.ro).*
 
-<p align="center">
-  <em><a href="https://www.linkedin.com/in/dustfeather/">Full-stack engineer</a> turned <a href="https://itguys.ro">company builder</a>.</em><br>
-  <em>Most of my work lives in private repos, but here's the gist:</em>
-</p>
+*Most of my work lives in private repos, but here's the gist:*
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges.svg" alt="Tech Stack" width="800" />
-</p>
+![Tech Stack](https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges.svg)
 
 ---
 
-- **Enterprise SaaS & Platforms** — PHP (Symfony, Laravel) has been my bread and butter across e-commerce, HR, document management, and government digitization projects
-- **Automation & Bots** — Telegram bots for trading signals, Gmail digests, device monitoring; browser extensions for skipping intros on Plex/Netflix
-- **Finance & AI** — Stock predictions with NeuralProphet, sentiment-based trading signals using Fear & Greed Index + technical indicators
-- **Infrastructure** — Cloudflare Workers, deployment pipelines, scaling SaaS platforms
-- **Mobile** — Native iOS (Swift/Obj-C) and Android (Java) apps
+- **Enterprise SaaS** - Built multi-tenant SaaS platforms with PHP (Symfony, Laravel) including SSO, rollout management, BI dashboards, and document management systems across 10+ interconnected services
+- **E-Commerce & Gov-Tech** - ContentSpeed e-commerce platform with marketplace API; government digitization projects (ONRC, IMR, Antreprenor+); HR/careers platforms and Swibeco benefits system
+- **Scrapers & Data** - Web crawlers, news aggregators, review scanners, domain scanners, property scrapers, and meta parsers for competitive intelligence and data mining
+- **Automation & Bots** - Telegram bots for trading signals, Gmail daily digests, device login monitoring; browser extensions for Plex/Netflix intro skipping and filelist.io
+- **Finance & AI** - Stock predictions with NeuralProphet, sentiment-based trading signals using Fear & Greed Index + technical indicators, ML-driven stock analysis
+- **Infrastructure** - Cloudflare Workers, deployment pipelines, SSO systems, scaling multi-tenant SaaS platforms
+- **Mobile** - Native iOS (Swift/Obj-C), Android (Java), and cross-platform (Dart/Flutter) apps
 
 ---
 
-<p align="center">
-  <code>📡 Currently exploring AI/ML applied to real-world automation and business tooling</code>
-</p>
+`📡 Currently exploring AI/ML applied to real-world automation and business tooling`
 
-<p align="center">
-  <a href="mailto:contact@itguys.ro"><img align="middle" src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" alt="ITGuys" width="24" />&nbsp;contact@itguys.ro</a>
-</p>
+[contact@itguys.ro](mailto:contact@itguys.ro)
