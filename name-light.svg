@@ -54,7 +54,7 @@
           height: 1px;
           background: linear-gradient(90deg, transparent, #0088aa, transparent);
           z-index: 2;
-          opacity: 0.5;
+          opacity: 0.7;
         }
         .line-top { top: 20px; }
         .line-bottom { bottom: 20px; }
@@ -64,7 +64,7 @@
           position: absolute;
           color: #0088aa;
           font-size: 24px;
-          opacity: 0.35;
+          opacity: 0.5;
           z-index: 2;
           font-family: 'Courier New', monospace;
           line-height: 1;
@@ -80,11 +80,12 @@
           font-weight: 700;
           letter-spacing: 6px;
           text-transform: uppercase;
-          color: #006080;
+          color: #005570;
           text-shadow:
-            0 0 5px rgba(0, 136, 170, 0.4),
-            0 0 15px rgba(0, 136, 170, 0.2),
-            0 0 30px rgba(0, 96, 128, 0.15);
+            0 0 7px rgba(0, 136, 170, 0.7),
+            0 0 20px rgba(0, 136, 170, 0.5),
+            0 0 42px rgba(0, 96, 128, 0.35),
+            0 0 80px rgba(0, 96, 128, 0.2);
           z-index: 4;
           position: relative;
           animation: flicker 4s infinite;
@@ -126,10 +127,11 @@
         .subtitle {
           font-size: 14px;
           letter-spacing: 3px;
-          color: #aa0066;
+          color: #990055;
           text-shadow:
-            0 0 4px rgba(170, 0, 102, 0.3),
-            0 0 10px rgba(170, 0, 102, 0.15);
+            0 0 5px rgba(170, 0, 102, 0.6),
+            0 0 15px rgba(170, 0, 102, 0.35),
+            0 0 30px rgba(170, 0, 102, 0.2);
           opacity: 0.9;
         }
 
@@ -142,7 +144,7 @@
           margin-left: 4px;
           animation: blink 1s step-end infinite;
           vertical-align: middle;
-          box-shadow: 0 0 4px rgba(0, 136, 170, 0.5);
+          box-shadow: 0 0 6px rgba(0, 136, 170, 0.7), 0 0 12px rgba(0, 136, 170, 0.3);
         }
 
         @keyframes flicker {
