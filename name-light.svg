@@ -26,8 +26,8 @@
             0deg,
             transparent,
             transparent 2px,
-            rgba(40, 130, 110, 0.03) 2px,
-            rgba(40, 130, 110, 0.03) 4px
+            rgba(0, 100, 140, 0.03) 2px,
+            rgba(0, 100, 140, 0.03) 4px
           );
           pointer-events: none;
           z-index: 3;
@@ -39,8 +39,8 @@
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
           background-image:
-            linear-gradient(rgba(40, 130, 110, 0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(40, 130, 110, 0.06) 1px, transparent 1px);
+            linear-gradient(rgba(0, 100, 140, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 100, 140, 0.06) 1px, transparent 1px);
           background-size: 40px 40px;
           pointer-events: none;
           z-index: 1;
@@ -52,9 +52,9 @@
           left: 40px;
           right: 40px;
           height: 1px;
-          background: linear-gradient(90deg, transparent, #2a8a70, transparent);
+          background: linear-gradient(90deg, transparent, #0088aa, transparent);
           z-index: 2;
-          opacity: 0.7;
+          opacity: 0.5;
         }
         .line-top { top: 20px; }
         .line-bottom { bottom: 20px; }
@@ -62,9 +62,9 @@
         /* Corner brackets */
         .corner {
           position: absolute;
-          color: #2a8a70;
+          color: #0088aa;
           font-size: 24px;
-          opacity: 0.5;
+          opacity: 0.35;
           z-index: 2;
           font-family: 'Courier New', monospace;
           line-height: 1;
@@ -80,11 +80,11 @@
           font-weight: 700;
           letter-spacing: 6px;
           text-transform: uppercase;
-          color: #1a5c6b;
+          color: #006080;
           text-shadow:
-            0 0 8px rgba(40, 140, 120, 0.5),
-            0 0 20px rgba(40, 160, 130, 0.25),
-            0 0 40px rgba(50, 170, 140, 0.15);
+            0 0 5px rgba(0, 136, 170, 0.4),
+            0 0 15px rgba(0, 136, 170, 0.2),
+            0 0 30px rgba(0, 96, 128, 0.15);
           z-index: 4;
           position: relative;
           animation: flicker 4s infinite;
@@ -128,8 +128,8 @@
           letter-spacing: 3px;
           color: #aa0066;
           text-shadow:
-            0 0 6px rgba(255, 100, 200, 0.5),
-            0 0 16px rgba(255, 130, 210, 0.3);
+            0 0 4px rgba(170, 0, 102, 0.3),
+            0 0 10px rgba(170, 0, 102, 0.15);
           opacity: 0.9;
         }
 
@@ -138,11 +138,11 @@
           display: inline-block;
           width: 8px;
           height: 16px;
-          background: #2a8a70;
+          background: #0088aa;
           margin-left: 4px;
           animation: blink 1s step-end infinite;
           vertical-align: middle;
-          box-shadow: 0 0 6px rgba(80, 190, 160, 0.6), 0 0 12px rgba(100, 200, 170, 0.3);
+          box-shadow: 0 0 4px rgba(0, 136, 170, 0.5);
         }
 
         @keyframes flicker {
