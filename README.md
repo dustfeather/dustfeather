@@ -3,7 +3,11 @@
 </p>
 
 <p align="center">
-  <em>Full-stack engineer turned company builder.</em>
+  <a href="https://itguys.ro"><img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" alt="ITGuys" width="36" /></a>
+</p>
+
+<p align="center">
+  <em>Full-stack engineer turned company builder.</em><br>
   <em>Most of my work lives in private repos, but here's the gist:</em>
 </p>
 
