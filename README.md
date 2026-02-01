@@ -2,9 +2,6 @@
   <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg" alt="Catalin Teodorescu" width="800" />
 </p>
 
-<p align="center">
-  <a href="https://itguys.ro"><img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" alt="ITGuys" width="36" /></a>
-</p>
 
 <p align="center">
   <em><a href="https://www.linkedin.com/in/dustfeather/">Full-stack engineer</a> turned <a href="https://itguys.ro">company builder</a>.</em><br>
@@ -30,5 +27,5 @@
 </p>
 
 <p align="center">
-  <a href="mailto:contact@itguys.ro"><code>📫 contact@itguys.ro</code></a>
+  <a href="mailto:contact@itguys.ro"><img align="middle" src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" alt="ITGuys" width="24" />&nbsp;contact@itguys.ro</a>
 </p>
