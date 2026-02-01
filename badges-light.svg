@@ -1,0 +1,131 @@
+<svg viewBox="0 0 800 420" width="800" height="420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-yellow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-magenta" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="420" rx="8" fill="#f0f2f5" />
+
+  <!-- Grid overlay -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,100,140,0.06)" stroke-width="0.5" />
+  </pattern>
+  <rect width="800" height="420" fill="url(#grid)" />
+
+  <!-- Row 1: Enterprise SaaS — cyan/dark teal -->
+  <text x="30" y="42" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#006080" filter="url(#glow-cyan)" letter-spacing="1">ENTERPRISE SAAS</text>
+  <rect x="200" y="25" width="55" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="227" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">PHP</text>
+  <rect x="265" y="25" width="85" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="307" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">Symfony</text>
+  <rect x="360" y="25" width="82" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="401" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">Laravel</text>
+  <rect x="452" y="25" width="110" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="507" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">Multi-tenant</text>
+  <rect x="572" y="25" width="55" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="599" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">SSO</text>
+  <rect x="637" y="25" width="100" height="24" rx="12" fill="none" stroke="#0088aa" stroke-width="1.2" opacity="0.8" />
+  <text x="687" y="41" font-family="Courier New, monospace" font-size="11" fill="#006080" text-anchor="middle">Doc Mgmt</text>
+  <line x1="30" y1="62" x2="770" y2="62" stroke="#0088aa" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 2: E-Commerce & Gov-Tech — teal/green -->
+  <text x="30" y="98" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#007744" filter="url(#glow-teal)" letter-spacing="1">E-COMMERCE &amp; GOV</text>
+  <rect x="220" y="81" width="120" height="24" rx="12" fill="none" stroke="#009966" stroke-width="1.2" opacity="0.8" />
+  <text x="280" y="97" font-family="Courier New, monospace" font-size="11" fill="#007744" text-anchor="middle">ContentSpeed</text>
+  <rect x="350" y="81" width="110" height="24" rx="12" fill="none" stroke="#009966" stroke-width="1.2" opacity="0.8" />
+  <text x="405" y="97" font-family="Courier New, monospace" font-size="11" fill="#007744" text-anchor="middle">Marketplace</text>
+  <rect x="470" y="81" width="120" height="24" rx="12" fill="none" stroke="#009966" stroke-width="1.2" opacity="0.8" />
+  <text x="530" y="97" font-family="Courier New, monospace" font-size="11" fill="#007744" text-anchor="middle">Digitization</text>
+  <rect x="600" y="81" width="80" height="24" rx="12" fill="none" stroke="#009966" stroke-width="1.2" opacity="0.8" />
+  <text x="640" y="97" font-family="Courier New, monospace" font-size="11" fill="#007744" text-anchor="middle">HR-Tech</text>
+  <line x1="30" y1="118" x2="770" y2="118" stroke="#009966" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 3: Scrapers & Data — green -->
+  <text x="30" y="154" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#1a7a00" filter="url(#glow-green)" letter-spacing="1">SCRAPERS &amp; DATA</text>
+  <rect x="210" y="137" width="115" height="24" rx="12" fill="none" stroke="#2a9a10" stroke-width="1.2" opacity="0.8" />
+  <text x="267" y="153" font-family="Courier New, monospace" font-size="11" fill="#1a7a00" text-anchor="middle">Web Crawlers</text>
+  <rect x="335" y="137" width="110" height="24" rx="12" fill="none" stroke="#2a9a10" stroke-width="1.2" opacity="0.8" />
+  <text x="390" y="153" font-family="Courier New, monospace" font-size="11" fill="#1a7a00" text-anchor="middle">DOM Parsing</text>
+  <rect x="455" y="137" width="110" height="24" rx="12" fill="none" stroke="#2a9a10" stroke-width="1.2" opacity="0.8" />
+  <text x="510" y="153" font-family="Courier New, monospace" font-size="11" fill="#1a7a00" text-anchor="middle">Data Mining</text>
+  <rect x="575" y="137" width="70" height="24" rx="12" fill="none" stroke="#2a9a10" stroke-width="1.2" opacity="0.8" />
+  <text x="610" y="153" font-family="Courier New, monospace" font-size="11" fill="#1a7a00" text-anchor="middle">News</text>
+  <line x1="30" y1="174" x2="770" y2="174" stroke="#2a9a10" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 4: Automation — amber/dark yellow -->
+  <text x="30" y="210" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#8a7000" filter="url(#glow-yellow)" letter-spacing="1">AUTOMATION</text>
+  <rect x="200" y="193" width="90" height="24" rx="12" fill="none" stroke="#aa8800" stroke-width="1.2" opacity="0.8" />
+  <text x="245" y="209" font-family="Courier New, monospace" font-size="11" fill="#8a7000" text-anchor="middle">Telegram</text>
+  <rect x="300" y="193" width="120" height="24" rx="12" fill="none" stroke="#aa8800" stroke-width="1.2" opacity="0.8" />
+  <text x="360" y="209" font-family="Courier New, monospace" font-size="11" fill="#8a7000" text-anchor="middle">Browser Ext</text>
+  <rect x="430" y="193" width="120" height="24" rx="12" fill="none" stroke="#aa8800" stroke-width="1.2" opacity="0.8" />
+  <text x="490" y="209" font-family="Courier New, monospace" font-size="11" fill="#8a7000" text-anchor="middle">Device Mon.</text>
+  <rect x="560" y="193" width="70" height="24" rx="12" fill="none" stroke="#aa8800" stroke-width="1.2" opacity="0.8" />
+  <text x="595" y="209" font-family="Courier New, monospace" font-size="11" fill="#8a7000" text-anchor="middle">Gmail</text>
+  <line x1="30" y1="230" x2="770" y2="230" stroke="#aa8800" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 5: Finance & AI — magenta/dark pink -->
+  <text x="30" y="266" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#aa0066" filter="url(#glow-magenta)" letter-spacing="1">FINANCE &amp; AI</text>
+  <rect x="200" y="249" width="130" height="24" rx="12" fill="none" stroke="#cc0088" stroke-width="1.2" opacity="0.8" />
+  <text x="265" y="265" font-family="Courier New, monospace" font-size="11" fill="#aa0066" text-anchor="middle">NeuralProphet</text>
+  <rect x="340" y="249" width="105" height="24" rx="12" fill="none" stroke="#cc0088" stroke-width="1.2" opacity="0.8" />
+  <text x="392" y="265" font-family="Courier New, monospace" font-size="11" fill="#aa0066" text-anchor="middle">Sentiment</text>
+  <rect x="455" y="249" width="82" height="24" rx="12" fill="none" stroke="#cc0088" stroke-width="1.2" opacity="0.8" />
+  <text x="496" y="265" font-family="Courier New, monospace" font-size="11" fill="#aa0066" text-anchor="middle">Trading</text>
+  <rect x="547" y="249" width="100" height="24" rx="12" fill="none" stroke="#cc0088" stroke-width="1.2" opacity="0.8" />
+  <text x="597" y="265" font-family="Courier New, monospace" font-size="11" fill="#aa0066" text-anchor="middle">Stocks ML</text>
+  <line x1="30" y1="286" x2="770" y2="286" stroke="#cc0088" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 6: Infrastructure — purple -->
+  <text x="30" y="322" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#7700aa" filter="url(#glow-purple)" letter-spacing="1">INFRASTRUCTURE</text>
+  <rect x="200" y="305" width="170" height="24" rx="12" fill="none" stroke="#9900cc" stroke-width="1.2" opacity="0.8" />
+  <text x="285" y="321" font-family="Courier New, monospace" font-size="11" fill="#7700aa" text-anchor="middle">Cloudflare Workers</text>
+  <rect x="380" y="305" width="65" height="24" rx="12" fill="none" stroke="#9900cc" stroke-width="1.2" opacity="0.8" />
+  <text x="412" y="321" font-family="Courier New, monospace" font-size="11" fill="#7700aa" text-anchor="middle">CI/CD</text>
+  <rect x="455" y="305" width="120" height="24" rx="12" fill="none" stroke="#9900cc" stroke-width="1.2" opacity="0.8" />
+  <text x="515" y="321" font-family="Courier New, monospace" font-size="11" fill="#7700aa" text-anchor="middle">SaaS Scaling</text>
+  <rect x="585" y="305" width="100" height="24" rx="12" fill="none" stroke="#9900cc" stroke-width="1.2" opacity="0.8" />
+  <text x="635" y="321" font-family="Courier New, monospace" font-size="11" fill="#7700aa" text-anchor="middle">TypeScript</text>
+  <line x1="30" y1="342" x2="770" y2="342" stroke="#9900cc" stroke-width="0.4" opacity="0.3" />
+
+  <!-- Row 7: Mobile — orange/dark orange -->
+  <text x="30" y="378" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#cc5500" filter="url(#glow-orange)" letter-spacing="1">MOBILE</text>
+  <rect x="200" y="361" width="70" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="235" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">Swift</text>
+  <rect x="280" y="361" width="70" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="315" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">Obj-C</text>
+  <rect x="360" y="361" width="62" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="391" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">Java</text>
+  <rect x="432" y="361" width="115" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="489" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">Dart/Flutter</text>
+  <rect x="557" y="361" width="85" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="599" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">Android</text>
+  <rect x="652" y="361" width="55" height="24" rx="12" fill="none" stroke="#dd6600" stroke-width="1.2" opacity="0.8" />
+  <text x="679" y="377" font-family="Courier New, monospace" font-size="11" fill="#cc5500" text-anchor="middle">iOS</text>
+</svg>

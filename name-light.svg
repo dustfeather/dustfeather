@@ -1,0 +1,197 @@
+<svg fill="none" viewBox="0 0 800 200" width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        .container {
+          width: 800px;
+          height: 200px;
+          background: #f0f2f5;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Courier New', 'Lucida Console', monospace;
+        }
+
+        /* Scanline overlay */
+        .container::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 100, 140, 0.03) 2px,
+            rgba(0, 100, 140, 0.03) 4px
+          );
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        /* Grid background */
+        .container::after {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-image:
+            linear-gradient(rgba(0, 100, 140, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 100, 140, 0.06) 1px, transparent 1px);
+          background-size: 40px 40px;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        /* Horizontal neon lines */
+        .line-top, .line-bottom {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #0088aa, transparent);
+          z-index: 2;
+          opacity: 0.5;
+        }
+        .line-top { top: 20px; }
+        .line-bottom { bottom: 20px; }
+
+        /* Corner brackets */
+        .corner {
+          position: absolute;
+          color: #0088aa;
+          font-size: 24px;
+          opacity: 0.35;
+          z-index: 2;
+          font-family: 'Courier New', monospace;
+          line-height: 1;
+        }
+        .corner-tl { top: 10px; left: 20px; }
+        .corner-tr { top: 10px; right: 20px; }
+        .corner-bl { bottom: 10px; left: 20px; }
+        .corner-br { bottom: 10px; right: 20px; }
+
+        /* Main name */
+        .name {
+          font-size: 48px;
+          font-weight: 700;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: #006080;
+          text-shadow:
+            0 0 5px rgba(0, 136, 170, 0.4),
+            0 0 15px rgba(0, 136, 170, 0.2),
+            0 0 30px rgba(0, 96, 128, 0.15);
+          z-index: 4;
+          position: relative;
+          animation: flicker 4s infinite;
+        }
+
+        /* Glitch layers */
+        .name::before,
+        .name::after {
+          content: 'CATALIN TEODORESCU';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          overflow: hidden;
+        }
+        .name::before {
+          color: #cc0088;
+          z-index: -1;
+          animation: glitch-1 3s infinite linear alternate-reverse;
+          clip-path: inset(0 0 65% 0);
+        }
+        .name::after {
+          color: #1a8a00;
+          z-index: -1;
+          animation: glitch-2 2.5s infinite linear alternate-reverse;
+          clip-path: inset(65% 0 0 0);
+        }
+
+        /* Subtitle row */
+        .subtitle-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 12px;
+          z-index: 4;
+          position: relative;
+        }
+
+        .subtitle {
+          font-size: 14px;
+          letter-spacing: 3px;
+          color: #aa0066;
+          text-shadow:
+            0 0 4px rgba(170, 0, 102, 0.3),
+            0 0 10px rgba(170, 0, 102, 0.15);
+          opacity: 0.9;
+        }
+
+        /* Blinking cursor */
+        .cursor {
+          display: inline-block;
+          width: 8px;
+          height: 16px;
+          background: #0088aa;
+          margin-left: 4px;
+          animation: blink 1s step-end infinite;
+          vertical-align: middle;
+          box-shadow: 0 0 4px rgba(0, 136, 170, 0.5);
+        }
+
+        @keyframes flicker {
+          0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+            opacity: 1;
+          }
+          20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+            opacity: 0.88;
+          }
+        }
+
+        @keyframes glitch-1 {
+          0% { transform: translate(0); }
+          20% { transform: translate(-3px, 2px); }
+          40% { transform: translate(3px, -1px); }
+          60% { transform: translate(-2px, 1px); }
+          80% { transform: translate(2px, -2px); }
+          100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+          0% { transform: translate(0); }
+          25% { transform: translate(2px, 1px); }
+          50% { transform: translate(-3px, -1px); }
+          75% { transform: translate(1px, 2px); }
+          100% { transform: translate(0); }
+        }
+
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+      </style>
+
+      <div class="container">
+        <div class="line-top"></div>
+        <div class="line-bottom"></div>
+        <div class="corner corner-tl">[</div>
+        <div class="corner corner-tr">]</div>
+        <div class="corner corner-bl">[</div>
+        <div class="corner corner-br">]</div>
+
+        <div class="name">CATALIN TEODORESCU</div>
+
+        <div class="subtitle-row">
+          <span class="subtitle">CEO @ ITGUYS-RO // BUCHAREST, ROMANIA</span>
+          <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </foreignObject>
+</svg>

@@ -1,10 +1,18 @@
-![Catalin Teodorescu](https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name-light.svg" />
+  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name-dark.svg" alt="Catalin Teodorescu" />
+</picture>
 
 *[Full-stack engineer](https://www.linkedin.com/in/dustfeather/) turned [company builder](https://itguys.ro).*
 
 *Most of my work lives in private repos, but here's the gist:*
 
-![Tech Stack](https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-light.svg" />
+  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-dark.svg" alt="Tech Stack" />
+</picture>
 
 ---
 
