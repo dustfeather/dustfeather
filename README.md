@@ -1,13 +1,29 @@
-<h1 align="center">
-  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg" alt="Catalin Teodorescu" />
-</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name.svg" alt="Catalin Teodorescu" width="800" />
+</p>
 
-- 👀 I’m interested in AI/ML & DevOps
-- 🌱 I’m currently learning AI/ML & deployment at scale
-- 💞️ I’m looking to collaborate on challenging projects
-- 📫 How to reach me: dustfeather@gmail.com | +40726205856
+<p align="center">
+  <em>Full-stack engineer turned company builder. Most of my work lives in private repos — here's the gist.</em>
+</p>
 
-<!---
-dustfeather/dustfeather is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges.svg" alt="Tech Stack" width="800" />
+</p>
+
+---
+
+- **Enterprise SaaS & Platforms** — PHP (Symfony, Laravel) has been my bread and butter across e-commerce, HR, document management, and government digitization projects
+- **Automation & Bots** — Telegram bots for trading signals, Gmail digests, device monitoring; browser extensions for skipping intros on Plex/Netflix
+- **Finance & AI** — Stock predictions with NeuralProphet, sentiment-based trading signals using Fear & Greed Index + technical indicators
+- **Infrastructure** — Cloudflare Workers, deployment pipelines, scaling SaaS platforms
+- **Mobile** — Native iOS (Swift/Obj-C) and Android (Java) apps
+
+---
+
+<p align="center">
+  <code>📡 Currently exploring AI/ML applied to real-world automation and business tooling</code>
+</p>
+
+<p align="center">
+  <a href="mailto:contact@itguys.ro"><code>📫 contact@itguys.ro</code></a>
+</p>

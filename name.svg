@@ -1,62 +1,205 @@
+<svg fill="none" viewBox="0 0 800 200" width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<svg fill="none" viewBox="0 0 800 100" width="800" height="100" xmlns="http://www.w3.org/2000/svg">
-	<foreignObject width="100%" height="100%">
-		<div xmlns="http://www.w3.org/1999/xhtml">
-			<style>
-				@keyframes gradientText {
-				  0% {
-				    background-position: 0% 50%;
-				  }
-				  50% {
-				    background-position: 100% 50%;
-				  }
-				  100% {
-				    background-position: 0% 50%;
-				  }
-				}
-        .snowflake {
-          color: #fff;
-          font-size: 1em;
-          font-family: Arial;
-          text-shadow: 0 0 1px #000;
+        .container {
+          width: 800px;
+          height: 200px;
+          background: #0a0a0f;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Courier New', 'Lucida Console', monospace;
         }
-				h1 {
-				  font-family: 'Inter',
-					-apple-system,
-					BlinkMacSystemFont, 
-					'Segoe UI', 
-					'Roboto', 
-					'Oxygen', 
-					'Ubuntu', 
-					'Cantarell', 
-					'Fira Sans', 
-					'Droid Sans', 
-					'Helvetica Neue', 
-					sans-serif;
-				  margin: 0;
-				  font-size: 4em;
-				  font-weight: 900;
-				  letter-spacing: -.05em;
-				  text-align: center;
-				  background: -webkit-linear-gradient(right,#3828ca,#ff004c);
-				  background: linear-gradient(270deg,#3828ca 0,#ff004c);
-				  background-size: 200%;
-				  background-clip: text;
-				  -webkit-background-clip: text;
-				  -webkit-text-fill-color: transparent;
-				  -webkit-animation: gradientText 3s ease infinite;
-				  animation: gradientText 3s ease infinite;
-				}
-        @-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes snowflakes-shake{0%{-webkit-transform:translateX(0px);transform:translateX(0px)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}100%{-webkit-transform:translateX(0px);transform:translateX(0px)}}@keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes snowflakes-shake{0%{transform:translateX(0px)}50%{transform:translateX(80px)}100%{transform:translateX(0px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}
-			</style>
-			<h1>Catalin Teodorescu</h1>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-      <div xmlns="http://www.w3.org/1999/xhtml" class="snowflake">❅</div>
-		</div>
-	</foreignObject>
+
+        /* Scanline overlay */
+        .container::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 240, 255, 0.03) 2px,
+            rgba(0, 240, 255, 0.03) 4px
+          );
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        /* Grid background */
+        .container::after {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-image:
+            linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+          background-size: 40px 40px;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        /* Horizontal neon lines */
+        .line-top, .line-bottom {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+          z-index: 2;
+          opacity: 0.6;
+        }
+        .line-top { top: 20px; }
+        .line-bottom { bottom: 20px; }
+
+        /* Corner brackets */
+        .corner {
+          position: absolute;
+          color: #00f0ff;
+          font-size: 24px;
+          opacity: 0.4;
+          z-index: 2;
+          font-family: 'Courier New', monospace;
+          line-height: 1;
+        }
+        .corner-tl { top: 10px; left: 20px; }
+        .corner-tr { top: 10px; right: 20px; }
+        .corner-bl { bottom: 10px; left: 20px; }
+        .corner-br { bottom: 10px; right: 20px; }
+
+        /* Main name */
+        .name {
+          font-size: 48px;
+          font-weight: 700;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          color: #00f0ff;
+          text-shadow:
+            0 0 7px #00f0ff,
+            0 0 20px #00f0ff,
+            0 0 42px #0080ff,
+            0 0 80px #0080ff;
+          z-index: 4;
+          position: relative;
+          animation: flicker 4s infinite;
+        }
+
+        /* Glitch layers */
+        .name::before,
+        .name::after {
+          content: 'CATALIN TEODORESCU';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          overflow: hidden;
+        }
+        .name::before {
+          color: #ff00aa;
+          z-index: -1;
+          animation: glitch-1 3s infinite linear alternate-reverse;
+          clip-path: inset(0 0 65% 0);
+        }
+        .name::after {
+          color: #39ff14;
+          z-index: -1;
+          animation: glitch-2 2.5s infinite linear alternate-reverse;
+          clip-path: inset(65% 0 0 0);
+        }
+
+        /* Subtitle row */
+        .subtitle-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 12px;
+          z-index: 4;
+          position: relative;
+        }
+
+        .logo {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+        }
+
+        .subtitle {
+          font-size: 14px;
+          letter-spacing: 3px;
+          color: #ff00aa;
+          text-shadow:
+            0 0 5px #ff00aa,
+            0 0 15px #ff006688;
+          opacity: 0.9;
+        }
+
+        /* Blinking cursor */
+        .cursor {
+          display: inline-block;
+          width: 8px;
+          height: 16px;
+          background: #00f0ff;
+          margin-left: 4px;
+          animation: blink 1s step-end infinite;
+          vertical-align: middle;
+          box-shadow: 0 0 6px #00f0ff;
+        }
+
+        @keyframes flicker {
+          0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+            opacity: 1;
+          }
+          20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+            opacity: 0.88;
+          }
+        }
+
+        @keyframes glitch-1 {
+          0% { transform: translate(0); }
+          20% { transform: translate(-3px, 2px); }
+          40% { transform: translate(3px, -1px); }
+          60% { transform: translate(-2px, 1px); }
+          80% { transform: translate(2px, -2px); }
+          100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+          0% { transform: translate(0); }
+          25% { transform: translate(2px, 1px); }
+          50% { transform: translate(-3px, -1px); }
+          75% { transform: translate(1px, 2px); }
+          100% { transform: translate(0); }
+        }
+
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+      </style>
+
+      <div class="container">
+        <div class="line-top"></div>
+        <div class="line-bottom"></div>
+        <div class="corner corner-tl">[</div>
+        <div class="corner corner-tr">]</div>
+        <div class="corner corner-bl">[</div>
+        <div class="corner corner-br">]</div>
+
+        <div class="name">CATALIN TEODORESCU</div>
+
+        <div class="subtitle-row">
+          <img class="logo" src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/itguys_logo.png" alt="ITGuys" />
+          <span class="subtitle">CEO @ ITGUYS-RO // BUCHAREST, ROMANIA</span>
+          <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </foreignObject>
 </svg>
