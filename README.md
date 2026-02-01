@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <em>Full-stack engineer turned company builder. Most of my work lives in private repos — here's the gist.</em>
+  <em>Full-stack engineer turned company builder. Most of my work lives in private repos, but here's the gist:</em>
 </p>
 
 <p align="center">
