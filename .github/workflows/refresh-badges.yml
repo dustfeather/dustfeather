@@ -45,19 +45,22 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -e
+          # Tight filter: only cron runs on main are trusted prior context.
+          # Manual dispatches or push-on-renderer-change can carry experimental
+          # classifications; using them as the stability anchor would propagate drift.
           RUN_ID=$(gh api \
-            "/repos/${{ github.repository }}/actions/workflows/refresh-badges.yml/runs?status=success&per_page=1" \
+            "/repos/${{ github.repository }}/actions/workflows/refresh-badges.yml/runs?status=success&branch=main&event=schedule&per_page=1" \
             --jq '.workflow_runs[0].id // empty' || true)
           if [ -n "$RUN_ID" ]; then
             mkdir -p prior
             gh run download "$RUN_ID" --name classified-json --dir prior/ \
               || echo "no prior artifact (expired or absent); cold start"
           else
-            echo "no prior successful run found; cold start"
+            echo "no prior successful scheduled run found; cold start"
           fi
 
       - name: Install renderer dependency
-        run: pip install --quiet jsonschema
+        run: pip install --quiet -r .github/scripts/requirements.txt
 
       - name: Load prompt
         id: prompt
@@ -78,8 +81,54 @@ jobs:
           model: claude-sonnet-4-6
           prompt: ${{ steps.prompt.outputs.text }}
 
+      # Trust boundary: prompt told Claude to write only raw-inventory.json +
+      # classified.json. Enforce structurally — any modified/added file outside
+      # that allowlist fails the run before the renderer or commit can ship it.
+      - name: Guard — Claude must only have written the two JSON files
+        run: |
+          set -e
+          # Modified tracked files = anything Claude touched in the working tree
+          MOD=$(git diff --name-only)
+          if [ -n "$MOD" ]; then
+            echo "::error::Claude modified tracked files (forbidden):"
+            printf '  %s\n' $MOD
+            exit 1
+          fi
+          # Untracked files Claude created, minus the allowlist
+          ALLOWED='^(raw-inventory\.json|classified\.json|prior/.*)$'
+          BAD=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED" || true)
+          if [ -n "$BAD" ]; then
+            echo "::error::Claude created files outside allowlist:"
+            printf '  %s\n' $BAD
+            exit 1
+          fi
+          # Required outputs must actually exist
+          test -f raw-inventory.json || { echo "::error::raw-inventory.json missing"; exit 1; }
+          test -f classified.json    || { echo "::error::classified.json missing"; exit 1; }
+
       - name: Render SVGs + splice README
         run: python .github/scripts/render.py classified.json
+
+      # Renderer must only touch badges-{light,dark}.svg + README.md. Any other
+      # change here means render.py escaped its scope; fail before commit.
+      - name: Guard — renderer must only have touched the three target files
+        run: |
+          set -e
+          ALLOWED_DIFF='^(badges-light\.svg|badges-dark\.svg|README\.md)$'
+          BAD_DIFF=$(git diff --name-only | grep -Ev "$ALLOWED_DIFF" || true)
+          if [ -n "$BAD_DIFF" ]; then
+            echo "::error::Renderer modified files outside allowlist:"
+            printf '  %s\n' $BAD_DIFF
+            exit 1
+          fi
+          # And it must not have added any new tracked file beyond the JSONs
+          ALLOWED_NEW='^(raw-inventory\.json|classified\.json|prior/.*)$'
+          BAD_NEW=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED_NEW" || true)
+          if [ -n "$BAD_NEW" ]; then
+            echo "::error::Renderer created files outside allowlist:"
+            printf '  %s\n' $BAD_NEW
+            exit 1
+          fi
 
       - name: Upload JSON artifacts
         if: always()

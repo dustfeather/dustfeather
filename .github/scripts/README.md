@@ -16,7 +16,7 @@ Python and runs anywhere with `python3` + `jsonschema`.
 ## Run the renderer locally
 
 ```bash
-pip install jsonschema    # only runtime dep
+pip install -r .github/scripts/requirements.txt   # pinned single dep: jsonschema
 python .github/scripts/render.py path/to/classified.json
 ```
 

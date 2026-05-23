@@ -24,7 +24,10 @@ COLORS = {
     "dark":  ["#00f0ff", "#00ffa0", "#39ff14", "#ffee00", "#ff00aa", "#bd00ff", "#ff6a00"],
     "light": ["#006080", "#007744", "#1a7a00", "#8a7000", "#aa0066", "#7700aa", "#cc5500"],
 }
-STROKES_LIGHT = ["#0088aa", "#009966", "#2a9a10", "#aa8800", "#cc0088", "#9900cc", "#dd6600"]
+STROKES = {
+    "dark":  COLORS["dark"],
+    "light": ["#0088aa", "#009966", "#2a9a10", "#aa8800", "#cc0088", "#9900cc", "#dd6600"],
+}
 
 THEMES = {
     "dark": {
@@ -34,7 +37,6 @@ THEMES = {
         "pill_opacity": "0.7",
         "sep_stroke_width": "0.3",
         "std_dev": "3",
-        "stroke_color": None,  # use COLORS[dark] for stroke too
     },
     "light": {
         "bg": "#f0f2f5",
@@ -43,7 +45,6 @@ THEMES = {
         "pill_opacity": "0.8",
         "sep_stroke_width": "0.4",
         "std_dev": "2",
-        "stroke_color": STROKES_LIGHT,
     },
 }
 
@@ -58,6 +59,9 @@ ROW_X_RIGHT = 770
 
 
 def pill_width(label: str) -> int:
+    # 7 px/char assumes the schema's ASCII character class rendered in Courier New
+    # (monospace). If the schema ever permits wider unicode, revisit this formula
+    # before the renderer silently overflows past PILL_MAX_X.
     return max(55, len(label) * 7 + 16)
 
 
@@ -70,7 +74,7 @@ def lay_out_pills(pills: Iterable[str]):
         x += w + PILL_GAP
     last_x, last_w = layouts[-1]
     if last_x + last_w > PILL_MAX_X:
-        raise SystemExit(
+        raise ValueError(
             f"pill layout overflow: rightmost pill ends at {last_x + last_w} "
             f"(max {PILL_MAX_X}). pills={list(pills)}"
         )
@@ -92,7 +96,7 @@ def render_defs(std_dev: str) -> str:
 def render_row(idx: int, row: dict, theme: str) -> str:
     th = THEMES[theme]
     text_fill = COLORS[theme][idx]
-    stroke = th["stroke_color"][idx] if th["stroke_color"] else COLORS[theme][idx]
+    stroke = STROKES[theme][idx]
     glow = GLOW_IDS[idx]
     text_y = TEXT_Y[idx]
     rect_y = RECT_Y[idx]
@@ -175,14 +179,19 @@ def splice_readme(text: str, region: str) -> str:
 
 def main(argv: list[str]) -> int:
     if len(argv) != 2:
-        raise SystemExit(f"usage: {argv[0]} <classified.json>")
+        print(f"usage: {argv[0]} <classified.json>", file=sys.stderr)
+        return 2
     data = json.loads(pathlib.Path(argv[1]).read_text())
     schema = json.loads(SCHEMA_PATH.read_text())
     jsonschema.validate(data, schema)
-    for theme, path in SVG_PATHS.items():
-        svg = render_svg(data, theme)
-        ET.fromstring(svg)
-        path.write_text(svg)
+    try:
+        for theme, path in SVG_PATHS.items():
+            svg = render_svg(data, theme)
+            ET.fromstring(svg)   # well-formedness smoke check (not SVG schema)
+            path.write_text(svg)
+    except ValueError as e:
+        print(f"render error: {e}", file=sys.stderr)
+        return 1
     readme = README_PATH.read_text()
     README_PATH.write_text(splice_readme(readme, render_readme_region(data)))
     return 0
