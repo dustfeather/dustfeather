@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-24T00:00:00Z",
+  "rows": [
+    {
+      "category": "ENTERPRISE SAAS",
+      "pills": ["PHP", "Symfony", "Laravel", "Multi-tenant", "SSO", "Doc Mgmt"],
+      "bullet": {
+        "title": "Enterprise SaaS",
+        "body": "Built multi-tenant SaaS platforms with PHP (Symfony, Laravel) including SSO, rollout management, BI dashboards, and document management systems across 10+ interconnected services"
+      }
+    },
+    {
+      "category": "E-COMMERCE & GOV",
+      "pills": ["ContentSpeed", "Marketplace", "Digitization", "HR-Tech"],
+      "bullet": {
+        "title": "E-Commerce & Gov-Tech",
+        "body": "ContentSpeed e-commerce platform with marketplace API; government digitization projects (ONRC, IMR, Antreprenor+); HR/careers platforms and Swibeco benefits system"
+      }
+    },
+    {
+      "category": "SCRAPERS & DATA",
+      "pills": ["Web Crawlers", "DOM Parsing", "Data Mining", "News"],
+      "bullet": {
+        "title": "Scrapers & Data",
+        "body": "Web crawlers, news aggregators, review scanners, domain scanners, property scrapers, and meta parsers for competitive intelligence and data mining"
+      }
+    },
+    {
+      "category": "AUTOMATION",
+      "pills": ["Telegram", "Browser Ext", "Device Mon.", "Gmail"],
+      "bullet": {
+        "title": "Automation & Bots",
+        "body": "Telegram bots for trading signals, Gmail daily digests, device login monitoring; browser extensions for Plex/Netflix intro skipping and filelist.io"
+      }
+    },
+    {
+      "category": "FINANCE & AI",
+      "pills": ["NeuralProphet", "Sentiment", "Trading", "Stocks ML"],
+      "bullet": {
+        "title": "Finance & AI",
+        "body": "Stock predictions with NeuralProphet, sentiment-based trading signals using Fear & Greed Index + technical indicators, ML-driven stock analysis"
+      }
+    },
+    {
+      "category": "INFRASTRUCTURE",
+      "pills": ["CF Workers", "CI/CD", "SaaS Scaling", "TypeScript"],
+      "bullet": {
+        "title": "Infrastructure",
+        "body": "Cloudflare Workers, deployment pipelines, SSO systems, scaling multi-tenant SaaS platforms"
+      }
+    },
+    {
+      "category": "MOBILE",
+      "pills": ["Swift", "Obj-C", "Java", "Dart/Flutter", "Android", "iOS"],
+      "bullet": {
+        "title": "Mobile",
+        "body": "Native iOS (Swift/Obj-C), Android (Java), and cross-platform (Dart/Flutter) apps"
+      }
+    }
+  ],
+  "currently_exploring": "AI/ML applied to real-world automation and business tooling"
+}

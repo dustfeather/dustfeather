@@ -1,2 +1,9 @@
 *.local
 *.local.*
+
+# Badge bot intermediate artifacts (uploaded as workflow artifacts, never committed)
+raw-inventory.json
+classified.json
+prior/
+# ...but the local-dev fixture IS tracked
+!sample/classified.json
