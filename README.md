@@ -14,6 +14,7 @@
   <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-dark.svg" alt="Tech Stack" />
 </picture>
 
+<!-- BADGE-BOT:START -->
 ---
 
 - **Enterprise SaaS** - Built multi-tenant SaaS platforms with PHP (Symfony, Laravel) including SSO, rollout management, BI dashboards, and document management systems across 10+ interconnected services
@@ -27,5 +28,6 @@
 ---
 
 `📡 Currently exploring AI/ML applied to real-world automation and business tooling`
+<!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)

@@ -16,3 +16,6 @@ on the owner's profile page. No application code, build, or tests — just
 - `.github/workflows/*` are shims delegating to `dustfeather/shared-workflows@v1`;
   the real CI logic lives in that repo, not here.
 - `.gitignore` excludes `*.local` / `*.local.*` — put secrets in such files.
+- `badges-{light,dark}.svg` and the README region between `<!-- BADGE-BOT:START -->`
+  and `<!-- BADGE-BOT:END -->` are written by the weekly badge-bot — don't hand-edit
+  (spec in Jira PROF-1).
