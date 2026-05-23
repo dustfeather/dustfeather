@@ -59,12 +59,13 @@ jobs:
             echo "no prior successful scheduled run found; cold start"
           fi
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install renderer dependency
-        run: python -m pip install --quiet -r .github/scripts/requirements.txt
+      # Python + jsonschema are baked into the runner image
+      # (dustfeather/shared-workflows runner-image/Dockerfile installs both;
+      # JSONSCHEMA_VERSION there is pinned to match
+      # .github/scripts/requirements.txt). No setup-python or per-job
+      # pip install needed. If the renderer's pinned jsonschema ever
+      # drifts ahead of the image's, bump JSONSCHEMA_VERSION in the
+      # Dockerfile and rebuild the image.
 
       # Bare CLI invocation — the runner image already pre-bakes
       # /usr/local/bin/claude, so the action wrappers
