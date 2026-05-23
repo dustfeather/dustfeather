@@ -66,24 +66,26 @@ jobs:
       - name: Install renderer dependency
         run: python -m pip install --quiet -r .github/scripts/requirements.txt
 
-      - name: Load prompt
-        id: prompt
-        run: |
-          {
-            echo 'text<<PROMPT_EOF'
-            cat .github/prompts/refresh-badges.md
-            echo PROMPT_EOF
-          } >> "$GITHUB_OUTPUT"
-
+      # Bare CLI invocation — the runner image already pre-bakes
+      # /usr/local/bin/claude, so the action wrappers
+      # (claude-code-action, claude-code-base-action) would only be
+      # paying for orchestration we don't use. claude-code-action gates
+      # events to issue/PR contexts (incompatible with cron / dispatch
+      # / push), and claude-code-base-action is essentially `claude
+      # --print` plus auth env-var wiring we set ourselves below.
       - name: Classify inventory with Claude
-        uses: anthropics/claude-code-action@v1
         env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GH_TOKEN_DUSTFEATHER: ${{ steps.app-token-df.outputs.token }}
           GH_TOKEN_ITGUYS: ${{ steps.app-token-itguys.outputs.token }}
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          model: claude-sonnet-4-6
-          prompt: ${{ steps.prompt.outputs.text }}
+        run: |
+          claude \
+            --print \
+            --model claude-sonnet-4-6 \
+            --permission-mode acceptEdits \
+            --allowedTools Bash Read Write Edit Grep Glob \
+            --output-format text \
+            < .github/prompts/refresh-badges.md
 
       # Trust boundary: prompt told Claude to write only raw-inventory.json +
       # classified.json. Enforce structurally — any modified/added file outside
