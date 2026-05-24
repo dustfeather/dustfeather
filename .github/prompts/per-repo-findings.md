@@ -50,6 +50,8 @@ You're summarising one repo. Spend the calls you need — don't shortcut, but do
 
 ### Step 2 — Write `findings.json`
 
+Write the file as **`findings.json`** in the current working directory (i.e. just `findings.json`, NOT `/home/runner/...`, NOT `/tmp/findings.json`, NOT `<owner>/<repo>/findings.json`, NOT `findings/<repo>.json`). The downstream guard and uploader both look for `./findings.json` exactly — any other path fails the cell with `findings.json missing`.
+
 Schema at `.github/schemas/findings.schema.json`. Required shape:
 
 ```json

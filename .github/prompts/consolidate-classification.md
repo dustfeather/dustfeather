@@ -54,7 +54,9 @@ Read all findings. Group repos by overlapping `category_hints` + `tech_signals` 
 - **Prior labels are a soft anchor.** If `prior/classified.json` has a row called "ENTERPRISE SAAS" and this week's portfolio still has 4 enterprise SaaS repos, reuse the exact label and bullet wording. Diverge only when the data forces it (e.g., the SaaS work has visibly pivoted into something else).
 - **Row count.** Pick the N that best fits the data. The schema allows 5–12. Default to keeping prior N unless the portfolio has materially shifted.
 
-## Step 4 — Write `classified.json`
+## Step 4 — Write `classified.json` and `raw-inventory.json`
+
+Write both files in the current working directory: **`classified.json`** and **`raw-inventory.json`** — exactly those names, no path prefix (no `/home/runner/...`, no `/tmp/...`, no `output/classified.json`, no nested directories). The renderer and guard look for `./classified.json` and `./raw-inventory.json` exactly; any other path fails the run with `classified.json missing` / `raw-inventory.json missing`.
 
 Schema at `.github/schemas/classified.schema.json`. Required shape:
 
