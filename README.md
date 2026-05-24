@@ -17,15 +17,15 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Production TypeScript SaaS on Cloudflare Workers** - Three full-stack TypeScript applications on Cloudflare Workers and D1 — a multilingual corporate site with Claude-powered blog automation, a Romanian fleet management SaaS with Stripe payments and MapLibre, and a personal investment tracker with time-weighted return calculations.
-- **Cross-browser automation and cleanup extensions** - discord-purge, series-auto-skip, and uninsta bulk-delete Discord and Instagram DMs and auto-skip streaming intros on Plex and Netflix — all shipped as Chrome MV3, Firefox, and Tampermonkey targets via the shared CI pipeline.
-- **k3s homelab for Nextcloud, LLM inference, and privacy search** - Kubernetes and Helm manifests running nextcloud (Nextcloud with MariaDB and Valkey), degoog (SearXNG privacy search with a TypeScript MCP server for Claude), and a self-hosted Ollama node serving a 35B MoE model on an RTX 3070.
-- **Telegram bots for trading signals and device alerts** - fear-greed-telegram-bot delivers buy/sell/hold recommendations using SMA and Bollinger Bands on Cloudflare Workers; device-activity-telegram-bot monitors device login/unlock events and supports remote shutdown, built in Python with mypy and pytest.
-- **Shared GitHub Actions library for the whole org** - shared-workflows provides reusable Node.js and Python test/lint pipelines, automated browser-extension publishing to the Chrome Web Store and Mozilla Add-ons, and Claude Code PR review — the CI backbone consumed by all repos in this profile.
+- **Privacy and media browser utilities** - Four public extensions target Discord (discord-purge), Instagram (uninsta), Netflix and Plex (series-auto-skip), and filelist.io (filelist-ext) — all built in TypeScript with esbuild, shipping for Chrome, Firefox, and Tampermonkey from a single codebase.
+- **Kubernetes and Docker self-hosting stack** - Runs Nextcloud, Ollama (Qwen 35B on an NVIDIA RTX 3070), and a privacy search stack combining SearXNG with a Claude MCP server on k3s clusters wired together via Cloudflare WARP tunnels and cert-manager TLS.
+- **Full-stack SaaS on Cloudflare Workers** - Private multi-tenant web applications deployed via opennextjs/cloudflare with Next.js 16, Drizzle ORM on D1, and NextAuth — spanning a fleet management platform with MapLibre mapping and Stripe billing, and a multilingual corporate site with a Claude API-powered blog pipeline.
+- **Finance automation and portfolio tracking** - Automated trading signal bot for the Fear & Greed Index using SMA and Bollinger Bands deployed on Cloudflare Workers (fear-greed-telegram-bot), alongside a private Cloudflare D1-backed dashboard that computes time-weighted returns and syncs balances from eToro.
+- **Shared CI/CD workflows and dev automation** - Central reusable GitHub Actions library (shared-workflows) covers Node.js and Python testing, Chrome Web Store and Mozilla Add-ons publishing, Claude Code review, and Dependabot auto-merge for the whole portfolio, complemented by a Python async Telegram bot that monitors device logins and handles remote shutdown commands.
 
 ---
 
-`📡 Currently exploring MCP server development and Claude API integrations across self-hosted privacy tooling`
+`📡 Currently exploring self-hosted LLMs via Ollama on k3s and Claude MCP server integrations for privacy-first tooling`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
