@@ -266,6 +266,40 @@ jobs:
             --output-format text \
             < .github/prompts/per-repo-findings.md
 
+      - name: Rescue findings.json from hallucinated path
+        if: steps.cache.outputs.hit != 'true'
+        env:
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+        run: |
+          set -euo pipefail
+          # Haiku occasionally writes findings.json to a synthetic path built
+          # from $REPO_NAME (e.g. /home/runner/_work/dustfeather/<repo>/findings.json)
+          # instead of cwd, despite the prompt forbidding it. Prompt-only
+          # hardening (commit 440fb64) wasn't enough — see run 26348528121
+          # cell filelist-ext. Sweep the most common hallucination paths and
+          # the wider _work tree, then mv to cwd so the guard sees it.
+          if [ -f findings.json ]; then
+            exit 0
+          fi
+          for cand in \
+            "/home/runner/_work/${REPO_OWNER}/${REPO_NAME}/findings.json" \
+            "/home/runner/_work/dustfeather/${REPO_NAME}/findings.json" \
+            "/home/runner/_work/ITGuys-RO/${REPO_NAME}/findings.json" \
+            "/tmp/findings.json" \
+            "${HOME}/findings.json"; do
+            if [ -f "$cand" ]; then
+              echo "::warning::recovered findings.json from $cand (Haiku hallucinated path)"
+              mv "$cand" findings.json
+              exit 0
+            fi
+          done
+          FOUND=$(find /home/runner/_work -maxdepth 5 -name findings.json -not -path "${PWD}/*" 2>/dev/null | head -1)
+          if [ -n "$FOUND" ]; then
+            echo "::warning::recovered findings.json from $FOUND (Haiku hallucinated path)"
+            mv "$FOUND" findings.json
+          fi
+
       - name: Guard — only findings.json allowed
         run: |
           set -euo pipefail
