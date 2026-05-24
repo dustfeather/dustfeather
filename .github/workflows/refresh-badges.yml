@@ -157,23 +157,28 @@ jobs:
     outputs:
       has_prior: ${{ steps.stage.outputs.has_prior }}
     steps:
-      - name: Find prior successful scheduled run
+      - name: Find prior successful run on main
         id: find
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          # Tight filter: only cron runs on main are trusted prior context.
-          # Manual dispatches or push-driven runs can carry experimental
-          # findings; using them as the stability anchor would propagate drift.
+          # Accept any successful main-branch run as prior context (cron,
+          # push, or workflow_dispatch). The original tight filter
+          # (event=schedule only) starved the cache: until the first
+          # Monday cron lands, every push-triggered run cold-starts and
+          # re-bills Haiku for ~16 cells. Tradeoff: a contaminated
+          # findings.json from a bad push run becomes the prior. Mitigation
+          # is in cache_gate.sh — it keys on $REPO_HEAD_SHA, so a bad cache
+          # entry only persists until that repo's default branch moves.
           RUN_ID=$(gh api \
-            "/repos/${{ github.repository }}/actions/workflows/refresh-badges.yml/runs?status=success&branch=main&event=schedule&per_page=1" \
+            "/repos/${{ github.repository }}/actions/workflows/refresh-badges.yml/runs?status=success&branch=main&per_page=1" \
             --jq '.workflow_runs[0].id // empty' || true)
           if [ -n "$RUN_ID" ]; then
             echo "prior_run_id=${RUN_ID}" >> "$GITHUB_OUTPUT"
             echo "prior run: ${RUN_ID}"
           else
-            echo "no prior successful scheduled run; cold start"
+            echo "no prior successful run on main; cold start"
           fi
 
       - name: Download prior findings-bundle
