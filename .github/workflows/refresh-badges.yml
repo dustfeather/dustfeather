@@ -147,6 +147,8 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────
   download-prior-findings:
     runs-on: arc-df-dustfeather
+    outputs:
+      has_prior: ${{ steps.stage.outputs.has_prior }}
     steps:
       - name: Find prior successful scheduled run
         id: find
@@ -181,6 +183,7 @@ jobs:
           ls -la prior-download/ || true
 
       - name: Stage prior findings for matrix consumption
+        id: stage
         run: |
           set -euo pipefail
           mkdir -p prior/findings
@@ -192,13 +195,26 @@ jobs:
           fi
           echo "staged prior:"
           ls -la prior/ prior/findings/ 2>/dev/null || true
+          # Signal downstream whether the prior-findings artifact is worth
+          # downloading. Anything under prior/ counts (findings/*, classified.json).
+          # Cold start (no prior successful scheduled run, or expired artifact)
+          # leaves prior/findings/ empty and prior/classified.json absent → no
+          # artifact uploaded → matrix cells should skip the download to avoid
+          # the noisy `Artifact not found for name: prior-findings` warning
+          # printed once per cell.
+          if [ -n "$(ls -A prior/findings 2>/dev/null)" ] || [ -f prior/classified.json ]; then
+            echo "has_prior=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_prior=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Upload prior findings for matrix
+        if: steps.stage.outputs.has_prior == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: prior-findings
           path: prior/
-          if-no-files-found: ignore
+          if-no-files-found: error
           retention-days: 1
 
   # ─────────────────────────────────────────────────────────────────────
@@ -227,6 +243,7 @@ jobs:
           owner: ${{ matrix.repo.owner }}
 
       - name: Download prior findings (best effort)
+        if: needs.download-prior-findings.outputs.has_prior == 'true'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
@@ -344,7 +361,7 @@ jobs:
   #    the prompt.
   # ─────────────────────────────────────────────────────────────────────
   consolidate:
-    needs: [enumerate-repos, classify-repo]
+    needs: [enumerate-repos, download-prior-findings, classify-repo]
     if: always() && needs.enumerate-repos.result == 'success'
     runs-on: arc-df-dustfeather
     steps:
@@ -358,6 +375,7 @@ jobs:
           merge-multiple: false
 
       - name: Download prior findings
+        if: needs.download-prior-findings.outputs.has_prior == 'true'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
