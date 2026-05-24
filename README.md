@@ -17,17 +17,15 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Enterprise SaaS** - Built multi-tenant SaaS platforms with PHP (Symfony, Laravel) including SSO, rollout management, BI dashboards, and document management systems across 10+ interconnected services
-- **E-Commerce & Gov-Tech** - ContentSpeed e-commerce platform with marketplace API; government digitization projects (ONRC, IMR, Antreprenor+); HR/careers platforms and Swibeco benefits system
-- **Scrapers & Data** - Web crawlers, news aggregators, review scanners, domain scanners, property scrapers, and meta parsers for competitive intelligence and data mining
-- **Automation & Bots** - Telegram bots for trading signals, Gmail daily digests, device login monitoring; browser extensions for Plex/Netflix intro skipping and filelist.io
-- **Finance & AI** - Stock predictions with NeuralProphet, sentiment-based trading signals using Fear & Greed Index + technical indicators, ML-driven stock analysis
-- **Infrastructure** - Cloudflare Workers, deployment pipelines, SSO systems, scaling multi-tenant SaaS platforms
-- **Mobile** - Native iOS (Swift/Obj-C), Android (Java), and cross-platform (Dart/Flutter) apps
+- **Privacy and media utilities for Chrome and Firefox** - Four TypeScript browser extensions spanning social media DM cleanup (discord-purge, uninsta), torrent series tracking (filelist-ext), and streaming skip automation (series-auto-skip) — all bundled with esbuild and distributed to Chrome Web Store and Firefox Add-ons.
+- **Telegram bots for device monitoring and market signals** - device-activity-telegram-bot alerts on login and unlock events across Windows, Linux, and macOS with remote shutdown support; fear-greed-telegram-bot delivers automated BUY/SELL/HOLD trading signals using Fear & Greed Index, SMA, and Bollinger Bands via Cloudflare Workers.
+- **Self-hosted services on k3s with Cloudflare networking** - Kubernetes clusters running nextcloud (Helm, MariaDB, Valkey, Cloudflare WARP Mesh) and degoog-infra (SearXNG private search with a TypeScript MCP server for Claude), plus a private Ollama inference node with NVIDIA GPU acceleration on WSL2.
+- **Reusable GitHub Actions library for the whole portfolio** - shared-workflows provides 11 reusable workflows covering Node and Python testing, Claude Code automated PR review, linting, and browser extension publishing to Chrome Web Store and Mozilla AMO — consumed by every repo in the portfolio.
+- **Cloudflare-native web products and internal dashboards** - Three private TypeScript apps on Cloudflare Workers and D1: a multi-tenant fleet management SaaS with GPS tracking, Stripe billing, and MapLibre maps; an IT-services corporate site with Claude-powered blog automation across 6 locales; and a personal investment dashboard with time-weighted returns and eToro integration.
 
 ---
 
-`📡 Currently exploring AI/ML applied to real-world automation and business tooling`
+`📡 Currently exploring local LLM inference on Kubernetes and MCP server integrations with Claude`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
