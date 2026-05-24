@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "name_with_owner": "ITGuys-RO/itguys.ro",
+  "head_sha": "abc1234567890abcdef1234567890abcdef12345",
+  "summarised_at": "2026-05-24T06:00:00Z",
+  "is_public": false,
+  "primary_language": "TypeScript",
+  "languages": {
+    "TypeScript": 80000,
+    "CSS": 12000,
+    "MDX": 4000
+  },
+  "topics": ["nextjs", "cloudflare-workers"],
+  "pushed_at": "2026-05-23T14:00:00Z",
+  "description": "Marketing site",
+  "one_liner": "Multilingual Next.js corporate site on Cloudflare Workers + D1.",
+  "tech_signals": ["Next.js", "React", "Tailwind", "CF Workers", "D1"],
+  "category_hints": ["Web Development", "Marketing Site", "Infrastructure"],
+  "evidence": [
+    "README mentions Next.js 16 App Router",
+    "wrangler.jsonc binds D1",
+    "src/app/ directory present"
+  ]
+}

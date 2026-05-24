@@ -10,8 +10,8 @@
     "generated_at":   { "type": "string", "format": "date-time" },
     "rows": {
       "type": "array",
-      "minItems": 7,
-      "maxItems": 7,
+      "minItems": 5,
+      "maxItems": 12,
       "items": {
         "type": "object",
         "additionalProperties": false,
