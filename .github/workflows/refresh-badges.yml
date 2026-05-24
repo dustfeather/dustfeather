@@ -7,9 +7,10 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/scripts/render.py'
-      - '.github/prompts/refresh-badges.md'
-      - '.github/schemas/classified.schema.json'
+      - '.github/scripts/**'
+      - '.github/prompts/**'
+      - '.github/schemas/**'
+      - '.github/workflows/refresh-badges.yml'
 
 concurrency:
   group: refresh-badges
@@ -21,8 +22,17 @@ permissions:
   id-token: write
 
 jobs:
-  refresh:
+  # ─────────────────────────────────────────────────────────────────────
+  # 1. Enumerate repos across both orgs. Emits a JSON array consumed as
+  #    the matrix for `classify-repo`. Each element carries everything
+  #    the matrix cell needs to mint the right token and run cache_gate
+  #    without an extra API call.
+  # ─────────────────────────────────────────────────────────────────────
+  enumerate-repos:
     runs-on: arc-df-dustfeather
+    outputs:
+      repos: ${{ steps.list.outputs.repos }}
+      count: ${{ steps.list.outputs.count }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,117 +50,386 @@ jobs:
           private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
           owner: ITGuys-RO
 
-      - name: Download prior classified.json (best effort)
+      - id: list
+        env:
+          GH_TOKEN_DF: ${{ steps.app-token-df.outputs.token }}
+          GH_TOKEN_ITG: ${{ steps.app-token-itguys.outputs.token }}
+        run: |
+          set -euo pipefail
+
+          # Per-org listing. `--limit 500` is the per-page cap; both orgs are
+          # well under that.
+          GH_TOKEN="$GH_TOKEN_DF" gh repo list dustfeather \
+            --json nameWithOwner,owner,name,description,isPrivate,isArchived,isFork,isEmpty,defaultBranchRef \
+            --limit 500 > /tmp/df.json
+
+          GH_TOKEN="$GH_TOKEN_ITG" gh repo list ITGuys-RO \
+            --json nameWithOwner,owner,name,description,isPrivate,isArchived,isFork,isEmpty,defaultBranchRef \
+            --limit 500 > /tmp/itg.json
+
+          # Skiplist: profile repos, .github org-templates, anything ending in
+          # -profile, and the badge-bot's own host repo (no point classifying it).
+          jq -c '
+            [.[] + {}] as $repos
+            | $repos
+            | map(select(
+                .isArchived == false
+                and .isFork == false
+                and .isEmpty == false
+                and .defaultBranchRef != null
+                and .defaultBranchRef.target != null
+                and (.nameWithOwner | test("/.github$|/dustfeather$|-profile$") | not)
+              ))
+            | map({
+                owner: .owner.login,
+                repo: .name,
+                name_with_owner: .nameWithOwner,
+                head_sha: .defaultBranchRef.target.oid,
+                is_public: (.isPrivate | not)
+              })
+          ' /tmp/df.json /tmp/itg.json | jq -s 'add' > /tmp/repos.json
+
+          COUNT=$(jq 'length' /tmp/repos.json)
+          echo "enumerated ${COUNT} repos"
+          jq -r '.[] | "  \(.name_with_owner)  \(.head_sha[0:8])  public=\(.is_public)"' /tmp/repos.json
+
+          # Hard floor: if enumeration returned nothing, fail loudly instead of
+          # firing a matrix with zero cells (which would silently no-op).
+          if [ "$COUNT" -lt 1 ]; then
+            echo "::error::enumerate returned 0 repos — auth or skiplist regression"
+            exit 1
+          fi
+
+          # GitHub Actions matrix needs JSON on a single line.
+          REPOS=$(jq -c '.' /tmp/repos.json)
+          {
+            echo "repos=${REPOS}"
+            echo "count=${COUNT}"
+          } >> "$GITHUB_OUTPUT"
+
+  # ─────────────────────────────────────────────────────────────────────
+  # 2. Download the previous successful run's findings-bundle so matrix
+  #    cells can compare head_sha and fast-path unchanged repos. Best
+  #    effort — cold start (no prior) is a valid state.
+  # ─────────────────────────────────────────────────────────────────────
+  download-prior-findings:
+    runs-on: arc-df-dustfeather
+    steps:
+      - name: Find prior successful scheduled run
+        id: find
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -e
+          set -euo pipefail
           # Tight filter: only cron runs on main are trusted prior context.
-          # Manual dispatches or push-on-renderer-change can carry experimental
-          # classifications; using them as the stability anchor would propagate drift.
+          # Manual dispatches or push-driven runs can carry experimental
+          # findings; using them as the stability anchor would propagate drift.
           RUN_ID=$(gh api \
             "/repos/${{ github.repository }}/actions/workflows/refresh-badges.yml/runs?status=success&branch=main&event=schedule&per_page=1" \
             --jq '.workflow_runs[0].id // empty' || true)
           if [ -n "$RUN_ID" ]; then
-            mkdir -p prior
-            gh run download "$RUN_ID" --name classified-json --dir prior/ \
-              || echo "no prior artifact (expired or absent); cold start"
+            echo "prior_run_id=${RUN_ID}" >> "$GITHUB_OUTPUT"
+            echo "prior run: ${RUN_ID}"
           else
-            echo "no prior successful scheduled run found; cold start"
+            echo "no prior successful scheduled run; cold start"
           fi
 
-      # Python + jsonschema are baked into the runner image
-      # (dustfeather/shared-workflows runner-image/Dockerfile installs both;
-      # JSONSCHEMA_VERSION there is pinned to match
-      # .github/scripts/requirements.txt). No setup-python or per-job
-      # pip install needed. If the renderer's pinned jsonschema ever
-      # drifts ahead of the image's, bump JSONSCHEMA_VERSION in the
-      # Dockerfile and rebuild the image.
+      - name: Download prior findings-bundle
+        if: steps.find.outputs.prior_run_id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p prior-download
+          gh run download "${{ steps.find.outputs.prior_run_id }}" \
+            --name findings-bundle \
+            --dir prior-download/ \
+            || { echo "prior artifact expired or missing — cold start"; exit 0; }
+          ls -la prior-download/ || true
 
-      # Bare CLI invocation — the runner image already pre-bakes
-      # /usr/local/bin/claude, so the action wrappers
-      # (claude-code-action, claude-code-base-action) would only be
-      # paying for orchestration we don't use. claude-code-action gates
-      # events to issue/PR contexts (incompatible with cron / dispatch
-      # / push), and claude-code-base-action is essentially `claude
-      # --print` plus auth env-var wiring we set ourselves below.
-      - name: Classify inventory with Claude
+      - name: Stage prior findings for matrix consumption
+        run: |
+          set -euo pipefail
+          mkdir -p prior/findings
+          if [ -d prior-download/findings ]; then
+            cp -r prior-download/findings/* prior/findings/ 2>/dev/null || true
+          fi
+          if [ -f prior-download/classified.json ]; then
+            cp prior-download/classified.json prior/classified.json
+          fi
+          echo "staged prior:"
+          ls -la prior/ prior/findings/ 2>/dev/null || true
+
+      - name: Upload prior findings for matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: prior-findings
+          path: prior/
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ─────────────────────────────────────────────────────────────────────
+  # 3. Per-repo classification. One matrix cell per repo. Cache-hit cells
+  #    skip Claude entirely. fail-fast: false + continue-on-error: true
+  #    so a single bad repo can't take down the whole run.
+  # ─────────────────────────────────────────────────────────────────────
+  classify-repo:
+    needs: [enumerate-repos, download-prior-findings]
+    runs-on: arc-df-dustfeather
+    strategy:
+      fail-fast: false
+      max-parallel: 30
+      matrix:
+        repo: ${{ fromJson(needs.enumerate-repos.outputs.repos) }}
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mint App token for ${{ matrix.repo.owner }}
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
+          private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
+          owner: ${{ matrix.repo.owner }}
+
+      - name: Download prior findings (best effort)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: prior-findings
+          path: prior/
+
+      - name: Cache gate (skip Claude if head_sha unchanged)
+        id: cache
+        env:
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
+        run: |
+          set -uo pipefail
+          if .github/scripts/cache_gate.sh; then
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Classify with Claude (Haiku)
+        if: steps.cache.outputs.hit != 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          GH_TOKEN_DUSTFEATHER: ${{ steps.app-token-df.outputs.token }}
-          GH_TOKEN_ITGUYS: ${{ steps.app-token-itguys.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
+          REPO_IS_PUBLIC: ${{ matrix.repo.is_public }}
+        run: |
+          claude \
+            --print \
+            --model claude-haiku-4-5 \
+            --max-turns 15 \
+            --permission-mode acceptEdits \
+            --allowedTools Bash Read Write \
+            --output-format text \
+            < .github/prompts/per-repo-findings.md
+
+      - name: Guard — only findings.json allowed
+        run: |
+          set -euo pipefail
+          MOD=$(git diff --name-only)
+          if [ -n "$MOD" ]; then
+            echo "::error::matrix cell modified tracked files (forbidden):"
+            printf '  %s\n' $MOD
+            exit 1
+          fi
+          ALLOWED='^(findings\.json|prior/.*)$'
+          BAD=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED" || true)
+          if [ -n "$BAD" ]; then
+            echo "::error::matrix cell created files outside allowlist:"
+            printf '  %s\n' $BAD
+            exit 1
+          fi
+          test -f findings.json || { echo "::error::findings.json missing"; exit 1; }
+
+      - name: Validate findings.json against schema
+        run: |
+          python -c "
+          import json, jsonschema
+          data = json.load(open('findings.json'))
+          schema = json.load(open('.github/schemas/findings.schema.json'))
+          jsonschema.validate(data, schema)
+          print('OK')
+          "
+
+      - name: Upload findings
+        uses: actions/upload-artifact@v4
+        with:
+          # Artifact names can't contain `/`; use `__` as the owner/repo separator.
+          name: findings-${{ matrix.repo.owner }}__${{ matrix.repo.repo }}
+          path: findings.json
+          if-no-files-found: error
+          retention-days: 90
+
+  # ─────────────────────────────────────────────────────────────────────
+  # 4. Consolidator. Always runs so a partial matrix (some cells failed)
+  #    still produces a classified.json from whatever succeeded — caller
+  #    decides if the gaps are tolerable via missing_repos accounting in
+  #    the prompt.
+  # ─────────────────────────────────────────────────────────────────────
+  consolidate:
+    needs: [enumerate-repos, classify-repo]
+    if: always() && needs.enumerate-repos.result == 'success'
+    runs-on: arc-df-dustfeather
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all findings-* artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: findings-*
+          path: findings-raw/
+          merge-multiple: false
+
+      - name: Download prior findings
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: prior-findings
+          path: prior/
+
+      - name: Flatten findings/ directory
+        run: |
+          set -euo pipefail
+          mkdir -p findings
+          # download-artifact lays out as findings-raw/<artifact-name>/findings.json.
+          # Rename each to findings/<owner>__<repo>.json so the consolidator can
+          # read them by stable filename.
+          shopt -s nullglob
+          for dir in findings-raw/findings-*/; do
+            artifact=$(basename "$dir")          # findings-<owner>__<repo>
+            key=${artifact#findings-}            # <owner>__<repo>
+            if [ -f "$dir/findings.json" ]; then
+              cp "$dir/findings.json" "findings/${key}.json"
+            else
+              echo "::warning::artifact ${artifact} has no findings.json"
+            fi
+          done
+          echo "consolidator inputs:"
+          ls -la findings/
+
+      - name: Sanity check missing_repos
+        env:
+          ENUMERATED: ${{ needs.enumerate-repos.outputs.count }}
+        run: |
+          set -euo pipefail
+          GOT=$(ls findings/ 2>/dev/null | wc -l)
+          MISSING=$(( ENUMERATED - GOT ))
+          echo "enumerated=${ENUMERATED} got=${GOT} missing=${MISSING}"
+          if [ "$MISSING" -gt 5 ]; then
+            echo "::error::missing_repos=${MISSING} > 5 — systemic failure, refusing to consolidate stale set"
+            exit 1
+          fi
+
+      - name: Consolidate with Claude (Sonnet)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           claude \
             --print \
             --model claude-sonnet-4-6 \
+            --max-turns 20 \
             --permission-mode acceptEdits \
-            --allowedTools Bash Read Write Edit Grep Glob \
+            --allowedTools Bash Read Write \
             --output-format text \
-            < .github/prompts/refresh-badges.md
+            < .github/prompts/consolidate-classification.md
 
-      # Trust boundary: prompt told Claude to write only raw-inventory.json +
-      # classified.json. Enforce structurally — any modified/added file outside
-      # that allowlist fails the run before the renderer or commit can ship it.
-      - name: Guard — Claude must only have written the two JSON files
+      - name: Guard — consolidator may only have written classified.json + raw-inventory.json
         run: |
-          set -e
-          # Modified tracked files = anything Claude touched in the working tree
+          set -euo pipefail
           MOD=$(git diff --name-only)
           if [ -n "$MOD" ]; then
-            echo "::error::Claude modified tracked files (forbidden):"
+            echo "::error::consolidator modified tracked files (forbidden):"
             printf '  %s\n' $MOD
             exit 1
           fi
-          # Untracked files Claude created, minus the allowlist
-          ALLOWED='^(raw-inventory\.json|classified\.json|prior/.*)$'
+          ALLOWED='^(classified\.json|raw-inventory\.json|findings/.*|prior/.*|findings-raw/.*)$'
           BAD=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED" || true)
           if [ -n "$BAD" ]; then
-            echo "::error::Claude created files outside allowlist:"
+            echo "::error::consolidator created files outside allowlist:"
             printf '  %s\n' $BAD
             exit 1
           fi
-          # Required outputs must actually exist
-          test -f raw-inventory.json || { echo "::error::raw-inventory.json missing"; exit 1; }
           test -f classified.json    || { echo "::error::classified.json missing"; exit 1; }
+          test -f raw-inventory.json || { echo "::error::raw-inventory.json missing"; exit 1; }
+
+      - name: Validate classified.json against schema
+        run: |
+          python -c "
+          import json, jsonschema
+          data = json.load(open('classified.json'))
+          schema = json.load(open('.github/schemas/classified.schema.json'))
+          jsonschema.validate(data, schema)
+          print('OK')
+          "
+
+      - name: Upload findings-bundle (next run's cache source)
+        uses: actions/upload-artifact@v4
+        with:
+          name: findings-bundle
+          path: |
+            findings/
+            classified.json
+            raw-inventory.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Upload classified-json (renderer input)
+        uses: actions/upload-artifact@v4
+        with:
+          name: classified-json
+          path: classified.json
+          if-no-files-found: error
+          retention-days: 90
+
+  # ─────────────────────────────────────────────────────────────────────
+  # 5. Deterministic render + commit. No Claude here — pure Python.
+  # ─────────────────────────────────────────────────────────────────────
+  render-and-commit:
+    needs: [consolidate]
+    runs-on: arc-df-dustfeather
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download classified.json
+        uses: actions/download-artifact@v4
+        with:
+          name: classified-json
+          path: .
 
       - name: Render SVGs + splice README
         run: python .github/scripts/render.py classified.json
 
-      # Renderer must only touch badges-{light,dark}.svg + README.md. Any other
-      # change here means render.py escaped its scope; fail before commit.
-      - name: Guard — renderer must only have touched the three target files
+      - name: Guard — renderer only touched badges + README
         run: |
-          set -e
+          set -euo pipefail
           ALLOWED_DIFF='^(badges-light\.svg|badges-dark\.svg|README\.md)$'
           BAD_DIFF=$(git diff --name-only | grep -Ev "$ALLOWED_DIFF" || true)
           if [ -n "$BAD_DIFF" ]; then
-            echo "::error::Renderer modified files outside allowlist:"
+            echo "::error::renderer modified files outside allowlist:"
             printf '  %s\n' $BAD_DIFF
             exit 1
           fi
-          # And it must not have added any new tracked file beyond the JSONs
-          ALLOWED_NEW='^(raw-inventory\.json|classified\.json|prior/.*)$'
+          ALLOWED_NEW='^(classified\.json)$'
           BAD_NEW=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED_NEW" || true)
           if [ -n "$BAD_NEW" ]; then
-            echo "::error::Renderer created files outside allowlist:"
+            echo "::error::renderer created files outside allowlist:"
             printf '  %s\n' $BAD_NEW
             exit 1
           fi
 
-      - name: Upload JSON artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: classified-json
-          path: |
-            classified.json
-            raw-inventory.json
-          if-no-files-found: warn
-          retention-days: 90
-
       - name: Commit if changed
         run: |
-          set -e
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           if git diff --quiet -- badges-light.svg badges-dark.svg README.md; then

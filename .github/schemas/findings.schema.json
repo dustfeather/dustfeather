@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dustfeather/dustfeather/.github/schemas/findings.schema.json",
+  "title": "Per-repo classification findings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "name_with_owner",
+    "head_sha",
+    "summarised_at",
+    "is_public",
+    "one_liner",
+    "tech_signals",
+    "category_hints",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "name_with_owner": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$"
+    },
+    "head_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "summarised_at": { "type": "string", "format": "date-time" },
+    "is_public": { "type": "boolean" },
+    "primary_language": { "type": ["string", "null"] },
+    "languages": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "topics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pushed_at": { "type": ["string", "null"], "format": "date-time" },
+    "description": { "type": ["string", "null"] },
+    "one_liner": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "tech_signals": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 12,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 16,
+        "pattern": "^[\\x20-\\x7E]+$"
+      }
+    },
+    "category_hints": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": { "type": "string", "minLength": 1, "maxLength": 64 }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 3,
+      "items": { "type": "string", "minLength": 1, "maxLength": 120 }
+    }
+  }
+}
