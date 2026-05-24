@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Per-matrix-cell cache gate for refresh-badges classify-repo job.
+# Per-matrix-cell cache gate for the classify-repo job in classify-owner.yml
+# (called per-wave by refresh-badges.yml).
 #
 # If prior/findings/<owner>__<repo>.json exists AND its head_sha matches the
 # current REPO_HEAD_SHA, copy that file forward to findings.json and exit 0

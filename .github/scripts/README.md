@@ -7,14 +7,21 @@ Python and runs anywhere with `python3` + `jsonschema`.
 ## Architecture (map/reduce)
 
 ```
-enumerate-repos        →  JSON array of {owner, repo, head_sha, is_public}
+enumerate-repos        →  GET /app/installations → per-install token → repo list
+                          Emits {owner, repo, head_sha, is_public} + unique owners[]
 download-prior-findings →  prior/findings/<owner>__<repo>.json from last week's bundle
-classify-repo (matrix)  →  N parallel Haiku jobs, one per repo
+classify-owner (waves)  →  Outer matrix max-parallel:1 over owners — sequential per-owner bursts
+  └─ classify-owner.yml →  Inner matrix max-parallel:30 over that owner's repos
                             ├─ cache_gate.sh: prior head_sha == current → copy forward, skip Claude
                             └─ else Haiku reads README + tree + manifests → findings.json
 consolidate             →  Sonnet bins all findings/ into classified.json (5-12 rows)
 render-and-commit       →  python render.py classified.json → SVGs + README region → commit
 ```
+
+Enrollment is install-driven: install the GitHub App on a new org or user
+account and it appears in the next `enumerate-repos` run with no workflow
+edit. The skiplist (`owner==repo`, `*-profile`, `.github`) is the only
+hardcoded filter.
 
 Steady state on a quiet week: most matrix cells hit cache, only the consolidator
 makes a Claude call. Cold start / many repos changed: full matrix runs.
@@ -23,7 +30,8 @@ makes a Claude call. Cold start / many repos changed: full matrix runs.
 
 | Path | What it does |
 |---|---|
-| `.github/workflows/refresh-badges.yml` | 5-job pipeline (enumerate → prior → matrix → consolidate → render+commit) |
+| `.github/workflows/refresh-badges.yml` | 5-job pipeline (enumerate → prior → per-owner waves → consolidate → render+commit) |
+| `.github/workflows/classify-owner.yml` | Reusable workflow called once per owner wave; runs that owner's per-repo Haiku matrix |
 | `.github/prompts/per-repo-findings.md` | Haiku prompt — one repo → `findings.json` |
 | `.github/prompts/consolidate-classification.md` | Sonnet prompt — all findings → `classified.json` |
 | `.github/schemas/findings.schema.json` | Per-repo output contract (one file per matrix cell) |

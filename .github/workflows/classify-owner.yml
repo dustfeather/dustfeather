@@ -1,0 +1,171 @@
+name: classify-owner
+
+# Reusable workflow called by refresh-badges.yml once per owner.
+# The caller's outer matrix sets max-parallel:1 so owners run in
+# sequential waves; inside each wave this workflow's own matrix
+# parallelizes that owner's repos.
+
+on:
+  workflow_call:
+    inputs:
+      owner:
+        required: true
+        type: string
+      repos:
+        required: true
+        type: string   # JSON array — full enumeration, filtered below
+      has_prior:
+        required: true
+        type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  # Project the full enumeration down to this owner's subset so the
+  # matrix only spawns cells for repos we actually care about in this wave.
+  filter:
+    runs-on: arc-df-dustfeather
+    outputs:
+      subset: ${{ steps.f.outputs.subset }}
+      count:  ${{ steps.f.outputs.count }}
+    steps:
+      - id: f
+        env:
+          ALL:   ${{ inputs.repos }}
+          OWNER: ${{ inputs.owner }}
+        run: |
+          set -euo pipefail
+          SUBSET=$(echo "$ALL" | jq -c --arg o "$OWNER" 'map(select(.owner == $o))')
+          COUNT=$(echo "$SUBSET" | jq 'length')
+          echo "owner=${OWNER} subset_count=${COUNT}"
+          {
+            echo "subset=${SUBSET}"
+            echo "count=${COUNT}"
+          } >> "$GITHUB_OUTPUT"
+
+  classify-repo:
+    needs: filter
+    if: needs.filter.outputs.count != '0'
+    runs-on: arc-df-dustfeather
+    strategy:
+      fail-fast: false
+      max-parallel: 30
+      matrix:
+        repo: ${{ fromJson(needs.filter.outputs.subset) }}
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mint App token for ${{ matrix.repo.owner }}
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
+          private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
+          owner: ${{ matrix.repo.owner }}
+
+      - name: Download prior findings (best effort)
+        if: inputs.has_prior == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: prior-findings
+          path: prior/
+
+      - name: Cache gate (skip Claude if head_sha unchanged)
+        id: cache
+        env:
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
+        run: |
+          set -uo pipefail
+          if .github/scripts/cache_gate.sh; then
+            echo "hit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "hit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Classify with Claude (Haiku)
+        if: steps.cache.outputs.hit != 'true'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
+          REPO_IS_PUBLIC: ${{ matrix.repo.is_public }}
+        run: |
+          claude \
+            --print \
+            --model claude-haiku-4-5 \
+            --max-turns 15 \
+            --permission-mode acceptEdits \
+            --allowedTools Bash Read Write \
+            --output-format text \
+            < .github/prompts/per-repo-findings.md
+
+      - name: Rescue findings.json from hallucinated path
+        if: steps.cache.outputs.hit != 'true'
+        env:
+          REPO_OWNER: ${{ matrix.repo.owner }}
+          REPO_NAME: ${{ matrix.repo.repo }}
+        run: |
+          set -euo pipefail
+          if [ -f findings.json ]; then
+            exit 0
+          fi
+          for cand in \
+            "/home/runner/_work/${REPO_OWNER}/${REPO_NAME}/findings.json" \
+            "/home/runner/_work/dustfeather/${REPO_NAME}/findings.json" \
+            "/home/runner/_work/ITGuys-RO/${REPO_NAME}/findings.json" \
+            "/tmp/findings.json" \
+            "${HOME}/findings.json"; do
+            if [ -f "$cand" ]; then
+              echo "::warning::recovered findings.json from $cand (Haiku hallucinated path)"
+              mv "$cand" findings.json
+              exit 0
+            fi
+          done
+          FOUND=$(find /home/runner/_work -maxdepth 5 -name findings.json -not -path "${PWD}/*" 2>/dev/null | head -1)
+          if [ -n "$FOUND" ]; then
+            echo "::warning::recovered findings.json from $FOUND (Haiku hallucinated path)"
+            mv "$FOUND" findings.json
+          fi
+
+      - name: Guard — only findings.json allowed
+        run: |
+          set -euo pipefail
+          MOD=$(git diff --name-only)
+          if [ -n "$MOD" ]; then
+            echo "::error::matrix cell modified tracked files (forbidden):"
+            printf '  %s\n' $MOD
+            exit 1
+          fi
+          ALLOWED='^(findings\.json|prior/.*)$'
+          BAD=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED" || true)
+          if [ -n "$BAD" ]; then
+            echo "::error::matrix cell created files outside allowlist:"
+            printf '  %s\n' $BAD
+            exit 1
+          fi
+          test -f findings.json || { echo "::error::findings.json missing"; exit 1; }
+
+      - name: Validate findings.json against schema
+        run: |
+          python -c "
+          import json, jsonschema
+          data = json.load(open('findings.json'))
+          schema = json.load(open('.github/schemas/findings.schema.json'))
+          jsonschema.validate(data, schema)
+          print('OK')
+          "
+
+      - name: Upload findings
+        uses: actions/upload-artifact@v4
+        with:
+          name: findings-${{ matrix.repo.owner }}__${{ matrix.repo.repo }}
+          path: findings.json
+          if-no-files-found: error
+          retention-days: 90

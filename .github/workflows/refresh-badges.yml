@@ -11,6 +11,7 @@ on:
       - '.github/prompts/**'
       - '.github/schemas/**'
       - '.github/workflows/refresh-badges.yml'
+      - '.github/workflows/classify-owner.yml'
 
 concurrency:
   group: refresh-badges
@@ -31,44 +32,53 @@ env:
 
 jobs:
   # ─────────────────────────────────────────────────────────────────────
-  # 1. Enumerate repos across both orgs. Emits a JSON array consumed as
-  #    the matrix for `classify-repo`. Each element carries everything
-  #    the matrix cell needs to mint the right token and run cache_gate
-  #    without an extra API call.
+  # 1. Discover every install of the GitHub App (orgs + personal account),
+  #    mint a per-install token, and enumerate repos across all of them.
+  #    Emits both `repos` (for downstream matrix) and `owners` (so the
+  #    caller can serialize per-owner waves). Adding a new org = install
+  #    the App; no workflow edit.
   # ─────────────────────────────────────────────────────────────────────
   enumerate-repos:
     runs-on: arc-df-dustfeather
     outputs:
-      repos: ${{ steps.list.outputs.repos }}
-      count: ${{ steps.list.outputs.count }}
+      repos:  ${{ steps.list.outputs.repos }}
+      owners: ${{ steps.list.outputs.owners }}
+      count:  ${{ steps.list.outputs.count }}
     steps:
       - uses: actions/checkout@v4
 
-      - id: app-token-df
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
-          private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
-          owner: dustfeather
-
-      - id: app-token-itguys
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
-          private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
-          owner: ITGuys-RO
-
       - id: list
         env:
-          GH_TOKEN_DF: ${{ steps.app-token-df.outputs.token }}
-          GH_TOKEN_ITG: ${{ steps.app-token-itguys.outputs.token }}
+          APP_ID: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
         run: |
           set -euo pipefail
 
-          # `gh repo list --json defaultBranchRef` returns only {"name": "main"} —
-          # no nested target.oid, which is what we need as the cache key. Use the
-          # GraphQL API directly so we can grab the commit SHA in one shot.
-          # --paginate auto-walks pageInfo.endCursor while hasNextPage is true.
+          # JWT minter as a tempfile so we don't fight YAML+bash+heredoc indent rules.
+          cat > /tmp/mint_jwt.py <<'PY'
+          import jwt, os, time
+          now = int(time.time())
+          print(jwt.encode(
+              {"iat": now - 60, "exp": now + 540, "iss": os.environ["APP_ID"]},
+              os.environ["APP_PRIVATE_KEY"],
+              algorithm="RS256",
+          ))
+          PY
+          mint_jwt() { python3 /tmp/mint_jwt.py; }
+
+          # GET /app/installations returns every org + user account where
+          # this App is installed. Token list = enrollment list.
+          JWT=$(mint_jwt)
+          curl -sf \
+            -H "Authorization: Bearer $JWT" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/app/installations?per_page=100" \
+            > /tmp/installs.json
+
+          INSTALL_COUNT=$(jq 'length' /tmp/installs.json)
+          echo "discovered ${INSTALL_COUNT} App installations"
+          jq -r '.[] | "  \(.account.login) (\(.account.type), install_id=\(.id))"' /tmp/installs.json
+
           query='
             query($login: String!, $endCursor: String) {
               repositoryOwner(login: $login) {
@@ -91,34 +101,40 @@ jobs:
             }
           '
 
-          fetch_repos() {
-            local login=$1
-            local token=$2
-            # `--slurp` (-s) downstream needs page-streamed JSON; the inner
-            # `[]` here unwraps each page's nodes array into NDJSON.
-            # Post-filter `.owner.login == $login` because RepositoryOwner.repositories
-            # can include collaborator repos under some account types — App
-            # installation tokens are naturally scoped, but the belt-and-braces
-            # filter keeps the query honest if the token is ever broadened.
-            GH_TOKEN="$token" gh api graphql --paginate \
-              -F login="$login" \
+          : > /tmp/raw.ndjson
+          jq -c '.[] | {id, login: .account.login}' /tmp/installs.json | \
+          while read -r inst; do
+            ID=$(echo "$inst" | jq -r .id)
+            LOGIN=$(echo "$inst" | jq -r .login)
+            # Re-mint JWT per install — they're 10-min-lived but cheap;
+            # avoids token-edge clock skew on long enumerations.
+            JWT=$(mint_jwt)
+            TOKEN=$(curl -sf -X POST \
+              -H "Authorization: Bearer $JWT" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/app/installations/${ID}/access_tokens" \
+              | jq -r .token)
+            # Post-filter `.owner.login == $login` because RepositoryOwner
+            # can return collaborator repos under user accounts.
+            GH_TOKEN="$TOKEN" gh api graphql --paginate \
+              -F login="$LOGIN" \
               -f query="$query" \
-              --jq ".data.repositoryOwner.repositories.nodes[] | select(.owner.login == \"$login\")"
-          }
+              --jq ".data.repositoryOwner.repositories.nodes[] | select(.owner.login == \"$LOGIN\")" \
+              >> /tmp/raw.ndjson
+          done
 
-          # Stream NDJSON from both orgs, slurp into a single array, filter,
-          # and project to the matrix shape.
-          {
-            fetch_repos dustfeather "$GH_TOKEN_DF"
-            fetch_repos ITGuys-RO   "$GH_TOKEN_ITG"
-          } | jq -s '
+          # Slurp NDJSON, filter, project to matrix shape. Profile-repo
+          # skip uses owner==repo equality so it generalizes to any new
+          # org (e.g. NEWORG/NEWORG) without further config.
+          jq -s '
             map(select(
               .isArchived == false
               and .isEmpty == false
               and .defaultBranchRef != null
               and .defaultBranchRef.target != null
               and .defaultBranchRef.target.oid != null
-              and (.nameWithOwner | test("/.github$|/dustfeather$|-profile$") | not)
+              and (.nameWithOwner | test("/\\.github$|-profile$") | not)
+              and ((.owner.login | ascii_downcase) != (.name | ascii_downcase))
             ))
             | map({
                 owner: .owner.login,
@@ -127,23 +143,23 @@ jobs:
                 head_sha: .defaultBranchRef.target.oid,
                 is_public: (.isPrivate | not)
               })
-          ' > /tmp/repos.json
+          ' /tmp/raw.ndjson > /tmp/repos.json
 
           COUNT=$(jq 'length' /tmp/repos.json)
           echo "enumerated ${COUNT} repos"
           jq -r '.[] | "  \(.name_with_owner)  \(.head_sha[0:8])  public=\(.is_public)"' /tmp/repos.json
 
-          # Hard floor: if enumeration returned nothing, fail loudly instead of
-          # firing a matrix with zero cells (which would silently no-op).
           if [ "$COUNT" -lt 1 ]; then
-            echo "::error::enumerate returned 0 repos — auth or skiplist regression"
+            echo "::error::enumerate returned 0 repos — App install regression or skiplist over-matched"
             exit 1
           fi
 
-          # GitHub Actions matrix needs JSON on a single line.
           REPOS=$(jq -c '.' /tmp/repos.json)
+          OWNERS=$(jq -c '[.[].owner] | unique' /tmp/repos.json)
+          echo "wave owners: $(echo "$OWNERS" | jq -r 'join(", ")')"
           {
             echo "repos=${REPOS}"
+            echo "owners=${OWNERS}"
             echo "count=${COUNT}"
           } >> "$GITHUB_OUTPUT"
 
@@ -230,141 +246,25 @@ jobs:
           retention-days: 1
 
   # ─────────────────────────────────────────────────────────────────────
-  # 3. Per-repo classification. One matrix cell per repo. Cache-hit cells
-  #    skip Claude entirely. fail-fast: false + continue-on-error: true
-  #    so a single bad repo can't take down the whole run.
+  # 3. Per-owner waves. Outer matrix runs one owner at a time
+  #    (max-parallel: 1) so each org/user gets its own burst window.
+  #    The reusable workflow's inner matrix parallelizes that owner's
+  #    repos (max-parallel: 30). fail-fast: false so one bad owner
+  #    can't block subsequent waves.
   # ─────────────────────────────────────────────────────────────────────
-  classify-repo:
+  classify-owner:
     needs: [enumerate-repos, download-prior-findings]
-    runs-on: arc-df-dustfeather
     strategy:
       fail-fast: false
-      max-parallel: 30
+      max-parallel: 1
       matrix:
-        repo: ${{ fromJson(needs.enumerate-repos.outputs.repos) }}
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Mint App token for ${{ matrix.repo.owner }}
-        id: app-token
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
-          private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
-          owner: ${{ matrix.repo.owner }}
-
-      - name: Download prior findings (best effort)
-        if: needs.download-prior-findings.outputs.has_prior == 'true'
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: prior-findings
-          path: prior/
-
-      - name: Cache gate (skip Claude if head_sha unchanged)
-        id: cache
-        env:
-          REPO_OWNER: ${{ matrix.repo.owner }}
-          REPO_NAME: ${{ matrix.repo.repo }}
-          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
-        run: |
-          set -uo pipefail
-          if .github/scripts/cache_gate.sh; then
-            echo "hit=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "hit=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Classify with Claude (Haiku)
-        if: steps.cache.outputs.hit != 'true'
-        env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          REPO_OWNER: ${{ matrix.repo.owner }}
-          REPO_NAME: ${{ matrix.repo.repo }}
-          REPO_HEAD_SHA: ${{ matrix.repo.head_sha }}
-          REPO_IS_PUBLIC: ${{ matrix.repo.is_public }}
-        run: |
-          claude \
-            --print \
-            --model claude-haiku-4-5 \
-            --max-turns 15 \
-            --permission-mode acceptEdits \
-            --allowedTools Bash Read Write \
-            --output-format text \
-            < .github/prompts/per-repo-findings.md
-
-      - name: Rescue findings.json from hallucinated path
-        if: steps.cache.outputs.hit != 'true'
-        env:
-          REPO_OWNER: ${{ matrix.repo.owner }}
-          REPO_NAME: ${{ matrix.repo.repo }}
-        run: |
-          set -euo pipefail
-          # Haiku occasionally writes findings.json to a synthetic path built
-          # from $REPO_NAME (e.g. /home/runner/_work/dustfeather/<repo>/findings.json)
-          # instead of cwd, despite the prompt forbidding it. Prompt-only
-          # hardening (commit 440fb64) wasn't enough — see run 26348528121
-          # cell filelist-ext. Sweep the most common hallucination paths and
-          # the wider _work tree, then mv to cwd so the guard sees it.
-          if [ -f findings.json ]; then
-            exit 0
-          fi
-          for cand in \
-            "/home/runner/_work/${REPO_OWNER}/${REPO_NAME}/findings.json" \
-            "/home/runner/_work/dustfeather/${REPO_NAME}/findings.json" \
-            "/home/runner/_work/ITGuys-RO/${REPO_NAME}/findings.json" \
-            "/tmp/findings.json" \
-            "${HOME}/findings.json"; do
-            if [ -f "$cand" ]; then
-              echo "::warning::recovered findings.json from $cand (Haiku hallucinated path)"
-              mv "$cand" findings.json
-              exit 0
-            fi
-          done
-          FOUND=$(find /home/runner/_work -maxdepth 5 -name findings.json -not -path "${PWD}/*" 2>/dev/null | head -1)
-          if [ -n "$FOUND" ]; then
-            echo "::warning::recovered findings.json from $FOUND (Haiku hallucinated path)"
-            mv "$FOUND" findings.json
-          fi
-
-      - name: Guard — only findings.json allowed
-        run: |
-          set -euo pipefail
-          MOD=$(git diff --name-only)
-          if [ -n "$MOD" ]; then
-            echo "::error::matrix cell modified tracked files (forbidden):"
-            printf '  %s\n' $MOD
-            exit 1
-          fi
-          ALLOWED='^(findings\.json|prior/.*)$'
-          BAD=$(git ls-files --others --exclude-standard | grep -Ev "$ALLOWED" || true)
-          if [ -n "$BAD" ]; then
-            echo "::error::matrix cell created files outside allowlist:"
-            printf '  %s\n' $BAD
-            exit 1
-          fi
-          test -f findings.json || { echo "::error::findings.json missing"; exit 1; }
-
-      - name: Validate findings.json against schema
-        run: |
-          python -c "
-          import json, jsonschema
-          data = json.load(open('findings.json'))
-          schema = json.load(open('.github/schemas/findings.schema.json'))
-          jsonschema.validate(data, schema)
-          print('OK')
-          "
-
-      - name: Upload findings
-        uses: actions/upload-artifact@v4
-        with:
-          # Artifact names can't contain `/`; use `__` as the owner/repo separator.
-          name: findings-${{ matrix.repo.owner }}__${{ matrix.repo.repo }}
-          path: findings.json
-          if-no-files-found: error
-          retention-days: 90
+        owner: ${{ fromJson(needs.enumerate-repos.outputs.owners) }}
+    uses: ./.github/workflows/classify-owner.yml
+    with:
+      owner:     ${{ matrix.owner }}
+      repos:     ${{ needs.enumerate-repos.outputs.repos }}
+      has_prior: ${{ needs.download-prior-findings.outputs.has_prior }}
+    secrets: inherit
 
   # ─────────────────────────────────────────────────────────────────────
   # 4. Consolidator. Always runs so a partial matrix (some cells failed)
@@ -373,7 +273,7 @@ jobs:
   #    the prompt.
   # ─────────────────────────────────────────────────────────────────────
   consolidate:
-    needs: [enumerate-repos, download-prior-findings, classify-repo]
+    needs: [enumerate-repos, download-prior-findings, classify-owner]
     if: always() && needs.enumerate-repos.result == 'success'
     runs-on: arc-df-dustfeather
     steps:
