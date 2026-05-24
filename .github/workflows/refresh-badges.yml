@@ -33,6 +33,12 @@ jobs:
     outputs:
       repos: ${{ steps.list.outputs.repos }}
       count: ${{ steps.list.outputs.count }}
+    env:
+      # Opt every JS action in this job into Node 24 ahead of the
+      # 2026-06-02 forced cutover. Silences the Node 20 deprecation
+      # warning currently emitted by actions/checkout@v4 and
+      # actions/create-github-app-token@v2.
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - uses: actions/checkout@v4
 
