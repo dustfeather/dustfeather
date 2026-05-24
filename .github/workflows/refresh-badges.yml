@@ -57,29 +57,62 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Per-org listing. `--limit 500` is the per-page cap; both orgs are
-          # well under that.
-          GH_TOKEN="$GH_TOKEN_DF" gh repo list dustfeather \
-            --json nameWithOwner,owner,name,description,isPrivate,isArchived,isFork,isEmpty,defaultBranchRef \
-            --limit 500 > /tmp/df.json
+          # `gh repo list --json defaultBranchRef` returns only {"name": "main"} —
+          # no nested target.oid, which is what we need as the cache key. Use the
+          # GraphQL API directly so we can grab the commit SHA in one shot.
+          # --paginate auto-walks pageInfo.endCursor while hasNextPage is true.
+          query='
+            query($login: String!, $endCursor: String) {
+              repositoryOwner(login: $login) {
+                repositories(first: 100, after: $endCursor) {
+                  pageInfo { hasNextPage endCursor }
+                  nodes {
+                    nameWithOwner
+                    name
+                    owner { login }
+                    isPrivate
+                    isArchived
+                    isFork
+                    isEmpty
+                    defaultBranchRef {
+                      target { ... on Commit { oid } }
+                    }
+                  }
+                }
+              }
+            }
+          '
 
-          GH_TOKEN="$GH_TOKEN_ITG" gh repo list ITGuys-RO \
-            --json nameWithOwner,owner,name,description,isPrivate,isArchived,isFork,isEmpty,defaultBranchRef \
-            --limit 500 > /tmp/itg.json
+          fetch_repos() {
+            local login=$1
+            local token=$2
+            # `--slurp` (-s) downstream needs page-streamed JSON; the inner
+            # `[]` here unwraps each page's nodes array into NDJSON.
+            # Post-filter `.owner.login == $login` because RepositoryOwner.repositories
+            # can include collaborator repos under some account types — App
+            # installation tokens are naturally scoped, but the belt-and-braces
+            # filter keeps the query honest if the token is ever broadened.
+            GH_TOKEN="$token" gh api graphql --paginate \
+              -F login="$login" \
+              -f query="$query" \
+              --jq ".data.repositoryOwner.repositories.nodes[] | select(.owner.login == \"$login\")"
+          }
 
-          # Skiplist: profile repos, .github org-templates, anything ending in
-          # -profile, and the badge-bot's own host repo (no point classifying it).
-          jq -c '
-            [.[] + {}] as $repos
-            | $repos
-            | map(select(
-                .isArchived == false
-                and .isFork == false
-                and .isEmpty == false
-                and .defaultBranchRef != null
-                and .defaultBranchRef.target != null
-                and (.nameWithOwner | test("/.github$|/dustfeather$|-profile$") | not)
-              ))
+          # Stream NDJSON from both orgs, slurp into a single array, filter,
+          # and project to the matrix shape.
+          {
+            fetch_repos dustfeather "$GH_TOKEN_DF"
+            fetch_repos ITGuys-RO   "$GH_TOKEN_ITG"
+          } | jq -s '
+            map(select(
+              .isArchived == false
+              and .isFork == false
+              and .isEmpty == false
+              and .defaultBranchRef != null
+              and .defaultBranchRef.target != null
+              and .defaultBranchRef.target.oid != null
+              and (.nameWithOwner | test("/.github$|/dustfeather$|-profile$") | not)
+            ))
             | map({
                 owner: .owner.login,
                 repo: .name,
@@ -87,7 +120,7 @@ jobs:
                 head_sha: .defaultBranchRef.target.oid,
                 is_public: (.isPrivate | not)
               })
-          ' /tmp/df.json /tmp/itg.json | jq -s 'add' > /tmp/repos.json
+          ' > /tmp/repos.json
 
           COUNT=$(jq 'length' /tmp/repos.json)
           echo "enumerated ${COUNT} repos"
