@@ -114,7 +114,6 @@ jobs:
           } | jq -s '
             map(select(
               .isArchived == false
-              and .isFork == false
               and .isEmpty == false
               and .defaultBranchRef != null
               and .defaultBranchRef.target != null
