@@ -1,21 +1,11 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-`dustfeather/dustfeather` is a GitHub profile special-repo: `README.md` renders
-on the owner's profile page. No application code, build, or tests — just
-`README.md` and static SVG/PNG assets.
+GitHub profile special-repo: `README.md` renders on owner's profile page. No app code, build, tests — just `README.md` + static SVG/PNG assets.
 
 ## Gotchas
 
-- `README.md` references assets by absolute `raw.githubusercontent.com/.../main/...`
-  URLs, not relative paths — an asset only renders after it lands on `main`.
-- Assets come in light/dark pairs (`name-{light,dark}.svg`,
-  `badges-{light,dark}.svg`) swapped via `prefers-color-scheme`. Edit both
-  variants of a pair together so the themes stay in sync.
-- `.github/workflows/*` are shims delegating to `dustfeather/shared-workflows@v1`;
-  the real CI logic lives in that repo, not here.
+- `README.md` references assets by absolute `raw.githubusercontent.com/.../main/...` URLs (not relative) — asset only renders after landing on `main`.
+- Assets in light/dark pairs (`name-{light,dark}.svg`, `badges-{light,dark}.svg`) swapped via `prefers-color-scheme`. Edit both variants together.
+- `.github/workflows/*` = shims delegating to `dustfeather/shared-workflows@v1`; real CI logic lives there.
 - `.gitignore` excludes `*.local` / `*.local.*` — put secrets in such files.
-- `badges-{light,dark}.svg` and the README region between `<!-- BADGE-BOT:START -->`
-  and `<!-- BADGE-BOT:END -->` are written by the weekly badge-bot — don't hand-edit
-  (spec in Jira PROF-1).
+- `badges-{light,dark}.svg` + README region between `<!-- BADGE-BOT:START -->` and `<!-- BADGE-BOT:END -->` written by weekly badge-bot — don't hand-edit (spec: Jira PROF-1).
