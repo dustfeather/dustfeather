@@ -17,15 +17,16 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Multi-platform browser extensions for privacy and automation** - Four TypeScript browser extensions shipping to Chrome, Firefox, and Tampermonkey from a single codebase: discord-purge and uninsta bulk-delete social DMs with jittered rate-limit back-off, series-auto-skip auto-clicks skip buttons on Plex and Netflix, and filelist-ext monitors filelist.io for new torrents and fires desktop notifications.
-- **Trading tools and personal finance dashboards** - tradingview-mcp exposes 78+ MCP tools connecting Claude Code to TradingView Desktop for Pine Script development and AI-assisted chart analysis via Chrome DevTools Protocol; fear-greed-telegram-bot delivers automated buy/sell signals on Cloudflare Workers using Fear & Greed Index, SMA, and Bollinger Bands; a private Cloudflare D1 tracker calculates time-weighted returns and 10-year Monte Carlo forecasts.
-- **Production web apps and SaaS on Cloudflare Workers** - Two private Next.js 16 / React 19 apps deployed via OpenNext on Cloudflare Workers with Drizzle ORM over D1: a multilingual corporate site with an admin panel, Cloudflare Access JWT auth, and automated blog generation via Claude API cron worker; a fleet-management SaaS with Stripe payments, MapLibre vehicle tracking, and NextAuth.
-- **Self-hosted homelab on k3s with GPU inference and private search** - Homelab spans several k3s clusters: nextcloud runs Nextcloud 9 with cert-manager and MariaDB over a Cloudflare-WARP mesh; degoog-infra self-hosts SearXNG with a Valkey cache and an MCP server for private Claude web searches; a private GPU node serves Qwen3-35B MoE via Ollama with NVIDIA passthrough on WSL2; device-activity-telegram-bot monitors device logins and enables remote shutdown.
-- **Shared CI/CD workflows powering the whole portfolio** - shared-workflows is a public library of 8 reusable GitHub Actions workflows — Node.js and Python CI, automated browser extension publishing to Chrome Web Store and Mozilla AMO, and Claude Code PR review via @claude mentions — acting as the CI/CD backbone that every other repo delegates to.
+- **Cross-platform browser extensions for privacy and media** - TypeScript extensions for Chrome, Firefox, and Tampermonkey covering bulk DM deletion on Discord (discord-purge) and Instagram (uninsta), TV series torrent monitoring via filelist-ext, and automatic intro and credit skipping on Netflix and Plex via series-auto-skip.
+- **Full-stack web apps deployed on Cloudflare Workers** - Private Next.js 16 apps on Cloudflare Workers with D1 SQLite, including a fleet management platform with Stripe payments and real-time Maplibre tracking, and a multilingual corporate site with a Claude API cron worker generating daily blog posts across six locales.
+- **GitOps k3s cluster and self-hosted service deployments** - Three-node k3s cluster running Nextcloud via Helm and MariaDB with GitHub Actions reconciliation, plus GPU-accelerated Ollama LLM inference on an RTX 3070 behind an nginx TLS proxy serving an OpenAI-compatible API at ollama.itguys.ro.
+- **MCP servers connecting Claude to external services** - degoog-infra ships a TypeScript MCP server wiring Claude Code and Desktop to a self-hosted SearXNG privacy search instance behind a Cloudflare Tunnel; tradingview-mcp exposes 78 MCP tools for chart analysis, Pine Script development, and UI automation inside TradingView Desktop via Chrome DevTools Protocol.
+- **Trading signals and personal investment tracking** - fear-greed-telegram-bot delivers automated BUY/SELL/HOLD recommendations via Telegram on Cloudflare Workers using the Fear and Greed Index, SMA, and Bollinger Bands with per-user watchlists; a private investment tracker adds time-weighted return analysis with scheduled eToro balance sync.
+- **Reusable CI/CD workflows and device monitoring** - shared-workflows centralizes reusable GitHub Actions for Node.js and Python testing, dependency audits across npm/pnpm/yarn/bun, and automated browser extension publishing to Chrome Web Store and Mozilla AMO; device-activity-telegram-bot sends Telegram alerts on device login and unlock events with remote /halt support.
 
 ---
 
-`📡 Currently exploring self-hosted LLM inference with Qwen3-35B MoE on GPU and expanding MCP tooling for Claude Code workflows`
+`📡 Currently exploring Self-hosted LLM inference and MCP server tooling for Claude Code integrations`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
