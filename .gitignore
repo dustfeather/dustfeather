@@ -12,3 +12,5 @@ prior/
 !sample/classified.json
 !sample/findings/
 !sample/findings/*.json
+# Added by code-review-graph
+.code-review-graph/
