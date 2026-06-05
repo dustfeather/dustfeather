@@ -25,7 +25,7 @@ permissions:
 # Opt every JS action in this workflow into Node 24 ahead of the
 # 2026-06-02 forced cutover. Silences the Node 20 deprecation warning
 # emitted by actions/checkout@v4, actions/create-github-app-token@v2,
-# actions/upload-artifact@v4, and actions/download-artifact@v4 in every
+# actions/upload-artifact@v4, and actions/download-artifact@v8 in every
 # job. Workflow-level scope avoids drift if new jobs are added later.
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
@@ -45,7 +45,7 @@ jobs:
       owners: ${{ steps.list.outputs.owners }}
       count:  ${{ steps.list.outputs.count }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - id: list
         env:
@@ -238,7 +238,7 @@ jobs:
 
       - name: Upload prior findings for matrix
         if: steps.stage.outputs.has_prior == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: prior-findings
           path: prior/
@@ -277,10 +277,10 @@ jobs:
     if: always() && needs.enumerate-repos.result == 'success'
     runs-on: arc-df-dustfeather
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download all findings-* artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: findings-*
           path: findings-raw/
@@ -289,7 +289,7 @@ jobs:
       - name: Download prior findings
         if: needs.download-prior-findings.outputs.has_prior == 'true'
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: prior-findings
           path: prior/
@@ -370,7 +370,7 @@ jobs:
           "
 
       - name: Upload findings-bundle (next run's cache source)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: findings-bundle
           path: |
@@ -381,7 +381,7 @@ jobs:
           retention-days: 90
 
       - name: Upload classified-json (renderer input)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: classified-json
           path: classified.json
@@ -395,10 +395,10 @@ jobs:
     needs: [consolidate]
     runs-on: arc-df-dustfeather
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download classified.json
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: classified-json
           path: .

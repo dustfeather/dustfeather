@@ -55,11 +55,11 @@ jobs:
         repo: ${{ fromJson(needs.filter.outputs.subset) }}
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Mint App token for ${{ matrix.repo.owner }}
         id: app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_ID }}
           private-key: ${{ secrets.ITGUYS_ARC_RUNNERS_APP_PRIVATE_KEY }}
@@ -68,7 +68,7 @@ jobs:
       - name: Download prior findings (best effort)
         if: inputs.has_prior == 'true'
         continue-on-error: true
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: prior-findings
           path: prior/
@@ -163,7 +163,7 @@ jobs:
           "
 
       - name: Upload findings
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: findings-${{ matrix.repo.owner }}__${{ matrix.repo.repo }}
           path: findings.json
