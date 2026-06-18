@@ -1,0 +1,11 @@
+#!/bin/sh
+# Pre-commit: best-effort shell + workflow lint for the profile repo.
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+if command -v shellcheck >/dev/null 2>&1; then
+  shs=$(git ls-files '*.sh'); [ -n "$shs" ] && { echo "[pre-commit] shellcheck"; shellcheck $shs; }
+fi
+if command -v actionlint >/dev/null 2>&1; then
+  echo "[pre-commit] actionlint"; actionlint
+fi
+echo "[pre-commit] OK"
