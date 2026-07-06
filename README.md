@@ -17,17 +17,16 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Full-stack SaaS products deployed to Cloudflare's edge** - Multi-tenant Next.js 16 + React 19 applications running on Cloudflare Workers with D1 storage and Drizzle ORM, covering a Romanian fleet-management platform with Stripe billing and MapLibre vehicle tracking, and a multilingual corporate site with six locale routes, an admin CMS, and Claude-powered automated blog generation.
-- **Investment tracker and algorithmic trading monorepo** - A Cloudflare Workers monorepo covering time-weighted return portfolio tracking on D1, a live SPX algorithmic trading bot with Alpaca and eToro broker sync, and quantitative strategy research notebooks — all deployed as a private personal finance dashboard.
-- **Self-hosted k3s cluster platform managed as code** - Helmfile-driven k3s cluster with cert-manager TLS, Cloudflare WARP mesh networking, GitHub ARC runner pools, automated Nextcloud deployment with MariaDB and Valkey, and age-encrypted Vaultwarden nightly backups with a 30-snapshot retention policy — all managed under infrastructure-as-code source control.
-- **Self-hosted LLM inference on Kubernetes with GPU passthrough** - Kubernetes deployment of Ollama on a k3s node with NVIDIA RTX 3070 GPU passthrough via WSL2, running a Qwen3.6-35B MoE model behind a TLS nginx reverse proxy with cert-manager-issued certificates.
-- **Browser extensions and userscripts for messaging and media** - A suite of cross-browser TypeScript extensions published to Chrome and Firefox stores: discord-purge for bulk DM deletion with rate-limit back-off, uninsta for mass-unsending Instagram messages, series-auto-skip for automatic intro and credit skipping on Plex and Netflix, and filelist-ext for torrent availability notifications.
-- **Reusable GitHub Actions CI/CD workflow library** - shared-workflows is a public library of 12 reusable GitHub Actions workflows for Node.js and Python pipelines, Chrome and Firefox extension publishing, Dependabot auto-merge, and Claude Code PR review, backed by a custom Docker image for self-hosted ARC runners.
-- **Personal automation bots and knowledge management** - device-activity-telegram-bot (Python 3.14 + Pydantic) alerts on device login and unlock events via Telegram and supports remote shutdown commands; a PARA-structured Obsidian vault uses an automated vault-keeper pipeline for inbox triage, project tracking, and weekly digest generation via Syncthing-synced, git-backed storage.
+- **Browser automation utilities** - Four TypeScript extensions across Chrome and Firefox — discord-purge for bulk-deleting Discord DMs, uninsta for Instagram DMs, series-auto-skip for automatically skipping intros and credits on Plex and Netflix, and filelist-ext for torrent release notifications on filelist.io.
+- **Self-managed k3s cluster and CI/CD backbone** - The private k3s platform is driven by helmfile (cert-manager, monitoring, ARC runner pools) with raw manifests for Cloudflare tunnels and nginx proxies; dustfeather/shared-workflows provides the CI/CD backbone with reusable GitHub Actions workflows for Node/Python testing, Claude Code review, and Chrome/Firefox extension publishing.
+- **Self-hosted services on k3s** - Three services run on the private k3s cluster: the ITGuys-RO/nextcloud deployment (MariaDB, Valkey, cert-manager TLS, nightly SSH backups), a WSL2 GPU-backed Ollama inference server running Qwen 35B with an OpenAI-compatible /v1 endpoint, and age-encrypted nightly Vaultwarden backups with GitHub Actions freshness monitoring.
+- **Flotila — fleet management SaaS** - Full-stack fleet management SaaS for the Romanian market — multi-tenant with RBAC (owner/manager/driver), vehicle and driver registries, deadline tracking, GPS and fuel/mileage logging, and Stripe billing, built on Next.js 16, Cloudflare Workers with D1, Drizzle ORM, and MapLibre.
+- **Cloudflare-hosted web applications** - Two private Next.js 16 apps on Cloudflare Workers with D1 backends: a multilingual IT services corporate website with automated blog generation via Claude API on a daily Cloudflare cron, and a personal investment tracker with time-weighted return calculations, 10-year forecasts, and automated eToro/Alpaca broker sync.
+- **Personal automation bots and collectors** - device-activity-telegram-bot sends Telegram alerts on device login and unlock events and accepts remote shutdown commands; social-update collects daily GitHub and Obsidian activity via an Express/SQLite API and uses Claude to draft LinkedIn posts; a private Obsidian vault is maintained by a headless Claude Code pipeline that sorts inbox notes and generates digests.
 
 ---
 
-`📡 Currently exploring Edge-native SaaS on Cloudflare Workers, self-hosted LLM inference, and algorithmic trading tooling`
+`📡 Currently exploring Claude API for personal automation — activity collection, content drafts, and vault maintenance`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
