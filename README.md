@@ -17,16 +17,16 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Browser automation utilities** - Four TypeScript extensions across Chrome and Firefox — discord-purge for bulk-deleting Discord DMs, uninsta for Instagram DMs, series-auto-skip for automatically skipping intros and credits on Plex and Netflix, and filelist-ext for torrent release notifications on filelist.io.
-- **Self-managed k3s cluster and CI/CD backbone** - The private k3s platform is driven by helmfile (cert-manager, monitoring, ARC runner pools) with raw manifests for Cloudflare tunnels and nginx proxies; dustfeather/shared-workflows provides the CI/CD backbone with reusable GitHub Actions workflows for Node/Python testing, Claude Code review, and Chrome/Firefox extension publishing.
-- **Self-hosted services on k3s** - Three services run on the private k3s cluster: the ITGuys-RO/nextcloud deployment (MariaDB, Valkey, cert-manager TLS, nightly SSH backups), a WSL2 GPU-backed Ollama inference server running Qwen 35B with an OpenAI-compatible /v1 endpoint, and age-encrypted nightly Vaultwarden backups with GitHub Actions freshness monitoring.
-- **Flotila — fleet management SaaS** - Full-stack fleet management SaaS for the Romanian market — multi-tenant with RBAC (owner/manager/driver), vehicle and driver registries, deadline tracking, GPS and fuel/mileage logging, and Stripe billing, built on Next.js 16, Cloudflare Workers with D1, Drizzle ORM, and MapLibre.
-- **Cloudflare-hosted web applications** - Two private Next.js 16 apps on Cloudflare Workers with D1 backends: a multilingual IT services corporate website with automated blog generation via Claude API on a daily Cloudflare cron, and a personal investment tracker with time-weighted return calculations, 10-year forecasts, and automated eToro/Alpaca broker sync.
-- **Personal automation bots and collectors** - device-activity-telegram-bot sends Telegram alerts on device login and unlock events and accepts remote shutdown commands; social-update collects daily GitHub and Obsidian activity via an Express/SQLite API and uses Claude to draft LinkedIn posts; a private Obsidian vault is maintained by a headless Claude Code pipeline that sorts inbox notes and generates digests.
+- **Cross-browser extensions for social media and media automation** - Four published TypeScript extensions targeting Chrome and Firefox — discord-purge and uninsta bulk-delete messages on Discord and Instagram, filelist-ext monitors new torrent releases on filelist.io, and series-auto-skip eliminates Skip Intro and Skip Credits prompts on Netflix and Plex.
+- **Self-hosted k3s cluster with Helm-managed workloads** - Declarative k3s platform using Helmfile-pinned Helm releases for cert-manager, Prometheus, Grafana, and self-hosted ARC runners, with Nextcloud, Ollama (Qwen3.6-35B on NVIDIA RTX 3070), and Vaultwarden running as cluster workloads alongside an internal tools dashboard.
+- **Multi-tenant fleet management SaaS on Cloudflare** - Full-stack multi-tenant SaaS targeting the Romanian market built with Next.js 16 on Cloudflare Workers and D1, covering vehicle tracking, expiry deadline alerts, driver and team management, role-based access (owner/manager/driver), and Stripe billing.
+- **Cloudflare Workers apps with Next.js 16 and Claude API** - Two Next.js 16 apps deployed on Cloudflare Workers with D1 — a corporate IT services website with Claude-powered blog automation and multilingual support, and a personal investment tracker with TWR calculations, eToro/Alpaca sync, and Monte Carlo 10-year forecasts.
+- **Reusable CI/CD workflows and automation bots** - Centralized reusable GitHub Actions workflows for Node.js/Python CI, browser extension publishing, and AI-powered code review (shared-workflows), alongside a Python Telegram bot (device-activity-telegram-bot) that monitors device login/unlock events and triggers remote shutdown commands.
+- **AI-assisted personal knowledge and content pipeline** - A PARA-structured Obsidian knowledge vault automated by Claude Code pipelines for inbox triage, daily notes, and project digests, paired with social-update — a k3s-hosted TypeScript app that aggregates daily signals from GitHub, vault notes, and Claude transcripts to draft weekly LinkedIn posts.
 
 ---
 
-`📡 Currently exploring Claude API for personal automation — activity collection, content drafts, and vault maintenance`
+`📡 Currently exploring self-hosting large language models on GPU-accelerated k3s alongside Next.js 16 on Cloudflare Workers for production SaaS`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
