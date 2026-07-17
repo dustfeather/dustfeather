@@ -45,7 +45,7 @@ jobs:
       owners: ${{ steps.list.outputs.owners }}
       count:  ${{ steps.list.outputs.count }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - id: list
         env:
@@ -277,7 +277,7 @@ jobs:
     if: always() && needs.enumerate-repos.result == 'success'
     runs-on: arc-df-dustfeather
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download all findings-* artifacts
         uses: actions/download-artifact@v8
@@ -395,7 +395,7 @@ jobs:
     needs: [consolidate]
     runs-on: arc-df-dustfeather
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download classified.json
         uses: actions/download-artifact@v8
