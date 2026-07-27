@@ -17,16 +17,15 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Cross-browser extensions for social media and media automation** - Four published TypeScript extensions targeting Chrome and Firefox — discord-purge and uninsta bulk-delete messages on Discord and Instagram, filelist-ext monitors new torrent releases on filelist.io, and series-auto-skip eliminates Skip Intro and Skip Credits prompts on Netflix and Plex.
-- **Self-hosted k3s cluster with Helm-managed workloads** - Declarative k3s platform using Helmfile-pinned Helm releases for cert-manager, Prometheus, Grafana, and self-hosted ARC runners, with Nextcloud, Ollama (Qwen3.6-35B on NVIDIA RTX 3070), and Vaultwarden running as cluster workloads alongside an internal tools dashboard.
-- **Multi-tenant fleet management SaaS on Cloudflare** - Full-stack multi-tenant SaaS targeting the Romanian market built with Next.js 16 on Cloudflare Workers and D1, covering vehicle tracking, expiry deadline alerts, driver and team management, role-based access (owner/manager/driver), and Stripe billing.
-- **Cloudflare Workers apps with Next.js 16 and Claude API** - Two Next.js 16 apps deployed on Cloudflare Workers with D1 — a corporate IT services website with Claude-powered blog automation and multilingual support, and a personal investment tracker with TWR calculations, eToro/Alpaca sync, and Monte Carlo 10-year forecasts.
-- **Reusable CI/CD workflows and automation bots** - Centralized reusable GitHub Actions workflows for Node.js/Python CI, browser extension publishing, and AI-powered code review (shared-workflows), alongside a Python Telegram bot (device-activity-telegram-bot) that monitors device login/unlock events and triggers remote shutdown commands.
-- **AI-assisted personal knowledge and content pipeline** - A PARA-structured Obsidian knowledge vault automated by Claude Code pipelines for inbox triage, daily notes, and project digests, paired with social-update — a k3s-hosted TypeScript app that aggregates daily signals from GitHub, vault notes, and Claude transcripts to draft weekly LinkedIn posts.
+- **Browser extensions to bulk-delete your own messages from social platforms** - discord-purge and uninsta are TypeScript WebExtensions (Chrome MV3, Firefox, Tampermonkey) that bulk-unsend your own DMs from Discord and Instagram respectively, with rate limiting and real-time progress tracking.
+- **Browser extensions for torrent tracking and streaming quality-of-life** - filelist-ext notifies on new TV torrents from filelist.io; filelist-seed-purge auto-removes completed qBittorrent downloads based on ratio or seed time with optional filelist.io thanks; series-auto-skip automatically dismisses intro, credits, and recap prompts on Plex and Netflix.
+- **Self-hosted k3s homelab behind Cloudflare WARP mesh** - Declarative k3s cluster (helmfile + raw manifests, cert-manager, Prometheus, Loki, Grafana, GitHub ARC runners) hosting Nextcloud file sync, Ollama LLM inference with NVIDIA RTX 3070 GPU, nightly age-encrypted Vaultwarden backups, and an internal app directory portal — all interconnected via Cloudflare WARP mesh.
+- **Production Next.js 16 SaaS and corporate web on Cloudflare Workers** - Two full-stack TypeScript applications deployed via OpenNext on Cloudflare Workers with D1 SQLite: a multi-tenant fleet-management SaaS for the Romanian market with vehicle tracking, driver management, team scoping, Stripe billing, and NextAuth 5 role-based auth; and a multilingual corporate site with Claude-API-driven blog automation.
+- **Personal automation bots, data pipelines, and knowledge management** - device-activity-telegram-bot fires Telegram alerts on device login or unlock and supports remote shutdown commands; social-update ingests GitHub events, Claude Code sessions, and Obsidian notes to generate weekly LinkedIn drafts via an in-cluster Claude Opus pod; gw2roi runs hourly as a k3s CronJob to rank Guild Wars 2 crafting profitability, storing results in Postgres for Grafana.
 
 ---
 
-`📡 Currently exploring self-hosting large language models on GPU-accelerated k3s alongside Next.js 16 on Cloudflare Workers for production SaaS`
+`📡 Currently exploring Cloudflare Workers + D1 as a first-class Next.js 16 SaaS runtime, and self-hosted Ollama LLM inference with NVIDIA GPU on a k3s homelab`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
