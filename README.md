@@ -17,15 +17,15 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Browser extensions to bulk-delete your own messages from social platforms** - discord-purge and uninsta are TypeScript WebExtensions (Chrome MV3, Firefox, Tampermonkey) that bulk-unsend your own DMs from Discord and Instagram respectively, with rate limiting and real-time progress tracking.
-- **Browser extensions for torrent tracking and streaming quality-of-life** - filelist-ext notifies on new TV torrents from filelist.io; filelist-seed-purge auto-removes completed qBittorrent downloads based on ratio or seed time with optional filelist.io thanks; series-auto-skip automatically dismisses intro, credits, and recap prompts on Plex and Netflix.
-- **Self-hosted k3s homelab behind Cloudflare WARP mesh** - Declarative k3s cluster (helmfile + raw manifests, cert-manager, Prometheus, Loki, Grafana, GitHub ARC runners) hosting Nextcloud file sync, Ollama LLM inference with NVIDIA RTX 3070 GPU, nightly age-encrypted Vaultwarden backups, and an internal app directory portal — all interconnected via Cloudflare WARP mesh.
-- **Production Next.js 16 SaaS and corporate web on Cloudflare Workers** - Two full-stack TypeScript applications deployed via OpenNext on Cloudflare Workers with D1 SQLite: a multi-tenant fleet-management SaaS for the Romanian market with vehicle tracking, driver management, team scoping, Stripe billing, and NextAuth 5 role-based auth; and a multilingual corporate site with Claude-API-driven blog automation.
-- **Personal automation bots, data pipelines, and knowledge management** - device-activity-telegram-bot fires Telegram alerts on device login or unlock and supports remote shutdown commands; social-update ingests GitHub events, Claude Code sessions, and Obsidian notes to generate weekly LinkedIn drafts via an in-cluster Claude Opus pod; gw2roi runs hourly as a k3s CronJob to rank Guild Wars 2 crafting profitability, storing results in Postgres for Grafana.
+- **Next.js SaaS and web apps on Cloudflare Workers** - Three private TypeScript web apps — a fleet management SaaS, an investment portfolio tracker, and a corporate website — all deployed on Cloudflare Workers with a D1 + Drizzle ORM backend, NextAuth session handling, and Stripe billing.
+- **Self-hosted k3s cluster, services, and shared CI/CD** - Production k3s cluster managed via Helmfile hosts Nextcloud file sync, self-hosted Ollama LLM (Qwen 3.6 35B on GPU), age-encrypted Vaultwarden backups, and Prometheus/Grafana observability — all fronted by a Cloudflare tunnel; shared-workflows provides 13 reusable GitHub Actions for CI/CD across all repos.
+- **Five Chrome/Firefox extensions for privacy and media** - discord-purge and uninsta bulk-delete your own messages on Discord and Instagram; filelist-ext monitors filelist.io for new episode torrents; filelist-seed-purge auto-purges finished qBittorrent downloads; series-auto-skip clicks skip-intro and skip-credits on Plex and Netflix — all shipping as Chrome MV3 and Firefox extensions from a shared TypeScript codebase.
+- **Bots and scheduled data pipelines** - device-activity-telegram-bot fires Telegram alerts on device login or unlock and accepts a remote /halt command; gw2roi is a Kubernetes CronJob that ranks Guild Wars 2 craftable items by profit-per-craft and writes ROI metrics to Postgres for Grafana dashboards.
+- **AI-assisted personal journaling and knowledge management** - social-update harvests daily activity from GitHub, Obsidian, and Claude Code into SQLite, then uses Claude Opus on k3s to generate LinkedIn draft posts; a private Obsidian vault with PARA-inspired structure and vault-keeper automation provides the underlying personal knowledge base.
 
 ---
 
-`📡 Currently exploring Cloudflare Workers + D1 as a first-class Next.js 16 SaaS runtime, and self-hosted Ollama LLM inference with NVIDIA GPU on a k3s homelab`
+`📡 Currently exploring self-hosted LLM inference (Qwen 3.6 35B on k3s) and AI-driven content generation across apps and personal workflows`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)

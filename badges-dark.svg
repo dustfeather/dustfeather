@@ -37,73 +37,77 @@
   </pattern>
   <rect width="800" height="347" fill="url(#grid)" />
 
-  <text x="30" y="42" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00f0ff" filter="url(#glow-cyan)" letter-spacing="1">PRIVACY TOOLS</text>
+  <text x="30" y="42" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00f0ff" filter="url(#glow-cyan)" letter-spacing="1">CF WORKERS APPS</text>
   <rect x="200" y="25" width="86" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
   <text x="243" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">TypeScript</text>
-  <rect x="296" y="25" width="86" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="339" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Chrome MV3</text>
-  <rect x="392" y="25" width="65" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="424" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Firefox</text>
-  <rect x="467" y="25" width="65" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="499" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">esbuild</text>
-  <rect x="542" y="25" width="100" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
-  <text x="592" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Tampermonkey</text>
+  <rect x="296" y="25" width="65" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="328" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Next.js</text>
+  <rect x="371" y="25" width="86" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="414" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">CF Workers</text>
+  <rect x="467" y="25" width="55" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="494" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">D1</text>
+  <rect x="532" y="25" width="65" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="564" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Drizzle</text>
+  <rect x="607" y="25" width="58" height="24" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.7" />
+  <text x="636" y="41" font-family="Courier New, monospace" font-size="11" fill="#00f0ff" text-anchor="middle">Stripe</text>
   <line x1="30" y1="62" x2="770" y2="62" stroke="#00f0ff" stroke-width="0.3" opacity="0.3" />
 
-  <text x="30" y="98" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00ffa0" filter="url(#glow-teal)" letter-spacing="1">MEDIA AUTOMATION</text>
-  <rect x="200" y="81" width="86" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
-  <text x="243" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">TypeScript</text>
-  <rect x="296" y="81" width="86" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
-  <text x="339" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Chrome MV3</text>
-  <rect x="392" y="81" width="65" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
-  <text x="424" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Firefox</text>
-  <rect x="467" y="81" width="55" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
-  <text x="494" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Vite</text>
-  <rect x="532" y="81" width="65" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
-  <text x="564" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">esbuild</text>
+  <text x="30" y="98" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#00ffa0" filter="url(#glow-teal)" letter-spacing="1">KUBERNETES &amp; INFRA</text>
+  <rect x="200" y="81" width="55" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="227" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">k3s</text>
+  <rect x="265" y="81" width="86" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="308" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Kubernetes</text>
+  <rect x="361" y="81" width="55" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="388" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Helm</text>
+  <rect x="426" y="81" width="86" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="469" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Prometheus</text>
+  <rect x="522" y="81" width="65" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="554" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Grafana</text>
+  <rect x="597" y="81" width="86" height="24" rx="12" fill="none" stroke="#00ffa0" stroke-width="1" opacity="0.7" />
+  <text x="640" y="97" font-family="Courier New, monospace" font-size="11" fill="#00ffa0" text-anchor="middle">Cloudflare</text>
   <line x1="30" y1="118" x2="770" y2="118" stroke="#00ffa0" stroke-width="0.3" opacity="0.3" />
 
-  <text x="30" y="154" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#39ff14" filter="url(#glow-green)" letter-spacing="1">KUBERNETES INFRASTRUCTURE</text>
-  <rect x="200" y="137" width="55" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="227" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">k3s</text>
-  <rect x="265" y="137" width="86" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="308" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Kubernetes</text>
-  <rect x="361" y="137" width="55" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="388" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Helm</text>
-  <rect x="426" y="137" width="86" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="469" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Cloudflare</text>
-  <rect x="522" y="137" width="100" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="572" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">cert-manager</text>
-  <rect x="632" y="137" width="55" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
-  <text x="659" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Shell</text>
+  <text x="30" y="154" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#39ff14" filter="url(#glow-green)" letter-spacing="1">BROWSER EXTENSIONS</text>
+  <rect x="200" y="137" width="86" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="243" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">TypeScript</text>
+  <rect x="296" y="137" width="86" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="339" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Chrome MV3</text>
+  <rect x="392" y="137" width="65" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="424" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Firefox</text>
+  <rect x="467" y="137" width="65" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="499" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">esbuild</text>
+  <rect x="542" y="137" width="55" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="569" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Vite</text>
+  <rect x="607" y="137" width="100" height="24" rx="12" fill="none" stroke="#39ff14" stroke-width="1" opacity="0.7" />
+  <text x="657" y="153" font-family="Courier New, monospace" font-size="11" fill="#39ff14" text-anchor="middle">Tampermonkey</text>
   <line x1="30" y1="174" x2="770" y2="174" stroke="#39ff14" stroke-width="0.3" opacity="0.3" />
 
-  <text x="30" y="210" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ffee00" filter="url(#glow-yellow)" letter-spacing="1">WEB PLATFORMS &amp; SAAS</text>
-  <rect x="200" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="243" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Next.js 16</text>
-  <rect x="296" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="339" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">TypeScript</text>
-  <rect x="392" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="435" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">CF Workers</text>
-  <rect x="488" y="193" width="55" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="515" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">D1</text>
-  <rect x="553" y="193" width="58" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="582" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Stripe</text>
-  <rect x="621" y="193" width="72" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
-  <text x="657" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Tailwind</text>
+  <text x="30" y="210" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ffee00" filter="url(#glow-yellow)" letter-spacing="1">BOTS &amp; AUTOMATION</text>
+  <rect x="200" y="193" width="58" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="229" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Python</text>
+  <rect x="268" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="311" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">TypeScript</text>
+  <rect x="364" y="193" width="55" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="391" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Bun</text>
+  <rect x="429" y="193" width="72" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="465" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Telegram</text>
+  <rect x="511" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="554" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">PostgreSQL</text>
+  <rect x="607" y="193" width="86" height="24" rx="12" fill="none" stroke="#ffee00" stroke-width="1" opacity="0.7" />
+  <text x="650" y="209" font-family="Courier New, monospace" font-size="11" fill="#ffee00" text-anchor="middle">Kubernetes</text>
   <line x1="30" y1="230" x2="770" y2="230" stroke="#ffee00" stroke-width="0.3" opacity="0.3" />
 
-  <text x="30" y="266" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff00aa" filter="url(#glow-magenta)" letter-spacing="1">AUTOMATION &amp; PERSONAL TOOLS</text>
-  <rect x="200" y="249" width="58" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="229" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Python</text>
-  <rect x="268" y="249" width="86" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="311" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">TypeScript</text>
-  <rect x="364" y="249" width="72" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="400" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Telegram</text>
-  <rect x="446" y="249" width="86" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="489" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Claude API</text>
-  <rect x="542" y="249" width="65" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="574" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Node.js</text>
-  <rect x="617" y="249" width="58" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
-  <text x="646" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">SQLite</text>
+  <text x="30" y="266" font-family="Courier New, monospace" font-size="13" font-weight="bold" fill="#ff00aa" filter="url(#glow-magenta)" letter-spacing="1">AI &amp; PRODUCTIVITY</text>
+  <rect x="200" y="249" width="86" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="243" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">TypeScript</text>
+  <rect x="296" y="249" width="86" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="339" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Claude API</text>
+  <rect x="392" y="249" width="72" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="428" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Obsidian</text>
+  <rect x="474" y="249" width="58" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="503" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">SQLite</text>
+  <rect x="542" y="249" width="55" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="569" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">k3s</text>
+  <rect x="607" y="249" width="86" height="24" rx="12" fill="none" stroke="#ff00aa" stroke-width="1" opacity="0.7" />
+  <text x="650" y="265" font-family="Courier New, monospace" font-size="11" fill="#ff00aa" text-anchor="middle">Playwright</text>
 </svg>
