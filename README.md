@@ -17,15 +17,16 @@
 <!-- BADGE-BOT:START -->
 ---
 
-- **Next.js SaaS and web apps on Cloudflare Workers** - Three private TypeScript web apps — a fleet management SaaS, an investment portfolio tracker, and a corporate website — all deployed on Cloudflare Workers with a D1 + Drizzle ORM backend, NextAuth session handling, and Stripe billing.
-- **Self-hosted k3s cluster, services, and shared CI/CD** - Production k3s cluster managed via Helmfile hosts Nextcloud file sync, self-hosted Ollama LLM (Qwen 3.6 35B on GPU), age-encrypted Vaultwarden backups, and Prometheus/Grafana observability — all fronted by a Cloudflare tunnel; shared-workflows provides 13 reusable GitHub Actions for CI/CD across all repos.
-- **Five Chrome/Firefox extensions for privacy and media** - discord-purge and uninsta bulk-delete your own messages on Discord and Instagram; filelist-ext monitors filelist.io for new episode torrents; filelist-seed-purge auto-purges finished qBittorrent downloads; series-auto-skip clicks skip-intro and skip-credits on Plex and Netflix — all shipping as Chrome MV3 and Firefox extensions from a shared TypeScript codebase.
-- **Bots and scheduled data pipelines** - device-activity-telegram-bot fires Telegram alerts on device login or unlock and accepts a remote /halt command; gw2roi is a Kubernetes CronJob that ranks Guild Wars 2 craftable items by profit-per-craft and writes ROI metrics to Postgres for Grafana dashboards.
-- **AI-assisted personal journaling and knowledge management** - social-update harvests daily activity from GitHub, Obsidian, and Claude Code into SQLite, then uses Claude Opus on k3s to generate LinkedIn draft posts; a private Obsidian vault with PARA-inspired structure and vault-keeper automation provides the underlying personal knowledge base.
+- **Cross-platform browser extensions for privacy and media control** - Five TypeScript extensions shipping as Chrome MV3, Firefox, and Tampermonkey userscripts — discord-purge and uninsta for bulk DM unsending on Discord and Instagram, filelist-ext and filelist-seed-purge for torrent monitoring and auto-cleanup on filelist.io, and series-auto-skip for automatic intro/credits skipping on Netflix and Plex.
+- **Serverless SaaS platforms deployed to Cloudflare Workers** - Three private Next.js 16 + React 19 applications on Cloudflare Workers with D1 database — a fleet management SaaS with Stripe payments and Maplibre maps, a multilingual corporate website with automated Claude-generated blog content, and a personal investment dashboard with time-weighted return analysis and eToro/Alpaca broker integrations.
+- **Self-hosted services and platform infra on a personal k3s cluster** - A declarative Helmfile-managed k3s platform hosts Nextcloud over a Cloudflare WARP mesh with cert-manager and MariaDB, Ollama LLM inference with NVIDIA RTX 3070 GPU passthrough serving a Qwen3-35B MoE model, and nightly age-encrypted Vaultwarden backups with 30-backup retention and freshness monitoring.
+- **Scheduled bots and data pipelines for monitoring and daily workflows** - A Python Telegram bot monitors device logins and enables remote shutdown, social-update collects daily activity into a k3s-hosted Express API and generates LinkedIn drafts via Claude, and gw2roi ranks Guild Wars 2 craftable items hourly by profit margin using live Trading Post data backed by Postgres and Grafana dashboards.
+- **Centralized reusable GitHub Actions workflow library** - shared-workflows is a public library of reusable GitHub Actions pipelines covering Node.js testing, Python testing, Claude-powered code review, and Chrome/Firefox extension publishing, consumed by every other repo in this portfolio via a lightweight @v1 shim.
+- **PARA-organized knowledge base with automated inbox triage** - A private Obsidian vault organized around PARA methodology, synced across devices via Syncthing, with automated daily inbox sorting and digest generation driven by the vault-keeper pipeline in social-update.
 
 ---
 
-`📡 Currently exploring self-hosted LLM inference (Qwen 3.6 35B on k3s) and AI-driven content generation across apps and personal workflows`
+`📡 Currently exploring edge-deployed SaaS on Cloudflare Workers + D1 with Next.js 16 App Router and Drizzle ORM`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
