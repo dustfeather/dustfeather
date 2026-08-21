@@ -55,7 +55,7 @@ jobs:
         repo: ${{ fromJson(needs.filter.outputs.subset) }}
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Mint App token for ${{ matrix.repo.owner }}
         id: app-token
