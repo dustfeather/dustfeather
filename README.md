@@ -11,27 +11,25 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> |
-| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> |
-| **SELF-HOSTED PLATFORM** | <kbd>Kubernetes</kbd> <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Shell</kbd> <kbd>GitHub Actions</kbd> |
-| **CI/CD &amp; DEVOPS** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>YAML</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> |
-| **BOTS &amp; AUTOMATION** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Bun</kbd> <kbd>Telegram Bot API</kbd> <kbd>SQLite</kbd> |
-| **FINANCE &amp; INVESTMENT** | <kbd>TypeScript</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Chartist</kbd> <kbd>Docker</kbd> |
-| **SECURITY** | <kbd>Rust</kbd> <kbd>OSV Format</kbd> <kbd>Security</kbd> <kbd>Cargo</kbd> <kbd>Vulnerability</kbd> |
+| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Tailwind</kbd> |
+| **KUBERNETES PLATFORM** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Prometheus</kbd> <kbd>Grafana</kbd> <kbd>Docker</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> <kbd>SCSS</kbd> |
+| **CI/CD &amp; DEVOPS** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Shell</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> |
+| **PERSONAL TOOLS &amp; BOTS** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>Claude API</kbd> <kbd>Postgres</kbd> <kbd>Obsidian</kbd> |
+| **OPEN SOURCE** | <kbd>Rust</kbd> <kbd>TOML</kbd> <kbd>Markdown</kbd> <kbd>cargo-audit</kbd> <kbd>OSV</kbd> |
 
 ---
 
-- **Cross-browser MV3 extensions shipped to Chrome Web Store and Mozilla Add-ons** - Five TypeScript Manifest V3 extensions built from a shared esbuild/Vite pipeline: discord-purge and uninsta for bulk-unsending DMs on Discord and Instagram with rate-limit handling, filelist-ext for polling the filelist.io API and surfacing torrent notifications, filelist-seed-purge for automatically purging completed qBittorrent seeds by time/ratio thresholds, and series-auto-skip for auto-clicking Skip Intro on Netflix and Plex.
-- **Production SaaS platforms on Next.js deployed to Cloudflare Workers** - Three TypeScript SaaS products shipped via opennextjs-cloudflare with Drizzle ORM over D1 edge databases: a vehicle fleet management system with deadline tracking and org-scoped auth, a multilingual corporate website with Claude API-powered blog automation, and a business-registration onboarding platform with a Hono API worker and document generation engine.
-- **Self-managed k3s cluster hosting internal services and LLM inference** - A multi-node k3s cluster managed via Helmfile with declarative Helm charts and raw manifests for Nextcloud file sync, self-hosted Ollama LLM inference with NVIDIA RTX 3070 GPU passthrough on WSL2, age-encrypted Vaultwarden backup automation, a WARP-only internal app directory, and GitHub Actions ARC runner pools bootstrapped from a GitOps cluster IaC repo.
-- **Centralized reusable GitHub Actions workflow library** - shared-workflows is a hub of 14+ reusable workflows consumed across the portfolio: Node.js and Python test runners, Claude Code AI code review, browser extension publishing pipelines for Chrome Web Store and Mozilla Add-ons, Cloudflare Workers deployment with startup verification and budget gates, and Dependabot auto-merge automation.
-- **Scheduled bots for device monitoring, game analytics, and content generation** - A strictly-typed Python Telegram bot (device-activity-telegram-bot) alerting on Windows login and unlock events with remote shutdown commands, an hourly Bun/TypeScript Kubernetes CronJob (gw2roi) ranking profitable Guild Wars 2 crafts from live trade post data and writing results to Postgres for Grafana visualization, and a Node.js social journal (social-update) collecting GitHub, Obsidian, and Claude session activity to generate weekly LinkedIn drafts via in-cluster Claude AI.
-- **Personal investment portfolio tracker with multi-broker sync and forecasting** - A monorepo investment dashboard deployed on Cloudflare Workers with D1 storage, syncing positions from eToro and Alpaca via automated API integrations, computing time-weighted returns, generating 10-year Monte Carlo forecasts with Chartist visualizations, and running a Kubernetes-hosted algorithmic trading bot alongside offline backtesting tooling.
-- **Contributor to the RustSec open-source vulnerability advisory database** - Active contributions to the official RustSec Advisory Database (advisory-db), which publishes CVE-style advisories for Rust crates in OSV format and powers cargo-audit, cargo-deny, trivy, and GitHub Dependabot security checks for the broader Rust ecosystem on crates.io.
+- **Production SaaS on the edge** - Multi-tenant Next.js 16 App Router platforms deployed to Cloudflare Workers via opennextjs-cloudflare — a vehicle fleet management SaaS, a Romanian business-registration platform, a multilingual corporate website with Claude-powered blog generation, and a personal investment tracker with SPX trading bot.
+- **Self-hosted k3s cluster platform** - Declarative multi-app k3s platform managed via Helmfile with pinned chart versions — runs Nextcloud, Vaultwarden, and Ollama on NVIDIA GPU, with a full Prometheus/Grafana/Loki monitoring stack, GitOps deployments via self-hosted ARC runners, and Cloudflare tunnel ingress.
+- **Cross-browser extension suite** - Five published Chrome MV3 and Firefox add-ons built on a shared TypeScript stack — discord-purge for bulk DM deletion, uninsta for Instagram message unsend, series-auto-skip for Plex and Netflix, and two filelist.io add-ons for torrent monitoring and seeding cleanup.
+- **Reusable CI/CD workflow library** - Centralised library of 14+ reusable GitHub Actions workflows covering browser-extension releases, edge SaaS deployments, Kubernetes rollouts, Dependabot auto-merge, and AI-assisted code review — consumed across all repos in the dustfeather and ITGuys-RO organisations.
+- **Personal bots and productivity tooling** - Telegram device-activity monitor with remote shutdown (device-activity-telegram-bot), GW2 crafting-ROI analyser (gw2roi) publishing top recipes to Postgres/Grafana via Bun, a Claude API-powered activity journal generating LinkedIn drafts (social-update), and a PARA-structured Obsidian vault maintained by automation.
+- **Rust security advisory contributions** - Contributor to the RustSec advisory-db, the canonical upstream source of Rust crate vulnerability data consumed by cargo-audit, cargo-deny, Dependabot, and Trivy — exported nightly to OSV.dev and surfaced in GitHub's dependency graph for the Rust ecosystem.
 
 ---
 
-`📡 Currently exploring legaltech SaaS for document-driven business registration and compliance workflows`
+`📡 Currently exploring self-hosted LLM inference on GPU k3s nodes and AI-assisted content generation on edge workers`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
