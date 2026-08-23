@@ -11,27 +11,25 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Tailwind</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Hono</kbd> |
-| **KUBERNETES INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>GitOps</kbd> <kbd>Docker</kbd> <kbd>Self-hosted LLM</kbd> |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>WebExtension</kbd> |
-| **DEVOPS &amp; CI/CD** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Shell</kbd> |
-| **DATA PIPELINES** | <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>PostgreSQL</kbd> <kbd>Grafana</kbd> <kbd>Kubernetes</kbd> |
-| **SECURITY &amp; BACKUP** | <kbd>Security</kbd> <kbd>Rust</kbd> <kbd>Encryption</kbd> <kbd>Shell</kbd> <kbd>TOML</kbd> |
-| **PERSONAL AUTOMATION** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Telegram API</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> |
+| **SELF-HOSTED INFRA** | <kbd>Kubernetes</kbd> <kbd>k3s</kbd> <kbd>Helmfile</kbd> <kbd>Prometheus</kbd> <kbd>GPU Inference</kbd> |
+| **CI/CD &amp; TOOLING** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Shell</kbd> <kbd>Python</kbd> <kbd>Automation</kbd> |
+| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Hono</kbd> <kbd>Serverless</kbd> <kbd>Edge SQL</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>SCSS</kbd> |
+| **BOTS &amp; AUTOMATION** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>Telegram</kbd> <kbd>PostgreSQL</kbd> |
+| **AI-ASSISTED TOOLS** | <kbd>TypeScript</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> <kbd>Obsidian</kbd> <kbd>Node.js</kbd> |
 
 ---
 
-- **Multi-tenant SaaS products on the serverless edge** - Three TypeScript SaaS products deployed on serverless workers — fleet management for Romanian companies, a multilingual corporate site with automated Claude API blog generation, and a business-registration onboarding wizard — all sharing Next.js App Router, Drizzle ORM, and edge-resident SQL.
-- **Self-hosted k3s cluster running production workloads** - GitOps-managed k3s cluster running Nextcloud with Helm, MariaDB, and cert-manager TLS; an internal app directory on WARP-only networking; and an Ollama LLM inference node with NVIDIA RTX 3070 GPU passthrough serving a 35B-parameter model at the homelab edge.
-- **MV3 extensions for privacy and media automation** - Four TypeScript extensions for Chrome and Firefox: discord-purge and uninsta bulk-unsend messages from Discord and Instagram (with rate-limit handling and reverse-engineered APIs), filelist-seed-purge auto-purges completed torrents from qBittorrent by ratio or seeding-time threshold, and series-auto-skip clicks intro and credit skip buttons on Netflix and Plex.
-- **Centralised reusable GitHub Actions library** - shared-workflows is a reusable GitHub Actions hub covering Claude Code review, Dependabot auto-merge, Node.js and Python CI, Cloudflare Workers deployments, and browser extension publishing — consumed as callable workflow references across all org and personal repos.
-- **Scheduled data pipelines with Grafana observability** - gw2roi is an hourly k3s CronJob built with Bun that fetches Guild Wars 2 item prices from the GW2 API and datawars2, ranks craftable items by profit margin, and streams results into a PostgreSQL StatefulSet visualised in Grafana dashboards.
-- **Security advisories and encrypted backup tooling** - Contributes to the RustSec advisory-db for the Rust crates.io ecosystem — consumed by cargo-audit, cargo-deny, and Dependabot for CVE scanning — alongside age-encrypted nightly backup automation for a self-hosted Vaultwarden password manager.
-- **Personal automation bots and knowledge tooling** - A Python Telegram bot (device-activity-telegram-bot) alerts on device logins and enables remote shutdown; social-update collects daily activity into SQLite and drafts LinkedIn posts via Claude; and a private Obsidian vault maintained by a Claude Code pipeline that sorts the inbox and generates daily digests.
+- **Homelab k3s platform with GPU inference** - Versioned Helmfile cluster managing cert-manager, Prometheus/Grafana/Loki observability, ARC runner sets, Nextcloud, and a GPU-backed Ollama inference server running qwen3:35b on an NVIDIA RTX 3070; encrypted Vaultwarden nightly backups round out the self-hosted stack.
+- **Reusable CI/CD and profile automation** - Centralised reusable GitHub Actions workflows (shared-workflows) covering Node.js/Python CI, Claude Code review, browser-extension publishing to the Chrome Web Store and Mozilla Add-ons, and serverless worker deployment, backed by a containerised ARC runner fleet.
+- **Production SaaS on serverless edge workers** - Two production SaaS products on serverless workers with edge SQL — a Romanian PFA/SRL business-registration compliance platform (Next.js App Router + Hono, D1, R2) and a personal investment portfolio tracker with time-weighted return calculations and a k3s-hosted trading bot.
+- **Cross-browser Manifest V3 extension suite** - Four privacy and productivity extensions for Chrome MV3 and Firefox built from unified TypeScript + esbuild pipelines: discord-purge (bulk-delete DMs with rate-limit backoff), uninsta (bulk-unsend Instagram messages), series-auto-skip (auto-click Skip Intro/Credits on Netflix and Plex), and filelist-ext (torrent tracker notifications).
+- **Standalone bots and data-pipeline automation** - A strictly-typed Python Telegram bot (device-activity-telegram-bot) that detects Windows login/unlock events and triggers remote shutdown, plus a Bun-based k3s CronJob (gw2roi) that ranks Guild Wars 2 crafting-ROI items hourly and writes results to Postgres for Grafana dashboards.
+- **AI-augmented personal knowledge pipeline** - social-update ingests GitHub, Obsidian, Claude Code, and claude.ai activity into SQLite, uses Claude API to generate weekly LinkedIn drafts, and pairs with an Obsidian PARA vault managed by an automated vault-keeper pipeline for long-term knowledge storage.
 
 ---
 
-`📡 Currently exploring Serverless edge SaaS for Romanian business registration — Next.js App Router + Hono API on Cloudflare Workers with EU-resident D1/KV/R2 storage`
+`📡 Currently exploring serverless edge SaaS for Romanian business registration and PFA/SRL compliance`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
