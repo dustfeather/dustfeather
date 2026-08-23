@@ -11,27 +11,25 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>MV3</kbd> <kbd>Chrome</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> |
-| **SAAS &amp; EDGE APPS** | <kbd>Next.js</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>Drizzle ORM</kbd> <kbd>TypeScript</kbd> |
-| **KUBERNETES INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Prometheus</kbd> <kbd>Grafana</kbd> |
-| **DEVOPS &amp; CI/CD** | <kbd>GitHub Actions</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>CF Workers</kbd> <kbd>Docker</kbd> |
-| **AUTOMATION &amp; BOTS** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Telegram</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> |
-| **PERSONAL PRODUCTIVITY** | <kbd>TypeScript</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>Obsidian</kbd> <kbd>Syncthing</kbd> |
-| **GAMING &amp; ANALYTICS** | <kbd>TypeScript</kbd> <kbd>Postgres</kbd> <kbd>Grafana</kbd> <kbd>k3s</kbd> <kbd>Bun</kbd> |
+| **CLOUDFLARE SAAS** | <kbd>Next.js</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind</kbd> <kbd>Drizzle ORM</kbd> |
+| **K8S PLATFORM** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Kubernetes</kbd> <kbd>GitOps</kbd> <kbd>cert-manager</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> <kbd>Tampermonkey</kbd> |
+| **AUTOMATION &amp; BOTS** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Claude API</kbd> <kbd>Telegram</kbd> <kbd>Bun</kbd> <kbd>k3s</kbd> |
+| **DEVOPS &amp; CI** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>CI/CD</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Cloudflare</kbd> |
+| **SECURITY** | <kbd>Rust</kbd> <kbd>OSV</kbd> <kbd>cargo-audit</kbd> <kbd>Advisory</kbd> <kbd>Security</kbd> |
 
 ---
 
-- **Browser automation and social media tooling** - Five Chrome/Firefox extensions built on Manifest V3: Discord and Instagram DM bulk-delete (discord-purge, uninsta), qBittorrent seeding automation (filelist-seed-purge), filelist.io torrent notifications (filelist-ext), and Netflix/Plex intro-skipping (series-auto-skip).
-- **SaaS and corporate web apps on Cloudflare Workers** - Three production apps deployed to Cloudflare Workers via opennextjs-cloudflare: a fleet-management SaaS with Stripe billing and MapLibre maps, a Romanian business-registration platform with Hono API and document generation, and a multilingual corporate site with Claude-powered daily blog automation.
-- **Self-hosted k3s cluster platform and service operations** - Helmfile-managed k3s cluster hosting Prometheus, Grafana, Loki, and Cert-Manager, with service deployments for Nextcloud, Ollama LLM inference with NVIDIA GPU passthrough, age-encrypted Vaultwarden nightly backups, and an internal WARP-gated status dashboard.
-- **Reusable GitHub Actions workflow library** - Centralized CI/CD library in dustfeather/shared-workflows providing cross-cutting pipelines for Node.js and Python testing, Claude Code review, Chrome/Firefox extension publishing to the Web Store and AMO, Cloudflare Workers deployment, and Dependabot auto-merge.
-- **Activity monitoring and AI-assisted content generation** - Python bot sending Telegram alerts on device login and unlock events with a remote shutdown command (device-activity-telegram-bot), alongside a k3s-deployed daily journal that aggregates GitHub, Obsidian, and Claude Code activity into LinkedIn-ready drafts using Claude Opus.
-- **Personal finance tracking and knowledge management** - Investment tracker monorepo with a Cloudflare Worker TWR dashboard, a k3s trading bot syncing live positions from eToro and Alpaca APIs, and a Syncthing-backed Obsidian vault with a vault-keeper pipeline for inbox sorting, project digests, and LinkedIn draft generation.
-- **Guild Wars 2 crafting ROI data pipeline** - Hourly k3s CronJob in gw2roi that fetches live pricing from the GW2 API and datawars2, ranks top crafting profit margins, and writes ROI metrics to a Postgres StatefulSet for real-time Grafana dashboards with provisioned datasources and dashboards.
+- **Multi-tenant SaaS on Cloudflare Workers** - Four production web applications — fleet management, legal-compliance document workflows, investment tracking, and a corporate website — all on Next.js 16 with Cloudflare Workers, D1, and Drizzle ORM, deployed via opennextjs-cloudflare.
+- **Self-hosted k3s homelab cluster** - GitOps-managed k3s homelab running Nextcloud, Prometheus/Grafana monitoring, ARC self-hosted runners, Chatwoot, age-encrypted Vaultwarden backups, and a self-hosted Ollama instance with NVIDIA RTX 3070 GPU passthrough on WSL2.
+- **Browser extension suite** - Five cross-browser extensions (Chrome MV3, Firefox, Tampermonkey) covering Discord message bulk-unsend (discord-purge), Instagram DM bulk-unsend (uninsta), filelist.io torrent notifications (filelist-ext), qBittorrent auto-purge (filelist-seed-purge), and intro/credits skipping on Plex and Netflix (series-auto-skip).
+- **Automated pipelines and bots** - Bots and data pipelines spanning a Telegram device-login alert bot (device-activity-telegram-bot), a Guild Wars 2 crafting-ROI analyser on a k3s CronJob writing to Postgres/Grafana (gw2roi), a daily activity aggregator that drafts LinkedIn posts via Claude API (social-update), and a Claude-assisted PARA knowledge vault.
+- **Reusable GitHub Actions workflows** - Centralised shared-workflows repository providing versioned reusable GitHub Actions workflows for Node.js/Python testing, Claude Code review, Cloudflare Workers deployments, browser extension publishing, and Dependabot auto-merge across multiple accounts.
+- **Rust security advisory database** - Curating a fork of the RustSec Advisory Database with 900+ advisories for crates.io packages, exported to OSV format and consumed by cargo-audit, cargo-deny, and Trivy.
 
 ---
 
-`📡 Currently exploring self-hosted LLM inference via Ollama on k3s with GPU passthrough, and Claude API integrations for content automation across web apps and personal tooling`
+`📡 Currently exploring serverless-native SaaS on Cloudflare Workers and D1 for the Romanian market`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
