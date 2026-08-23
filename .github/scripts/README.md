@@ -73,13 +73,18 @@ README, copy the project to a temp dir first.
 
 PROF-5 in Jira is the canonical spec. Short version:
 
-- **Claude = classification only.** Never writes SVG. Never touches README directly.
+- **Claude = classification only.** Never writes markup. Never touches README directly.
 - **Renderer = pure template.** No judgment. Pure function of `classified.json`.
 - **Idempotence is structural:** same input → byte-identical output.
 - **Row count is variable (5-12):** the consolidator picks the right N from the
-  data. Renderer cycles the 7-color palette via `i % 7` for rows ≥ 7.
-- **Pill geometry:** `width = max(55, len*7 + 16)`; gap 10px; rightmost must
-  end ≤ x=770. Renderer raises `ValueError` if a row overflows.
+  data. Each row is one markdown table row, so N only changes table height.
+- **No geometry:** chips are `<kbd>` spans in a table cell, laid out by the
+  browser. Pill widths, the 7-color palette and the x≤770 overflow check went
+  away with the SVGs. The schema's `≤ 16 chars` / `3-6 pills` caps are now
+  about readability, not fitting a fixed canvas.
+- **No CSS is possible:** GitHub strips `<style>` and `style=` from README HTML.
+  `<kbd>`, tables and `> [!NOTE]` alerts are the entire styling budget — and
+  unlike an SVG they leave the tag text selectable and indexable.
 
 ## Trigger the workflow manually
 
@@ -90,7 +95,7 @@ gh run watch
 
 Push triggers also fire when anything under `.github/{scripts,prompts,schemas}/` or
 the workflow file itself changes on `main` — merging a renderer tweak immediately
-re-emits the SVGs without waiting for Monday's cron.
+re-splices the README without waiting for Monday's cron.
 
 ## Failure isolation
 
