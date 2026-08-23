@@ -29,8 +29,8 @@ permissions:
 
 # Opt every JS action in this workflow into Node 24 ahead of the
 # 2026-06-02 forced cutover. Silences the Node 20 deprecation warning
-# emitted by actions/checkout@v4, actions/create-github-app-token@v2,
-# actions/upload-artifact@v4, and actions/download-artifact@v8 in every
+# emitted by actions/checkout@v7, actions/create-github-app-token@v3,
+# actions/upload-artifact@v7, and actions/download-artifact@v8 in every
 # job. Workflow-level scope avoids drift if new jobs are added later.
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
