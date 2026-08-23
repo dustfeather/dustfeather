@@ -15,7 +15,7 @@ classify-owner (waves)  →  Outer matrix max-parallel:1 over owners — sequent
                             ├─ cache_gate.sh: prior head_sha == current → copy forward, skip Claude
                             └─ else Haiku reads README + tree + manifests → findings.json
 consolidate             →  Sonnet bins all findings/ into classified.json (5-12 rows)
-render-and-commit       →  python render.py classified.json → SVGs + README region → commit
+render-and-commit       →  python render.py classified.json → README region → commit
 ```
 
 Enrollment is install-driven: install the GitHub App on a new org or user
@@ -37,7 +37,7 @@ makes a Claude call. Cold start / many repos changed: full matrix runs.
 | `.github/schemas/findings.schema.json` | Per-repo output contract (one file per matrix cell) |
 | `.github/schemas/classified.schema.json` | Final classification contract (5-12 rows; renderer input) |
 | `.github/scripts/cache_gate.sh` | Per-matrix-cell cache check (prior head_sha vs current) |
-| `.github/scripts/render.py` | Pure-Python renderer: classified.json → SVGs + README splice |
+| `.github/scripts/render.py` | Pure-Python renderer: classified.json → README splice |
 | `.github/scripts/requirements.txt` | Single pinned dep: `jsonschema` (baked into runner image too) |
 
 ## Run the renderer locally
@@ -50,9 +50,11 @@ python .github/scripts/render.py path/to/classified.json
 Fixtures: `sample/classified.json` (7-row example) and `sample/findings/<owner>__<repo>.json`
 (per-repo finding example). Schemas in `.github/schemas/` are authoritative for both.
 
-The renderer overwrites `badges-light.svg`, `badges-dark.svg`, and the
-`<!-- BADGE-BOT:START -->`…`<!-- BADGE-BOT:END -->` region of `README.md`
-in place. If the README lacks those markers it exits non-zero — the one-time
+The renderer overwrites the `<!-- BADGE-BOT:START -->`…`<!-- BADGE-BOT:END -->`
+region of `README.md` in place. Stack rows render as a markdown table of
+`<kbd>` chips — real selectable, indexable text. GitHub strips `<style>` and
+`style=` from README HTML, so custom CSS is not an option; `<kbd>` is pilled
+by GitHub's own stylesheet in both themes. If the README lacks those markers it exits non-zero — the one-time
 README edit must already have happened. To test without mutating the real
 README, copy the project to a temp dir first.
 

@@ -102,4 +102,4 @@ If this fails, fix `classified.json` and rerun until `OK`. Do not declare done u
 
 ## Step 6 — Stop
 
-Do nothing else. The renderer runs next. **Do not** touch `badges-*.svg` or `README.md`. **Do not** git commit. Both `classified.json` and `raw-inventory.json` must exist on disk when you finish.
+Do nothing else. The renderer runs next. **Do not** touch `README.md`. **Do not** git commit. Both `classified.json` and `raw-inventory.json` must exist on disk when you finish.

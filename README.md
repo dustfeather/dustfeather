@@ -8,13 +8,17 @@
 
 *Most of my work lives in private repos, but here's the gist:*
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-light.svg" />
-  <img src="https://raw.githubusercontent.com/dustfeather/dustfeather/main/badges-dark.svg" alt="Tech Stack" />
-</picture>
-
 <!-- BADGE-BOT:START -->
+| Domain | Stack |
+| --- | --- |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>MV3</kbd> <kbd>Chrome</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> |
+| **SAAS &amp; EDGE APPS** | <kbd>Next.js</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>Drizzle ORM</kbd> <kbd>TypeScript</kbd> |
+| **KUBERNETES INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Prometheus</kbd> <kbd>Grafana</kbd> |
+| **DEVOPS &amp; CI/CD** | <kbd>GitHub Actions</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>CF Workers</kbd> <kbd>Docker</kbd> |
+| **AUTOMATION &amp; BOTS** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Telegram</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> |
+| **PERSONAL PRODUCTIVITY** | <kbd>TypeScript</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>Obsidian</kbd> <kbd>Syncthing</kbd> |
+| **GAMING &amp; ANALYTICS** | <kbd>TypeScript</kbd> <kbd>Postgres</kbd> <kbd>Grafana</kbd> <kbd>k3s</kbd> <kbd>Bun</kbd> |
+
 ---
 
 - **Browser automation and social media tooling** - Five Chrome/Firefox extensions built on Manifest V3: Discord and Instagram DM bulk-delete (discord-purge, uninsta), qBittorrent seeding automation (filelist-seed-purge), filelist.io torrent notifications (filelist-ext), and Netflix/Plex intro-skipping (series-auto-skip).

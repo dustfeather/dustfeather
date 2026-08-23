@@ -403,13 +403,13 @@ jobs:
           name: classified-json
           path: .
 
-      - name: Render SVGs + splice README
+      - name: Splice README badge region
         run: python .github/scripts/render.py classified.json
 
-      - name: Guard — renderer only touched badges + README
+      - name: Guard — renderer only touched README
         run: |
           set -euo pipefail
-          ALLOWED_DIFF='^(badges-light\.svg|badges-dark\.svg|README\.md)$'
+          ALLOWED_DIFF='^README\.md$'
           BAD_DIFF=$(git diff --name-only | grep -Ev "$ALLOWED_DIFF" || true)
           if [ -n "$BAD_DIFF" ]; then
             echo "::error::renderer modified files outside allowlist:"
@@ -429,11 +429,11 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --quiet -- badges-light.svg badges-dark.svg README.md; then
+          if git diff --quiet -- README.md; then
             echo "no changes; nothing to commit"
             exit 0
           fi
           DATE=$(date -u +%Y-%m-%d)
-          git add badges-light.svg badges-dark.svg README.md
+          git add README.md
           git commit -m "chore(badges): weekly refresh from inventory ${DATE}"
           git push
