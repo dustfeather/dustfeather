@@ -15,7 +15,12 @@ on:
 
 concurrency:
   group: refresh-badges
-  cancel-in-progress: false
+  # A push to the trigger paths is a supersession: the newer run reclassifies
+  # from scratch and its README wins anyway. Letting the older run continue only
+  # burned ~12 minutes of runner time and ~20 Haiku classifications to produce
+  # output that was immediately replaced — and it did not even land, because by
+  # then main had moved and its push was a non-fast-forward.
+  cancel-in-progress: true
 
 permissions:
   contents: write
