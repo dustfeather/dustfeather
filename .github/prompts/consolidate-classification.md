@@ -82,8 +82,38 @@ Schema at `.github/schemas/classified.schema.json`. Required shape:
 **Hard rules:**
 
 - 5 ≤ rows ≤ 12. Each row is one table row, so more rows just means a taller table — choose N based on the data.
-- **Chips name capabilities, not vendors.** `Serverless Workers`, never `CF Workers` or `Lambda Functions`. `Edge SQL` not `D1`, `Object Storage` not `S3`/`R2`, `Edge Platform` not `Cloudflare`/`Vercel`, `Managed Postgres` not `RDS`/`Supabase`. Category names too: `SERVERLESS SAAS`, not `CLOUDFLARE SAAS`. This applies to `category` and `pills` **only** — the bullet prose should still name the real product, that is where the concrete detail belongs. The renderer rewrites the vendor names it knows and **hard-fails on any it does not**, so a run dies rather than shipping one.
-- Each row: 3–6 pills. Each pill ≤ 20 chars — the schema enforces both, so violating them hard-fails validation. Chips sit in one table cell and wrap on narrow screens, so keep them short: `CF Workers` not `Cloudflare Workers`, `Doc Mgmt` not `Document Management`.
+- **Chips name capabilities, not cloud vendors.** This one is on you — the
+  renderer is a dumb template and will publish whatever you write, straight to a
+  public profile page. The repos you are reading call things by product name, so
+  the pull toward `CF Workers` is strong. Resist it.
+
+  | Write this | Not this |
+  | --- | --- |
+  | `Serverless Workers` | `CF Workers`, `Cloudflare Workers`, `Lambda`, `Lambda Functions` |
+  | `Serverless Functions` | `Azure Functions`, `Cloud Functions` |
+  | `Edge SQL` | `D1` |
+  | `Edge KV` | `Workers KV`, `KV` |
+  | `Object Storage` | `S3`, `R2`, `Blob Storage` |
+  | `Managed Postgres` | `RDS`, `Supabase`, `Neon` |
+  | `Managed NoSQL` | `DynamoDB`, `Firestore`, `Firebase` |
+  | `Edge Platform` | `Cloudflare`, `Vercel`, `Netlify`, `Fly.io` |
+  | `Cloud Platform` | `AWS`, `GCP`, `Azure`, `Heroku` |
+
+  Categories follow the same rule in uppercase: `SERVERLESS SAAS`, never
+  `CLOUDFLARE SAAS`. For a vendor not in the table, describe what it *does* in
+  ≤ 20 chars rather than naming it.
+
+  **Not** covered by this rule, keep these as-is: languages and runtimes
+  (`TypeScript`, `Bun`, `Node.js`), frameworks and libraries (`Next.js`,
+  `Tailwind`, `Drizzle ORM`), self-hosted infrastructure you actually run
+  (`k3s`, `Helm`, `Prometheus`, `Docker`), browsers and extension targets
+  (`Chrome MV3`, `Firefox`), `GitHub Actions`, and `Claude API`. The rule is
+  about not advertising a hosting bill, not about scrubbing every proper noun.
+
+  Applies to `category` and `pills` **only**. The bullet prose SHOULD name real
+  products — "deployed to Cloudflare Workers via opennextjs-cloudflare" stays
+  exactly like that. That is where concrete detail belongs.
+- Each row: 3–6 pills. Each pill ≤ 20 chars — the schema enforces both, so violating them hard-fails validation. Chips sit in one table cell and wrap on narrow screens, so keep them short: `Doc Mgmt` not `Document Management`.
 - Pills and categories are ASCII per the schema pattern, which excludes `|` — do not try to smuggle one in, it would break the markdown table.
 - `bullet.body` is **one sentence** describing what the category covers. Name concrete tech. Name concrete *public* projects where it sharpens the point. **Never name a private repo by name** — the per-repo findings include `is_public` for every repo; filter accordingly. Private work goes in as aggregated themes ("multi-tenant SaaS platforms across 10+ services") not specific repo names.
 - `currently_exploring` is a short phrase. No leading emoji (the renderer adds `📡`). Update only if findings show a clear new direction this week.
@@ -101,6 +131,24 @@ print('OK')
 ```
 
 If this fails, fix `classified.json` and rerun until `OK`. Do not declare done until validation passes.
+
+Then check the vendor rule, which the schema cannot express:
+
+```bash
+python -c "
+import json, re, sys
+d = json.load(open('classified.json'))
+bad = re.compile(r'\b(cloudflare|cf|aws|amazon|gcp|azure|vercel|netlify'
+                 r'|heroku|fly\.io|supabase|neon|planetscale|firebase'
+                 r'|firestore|dynamodb|lambda|s3|r2|d1|rds)\b', re.I)
+hits = [t for row in d['rows'] for t in [row['category'], *row['pills']]
+        if bad.search(t)]
+print('VENDOR NAMES FOUND:', hits) if hits else print('OK')
+sys.exit(1 if hits else 0)
+"
+```
+
+If this prints vendor names, rewrite those chips using the capability table in the hard rules and rerun both checks. This one greps only the names it knows — a clean result is not proof, so re-read your `category` and `pills` yourself before moving on.
 
 ## Step 6 — Stop
 

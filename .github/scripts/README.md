@@ -82,11 +82,12 @@ PROF-5 in Jira is the canonical spec. Short version:
   browser. Pill widths, the 7-color palette and the x≤770 overflow check went
   away with the SVGs. The schema's `≤ 20 chars` / `3-6 pills` caps are now
   about readability, not fitting a fixed canvas.
-- **Chips are vendor-neutral by construction:** `render.py` rewrites known
-  vendor names to capability names (`CF Workers` → `Serverless Workers`,
-  `D1` → `Edge SQL`) and hard-fails on vendor-shaped tokens missing from its
-  alias table. The prompts ask for this too, but the renderer is what makes
-  it hold when the model drifts. Bullet prose is exempt and stays concrete.
+- **Chips are vendor-neutral for cloud services** (`Serverless Workers`, not
+  `CF Workers`; `Edge SQL`, not `D1`). This is enforced in the consolidator
+  prompt, not in the renderer — the renderer stays a pure template, so the
+  rule lives with the judgment that applies it. The prompt carries a
+  capability table and a grep self-check in its validation step. Bullet prose
+  is exempt and stays concrete.
 - **No CSS is possible:** GitHub strips `<style>` and `style=` from README HTML.
   `<kbd>`, tables and `> [!NOTE]` alerts are the entire styling budget — and
   unlike an SVG they leave the tag text selectable and indexable.
