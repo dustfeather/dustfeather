@@ -11,25 +11,27 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **SELF-HOSTED INFRA** | <kbd>Kubernetes</kbd> <kbd>k3s</kbd> <kbd>Helmfile</kbd> <kbd>Prometheus</kbd> <kbd>GPU Inference</kbd> |
-| **CI/CD &amp; TOOLING** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Shell</kbd> <kbd>Python</kbd> <kbd>Automation</kbd> |
-| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Hono</kbd> <kbd>Serverless</kbd> <kbd>Edge SQL</kbd> |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>SCSS</kbd> |
-| **BOTS &amp; AUTOMATION** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>Telegram</kbd> <kbd>PostgreSQL</kbd> |
-| **AI-ASSISTED TOOLS** | <kbd>TypeScript</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> <kbd>Obsidian</kbd> <kbd>Node.js</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> |
+| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> |
+| **SELF-HOSTED PLATFORM** | <kbd>Kubernetes</kbd> <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Shell</kbd> <kbd>GitHub Actions</kbd> |
+| **CI/CD &amp; DEVOPS** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>YAML</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> |
+| **BOTS &amp; AUTOMATION** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Bun</kbd> <kbd>Telegram Bot API</kbd> <kbd>SQLite</kbd> |
+| **FINANCE &amp; INVESTMENT** | <kbd>TypeScript</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Chartist</kbd> <kbd>Docker</kbd> |
+| **SECURITY** | <kbd>Rust</kbd> <kbd>OSV Format</kbd> <kbd>Security</kbd> <kbd>Cargo</kbd> <kbd>Vulnerability</kbd> |
 
 ---
 
-- **Homelab k3s platform with GPU inference** - Versioned Helmfile cluster managing cert-manager, Prometheus/Grafana/Loki observability, ARC runner sets, Nextcloud, and a GPU-backed Ollama inference server running qwen3:35b on an NVIDIA RTX 3070; encrypted Vaultwarden nightly backups round out the self-hosted stack.
-- **Reusable CI/CD and profile automation** - Centralised reusable GitHub Actions workflows (shared-workflows) covering Node.js/Python CI, Claude Code review, browser-extension publishing to the Chrome Web Store and Mozilla Add-ons, and serverless worker deployment, backed by a containerised ARC runner fleet.
-- **Production SaaS on serverless edge workers** - Two production SaaS products on serverless workers with edge SQL — a Romanian PFA/SRL business-registration compliance platform (Next.js App Router + Hono, D1, R2) and a personal investment portfolio tracker with time-weighted return calculations and a k3s-hosted trading bot.
-- **Cross-browser Manifest V3 extension suite** - Four privacy and productivity extensions for Chrome MV3 and Firefox built from unified TypeScript + esbuild pipelines: discord-purge (bulk-delete DMs with rate-limit backoff), uninsta (bulk-unsend Instagram messages), series-auto-skip (auto-click Skip Intro/Credits on Netflix and Plex), and filelist-ext (torrent tracker notifications).
-- **Standalone bots and data-pipeline automation** - A strictly-typed Python Telegram bot (device-activity-telegram-bot) that detects Windows login/unlock events and triggers remote shutdown, plus a Bun-based k3s CronJob (gw2roi) that ranks Guild Wars 2 crafting-ROI items hourly and writes results to Postgres for Grafana dashboards.
-- **AI-augmented personal knowledge pipeline** - social-update ingests GitHub, Obsidian, Claude Code, and claude.ai activity into SQLite, uses Claude API to generate weekly LinkedIn drafts, and pairs with an Obsidian PARA vault managed by an automated vault-keeper pipeline for long-term knowledge storage.
+- **Cross-browser MV3 extensions shipped to Chrome Web Store and Mozilla Add-ons** - Five TypeScript Manifest V3 extensions built from a shared esbuild/Vite pipeline: discord-purge and uninsta for bulk-unsending DMs on Discord and Instagram with rate-limit handling, filelist-ext for polling the filelist.io API and surfacing torrent notifications, filelist-seed-purge for automatically purging completed qBittorrent seeds by time/ratio thresholds, and series-auto-skip for auto-clicking Skip Intro on Netflix and Plex.
+- **Production SaaS platforms on Next.js deployed to Cloudflare Workers** - Three TypeScript SaaS products shipped via opennextjs-cloudflare with Drizzle ORM over D1 edge databases: a vehicle fleet management system with deadline tracking and org-scoped auth, a multilingual corporate website with Claude API-powered blog automation, and a business-registration onboarding platform with a Hono API worker and document generation engine.
+- **Self-managed k3s cluster hosting internal services and LLM inference** - A multi-node k3s cluster managed via Helmfile with declarative Helm charts and raw manifests for Nextcloud file sync, self-hosted Ollama LLM inference with NVIDIA RTX 3070 GPU passthrough on WSL2, age-encrypted Vaultwarden backup automation, a WARP-only internal app directory, and GitHub Actions ARC runner pools bootstrapped from a GitOps cluster IaC repo.
+- **Centralized reusable GitHub Actions workflow library** - shared-workflows is a hub of 14+ reusable workflows consumed across the portfolio: Node.js and Python test runners, Claude Code AI code review, browser extension publishing pipelines for Chrome Web Store and Mozilla Add-ons, Cloudflare Workers deployment with startup verification and budget gates, and Dependabot auto-merge automation.
+- **Scheduled bots for device monitoring, game analytics, and content generation** - A strictly-typed Python Telegram bot (device-activity-telegram-bot) alerting on Windows login and unlock events with remote shutdown commands, an hourly Bun/TypeScript Kubernetes CronJob (gw2roi) ranking profitable Guild Wars 2 crafts from live trade post data and writing results to Postgres for Grafana visualization, and a Node.js social journal (social-update) collecting GitHub, Obsidian, and Claude session activity to generate weekly LinkedIn drafts via in-cluster Claude AI.
+- **Personal investment portfolio tracker with multi-broker sync and forecasting** - A monorepo investment dashboard deployed on Cloudflare Workers with D1 storage, syncing positions from eToro and Alpaca via automated API integrations, computing time-weighted returns, generating 10-year Monte Carlo forecasts with Chartist visualizations, and running a Kubernetes-hosted algorithmic trading bot alongside offline backtesting tooling.
+- **Contributor to the RustSec open-source vulnerability advisory database** - Active contributions to the official RustSec Advisory Database (advisory-db), which publishes CVE-style advisories for Rust crates in OSV format and powers cargo-audit, cargo-deny, trivy, and GitHub Dependabot security checks for the broader Rust ecosystem on crates.io.
 
 ---
 
-`📡 Currently exploring serverless edge SaaS for Romanian business registration and PFA/SRL compliance`
+`📡 Currently exploring legaltech SaaS for document-driven business registration and compliance workflows`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
