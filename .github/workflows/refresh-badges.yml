@@ -286,6 +286,28 @@ jobs:
           path: findings-raw/
           merge-multiple: false
 
+      - name: Guard — every repo produced findings
+        env:
+          EXPECTED: ${{ needs.enumerate-repos.outputs.count }}
+        run: |
+          set -euo pipefail
+          # classify-repo is continue-on-error, so a cell that dies (e.g. on
+          # --max-turns) uploads no artifact and simply vanishes. The chip table
+          # aggregates across repos with no per-repo row, so a missing repo
+          # leaves no hole — the README renders happily from partial evidence and
+          # the run reports success. Refuse that: a silently under-informed
+          # profile is worse than a loud failure.
+          # `|| true` inside the substitution: with pipefail, a missing
+          # findings-raw/ would fail the assignment and kill the step before it
+          # could say why. Zero artifacts must reach the error message below.
+          ACTUAL=$({ find findings-raw -mindepth 1 -maxdepth 1 -type d -name 'findings-*' 2>/dev/null || true; } | wc -l)
+          echo "expected=${EXPECTED} actual=${ACTUAL}"
+          if [ "$ACTUAL" -lt "$EXPECTED" ]; then
+            echo "::error::classification incomplete: ${ACTUAL}/${EXPECTED} repos produced findings; refusing to render a partial README"
+            find findings-raw -mindepth 1 -maxdepth 1 -type d -name 'findings-*' -printf '  have %f\n' 2>/dev/null | sort
+            exit 1
+          fi
+
       - name: Download prior findings
         if: needs.download-prior-findings.outputs.has_prior == 'true'
         continue-on-error: true

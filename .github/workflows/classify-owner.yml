@@ -54,6 +54,10 @@ jobs:
       matrix:
         repo: ${{ fromJson(needs.filter.outputs.subset) }}
     continue-on-error: true
+    # --max-turns is the only circuit breaker on the Claude step, so raising it
+    # needs a real time bound behind it: this job hands an agent Bash/Read/Write
+    # on a self-hosted runner. A healthy cell takes ~1-2 min.
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
 
@@ -100,7 +104,7 @@ jobs:
           claude \
             --print \
             --model claude-haiku-4-5 \
-            --max-turns 15 \
+            --max-turns 40 \
             --permission-mode acceptEdits \
             --allowedTools Bash Read Write \
             --output-format text \
