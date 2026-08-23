@@ -11,25 +11,27 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **SERVERLESS SAAS** | <kbd>Next.js</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind</kbd> <kbd>Drizzle ORM</kbd> |
-| **K8S PLATFORM** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Kubernetes</kbd> <kbd>GitOps</kbd> <kbd>cert-manager</kbd> |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> <kbd>Tampermonkey</kbd> |
-| **AUTOMATION &amp; BOTS** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Claude API</kbd> <kbd>Telegram</kbd> <kbd>Bun</kbd> <kbd>k3s</kbd> |
-| **DEVOPS &amp; CI** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>CI/CD</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Edge Platform</kbd> |
-| **SECURITY** | <kbd>Rust</kbd> <kbd>OSV</kbd> <kbd>cargo-audit</kbd> <kbd>Advisory</kbd> <kbd>Security</kbd> |
+| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Tailwind</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Hono</kbd> |
+| **KUBERNETES INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>GitOps</kbd> <kbd>Docker</kbd> <kbd>Self-hosted LLM</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>WebExtension</kbd> |
+| **DEVOPS &amp; CI/CD** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Shell</kbd> |
+| **DATA PIPELINES** | <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>PostgreSQL</kbd> <kbd>Grafana</kbd> <kbd>Kubernetes</kbd> |
+| **SECURITY &amp; BACKUP** | <kbd>Security</kbd> <kbd>Rust</kbd> <kbd>Encryption</kbd> <kbd>Shell</kbd> <kbd>TOML</kbd> |
+| **PERSONAL AUTOMATION** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Telegram API</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> |
 
 ---
 
-- **Multi-tenant SaaS on Cloudflare Workers** - Four production web applications — fleet management, legal-compliance document workflows, investment tracking, and a corporate website — all on Next.js 16 with Cloudflare Workers, D1, and Drizzle ORM, deployed via opennextjs-cloudflare.
-- **Self-hosted k3s homelab cluster** - GitOps-managed k3s homelab running Nextcloud, Prometheus/Grafana monitoring, ARC self-hosted runners, Chatwoot, age-encrypted Vaultwarden backups, and a self-hosted Ollama instance with NVIDIA RTX 3070 GPU passthrough on WSL2.
-- **Browser extension suite** - Five cross-browser extensions (Chrome MV3, Firefox, Tampermonkey) covering Discord message bulk-unsend (discord-purge), Instagram DM bulk-unsend (uninsta), filelist.io torrent notifications (filelist-ext), qBittorrent auto-purge (filelist-seed-purge), and intro/credits skipping on Plex and Netflix (series-auto-skip).
-- **Automated pipelines and bots** - Bots and data pipelines spanning a Telegram device-login alert bot (device-activity-telegram-bot), a Guild Wars 2 crafting-ROI analyser on a k3s CronJob writing to Postgres/Grafana (gw2roi), a daily activity aggregator that drafts LinkedIn posts via Claude API (social-update), and a Claude-assisted PARA knowledge vault.
-- **Reusable GitHub Actions workflows** - Centralised shared-workflows repository providing versioned reusable GitHub Actions workflows for Node.js/Python testing, Claude Code review, Cloudflare Workers deployments, browser extension publishing, and Dependabot auto-merge across multiple accounts.
-- **Rust security advisory database** - Curating a fork of the RustSec Advisory Database with 900+ advisories for crates.io packages, exported to OSV format and consumed by cargo-audit, cargo-deny, and Trivy.
+- **Multi-tenant SaaS products on the serverless edge** - Three TypeScript SaaS products deployed on serverless workers — fleet management for Romanian companies, a multilingual corporate site with automated Claude API blog generation, and a business-registration onboarding wizard — all sharing Next.js App Router, Drizzle ORM, and edge-resident SQL.
+- **Self-hosted k3s cluster running production workloads** - GitOps-managed k3s cluster running Nextcloud with Helm, MariaDB, and cert-manager TLS; an internal app directory on WARP-only networking; and an Ollama LLM inference node with NVIDIA RTX 3070 GPU passthrough serving a 35B-parameter model at the homelab edge.
+- **MV3 extensions for privacy and media automation** - Four TypeScript extensions for Chrome and Firefox: discord-purge and uninsta bulk-unsend messages from Discord and Instagram (with rate-limit handling and reverse-engineered APIs), filelist-seed-purge auto-purges completed torrents from qBittorrent by ratio or seeding-time threshold, and series-auto-skip clicks intro and credit skip buttons on Netflix and Plex.
+- **Centralised reusable GitHub Actions library** - shared-workflows is a reusable GitHub Actions hub covering Claude Code review, Dependabot auto-merge, Node.js and Python CI, Cloudflare Workers deployments, and browser extension publishing — consumed as callable workflow references across all org and personal repos.
+- **Scheduled data pipelines with Grafana observability** - gw2roi is an hourly k3s CronJob built with Bun that fetches Guild Wars 2 item prices from the GW2 API and datawars2, ranks craftable items by profit margin, and streams results into a PostgreSQL StatefulSet visualised in Grafana dashboards.
+- **Security advisories and encrypted backup tooling** - Contributes to the RustSec advisory-db for the Rust crates.io ecosystem — consumed by cargo-audit, cargo-deny, and Dependabot for CVE scanning — alongside age-encrypted nightly backup automation for a self-hosted Vaultwarden password manager.
+- **Personal automation bots and knowledge tooling** - A Python Telegram bot (device-activity-telegram-bot) alerts on device logins and enables remote shutdown; social-update collects daily activity into SQLite and drafts LinkedIn posts via Claude; and a private Obsidian vault maintained by a Claude Code pipeline that sorts the inbox and generates daily digests.
 
 ---
 
-`📡 Currently exploring serverless-native SaaS on Cloudflare Workers and D1 for the Romanian market`
+`📡 Currently exploring Serverless edge SaaS for Romanian business registration — Next.js App Router + Hono API on Cloudflare Workers with EU-resident D1/KV/R2 storage`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
