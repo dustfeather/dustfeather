@@ -11,11 +11,11 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **CLOUDFLARE SAAS** | <kbd>Next.js</kbd> <kbd>CF Workers</kbd> <kbd>D1</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind</kbd> <kbd>Drizzle ORM</kbd> |
+| **SERVERLESS SAAS** | <kbd>Next.js</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind</kbd> <kbd>Drizzle ORM</kbd> |
 | **K8S PLATFORM** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Kubernetes</kbd> <kbd>GitOps</kbd> <kbd>cert-manager</kbd> |
 | **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> <kbd>Tampermonkey</kbd> |
 | **AUTOMATION &amp; BOTS** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Claude API</kbd> <kbd>Telegram</kbd> <kbd>Bun</kbd> <kbd>k3s</kbd> |
-| **DEVOPS &amp; CI** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>CI/CD</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Cloudflare</kbd> |
+| **DEVOPS &amp; CI** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>CI/CD</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> <kbd>Edge Platform</kbd> |
 | **SECURITY** | <kbd>Rust</kbd> <kbd>OSV</kbd> <kbd>cargo-audit</kbd> <kbd>Advisory</kbd> <kbd>Security</kbd> |
 
 ---

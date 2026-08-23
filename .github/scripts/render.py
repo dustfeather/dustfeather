@@ -21,6 +21,102 @@ README_PATH = ROOT / "README.md"
 
 CHIP_TABLE_HEADER = "| Domain | Stack |\n| --- | --- |"
 
+# Chips name capabilities, not the vendor providing them: "Serverless Workers",
+# never "CF Workers" or "Lambda Functions". The consolidator prompt says so, but
+# a prompt is advisory — an LLM drifts back to whatever the repo READMEs call
+# things. These two tables make it structural: known vendor names are rewritten,
+# and anything vendor-shaped that is NOT in the alias table hard-fails the run
+# rather than shipping quietly. Prose bullets are exempt and stay concrete.
+VENDOR_ALIASES = {
+    # serverless compute
+    "cf workers": "Serverless Workers",
+    "cloudflare workers": "Serverless Workers",
+    "workers": "Serverless Workers",
+    "lambda": "Serverless Functions",
+    "aws lambda": "Serverless Functions",
+    "lambda functions": "Serverless Functions",
+    "azure functions": "Serverless Functions",
+    "cloud functions": "Serverless Functions",
+    # managed data
+    "d1": "Edge SQL",
+    "kv": "Edge KV",
+    "r2": "Object Storage",
+    "s3": "Object Storage",
+    "dynamodb": "Managed NoSQL",
+    "firestore": "Managed NoSQL",
+    "rds": "Managed Postgres",
+    "supabase": "Managed Postgres",
+    "planetscale": "Managed MySQL",
+    # platforms
+    "cloudflare": "Edge Platform",
+    "vercel": "Edge Platform",
+    "netlify": "Edge Platform",
+    "fly.io": "Edge Platform",
+    "heroku": "Cloud Platform",
+    "aws": "Cloud Platform",
+    "gcp": "Cloud Platform",
+    "azure": "Cloud Platform",
+}
+
+# Vendor-shaped tokens. Anything matching after aliasing is an unmapped vendor
+# name: fail loudly so the alias table gets extended, rather than shipping it.
+VENDOR_TOKENS = re.compile(
+    r"\b(cloudflare|cf|aws|amazon|gcp|google\s+cloud|azure|vercel|netlify|heroku"
+    r"|fly\.io|render\.com|supabase|planetscale|firebase|dynamodb|lambda|s3|r2|d1)\b",
+    flags=re.IGNORECASE,
+)
+
+
+# Categories are single uppercase words by schema pattern, so they alias
+# separately: a category wants SERVERLESS SAAS, not the pill-shaped
+# "Edge Platform SAAS" that word-substituting VENDOR_ALIASES would produce.
+CATEGORY_ALIASES = {
+    "cloudflare": "SERVERLESS",
+    "vercel": "EDGE",
+    "netlify": "EDGE",
+    "lambda": "SERVERLESS",
+    "aws": "CLOUD",
+    "gcp": "CLOUD",
+    "azure": "CLOUD",
+    "heroku": "CLOUD",
+}
+
+
+def neutralize(label: str, *, kind: str, where: str) -> str:
+    """Rewrite a vendor name to its capability equivalent, or refuse."""
+    table = CATEGORY_ALIASES if kind == "category" else VENDOR_ALIASES
+    out = table.get(label.strip().lower())
+    if out is None:
+        # Multi-word labels ("CLOUDFLARE SAAS", "Cloudflare Workers") alias word-wise.
+        out = " ".join(table.get(w.lower(), w) for w in label.split())
+    if kind == "category":
+        out = out.upper()
+    if VENDOR_TOKENS.search(out):
+        raise SystemExit(
+            f"vendor name in {where}: {label!r}. Chips name capabilities, not "
+            f"vendors — add a mapping to "
+            f"{'CATEGORY_ALIASES' if kind == 'category' else 'VENDOR_ALIASES'} "
+            f"in render.py (e.g. 'Serverless Workers', 'Edge SQL', "
+            f"'Object Storage') and re-run."
+        )
+    return out
+
+
+def neutralize_rows(rows: list[dict]) -> list[dict]:
+    out = []
+    for i, row in enumerate(rows):
+        out.append({
+            **row,
+            "category": neutralize(
+                row["category"], kind="category", where=f"rows[{i}].category"
+            ),
+            "pills": [
+                neutralize(p, kind="pill", where=f"rows[{i}].pills[{j}]")
+                for j, p in enumerate(row["pills"])
+            ],
+        })
+    return out
+
 
 def render_chip_row(row: dict) -> str:
     # The schema charset (category ^[A-Z0-9 &/+-]$, pills ^[A-Za-z0-9 ./+#-]$)
@@ -43,7 +139,7 @@ def render_readme_region(data: dict) -> str:
         bullets.append(f"- **{title}** - {body}")
     exploring = data["currently_exploring"].strip()
     return (
-        render_chip_table(data["rows"])
+        render_chip_table(neutralize_rows(data["rows"]))
         + "\n\n---\n\n"
         + "\n".join(bullets)
         + "\n\n---\n\n"

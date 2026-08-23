@@ -80,8 +80,13 @@ PROF-5 in Jira is the canonical spec. Short version:
   data. Each row is one markdown table row, so N only changes table height.
 - **No geometry:** chips are `<kbd>` spans in a table cell, laid out by the
   browser. Pill widths, the 7-color palette and the x≤770 overflow check went
-  away with the SVGs. The schema's `≤ 16 chars` / `3-6 pills` caps are now
+  away with the SVGs. The schema's `≤ 20 chars` / `3-6 pills` caps are now
   about readability, not fitting a fixed canvas.
+- **Chips are vendor-neutral by construction:** `render.py` rewrites known
+  vendor names to capability names (`CF Workers` → `Serverless Workers`,
+  `D1` → `Edge SQL`) and hard-fails on vendor-shaped tokens missing from its
+  alias table. The prompts ask for this too, but the renderer is what makes
+  it hold when the model drifts. Bullet prose is exempt and stays concrete.
 - **No CSS is possible:** GitHub strips `<style>` and `style=` from README HTML.
   `<kbd>`, tables and `> [!NOTE]` alerts are the entire styling budget — and
   unlike an SVG they leave the tag text selectable and indexable.

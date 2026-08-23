@@ -81,7 +81,7 @@ Schema at `.github/schemas/findings.schema.json`. Required shape:
 
 - `head_sha` — copy from `$REPO_HEAD_SHA` verbatim. This is the cache key downstream; getting it wrong breaks per-SHA caching.
 - `is_public` — boolean. Parse from `$REPO_IS_PUBLIC`.
-- `tech_signals` — ASCII-only, **each ≤ 16 chars**. These get copied directly into the README's `<kbd>` chips. `"Next.js"`, `"CF Workers"`, `"D1"` good. `"Cloudflare Workers"` (18) too long — shorten.
+- `tech_signals` — ASCII-only, **each ≤ 20 chars**, and **vendor-neutral**: name the capability, not who sells it. `"Next.js"`, `"TypeScript"`, `"Serverless Workers"`, `"Edge SQL"` good. `"CF Workers"`, `"D1"`, `"Lambda"`, `"S3"` bad — these feed the README chips, and the renderer hard-fails on a vendor name it cannot map.
 - `category_hints` — free text, 1–6 hints. The controller bins these into final categories; you don't have to match any closed vocab. Be honest, not aspirational: a CRUD app is "Web Development" not "AI Engineering" just because it calls an LLM API once.
 - `evidence` — ≤ 3 short justifications, ≤ 120 chars each. Cite README phrasing, manifest entries, dir names. Skip if you have nothing concrete.
 - `one_liner` — single sentence describing what the repo actually does. Mention concrete tech where it sharpens the picture. Never name the repo if `is_public` is `false` in any way that would identify the org's private work — but the file itself is internal to the bot, so naming it here is fine; the downstream consolidator strips private names from the final README.

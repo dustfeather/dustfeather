@@ -67,7 +67,7 @@ Schema at `.github/schemas/classified.schema.json`. Required shape:
   "rows": [
     {
       "category": "<UPPERCASE ASCII, 2-32 chars, charset [A-Z0-9 &/+-]>",
-      "pills": ["<3-6 labels, each 1-16 chars, ASCII only>"],
+      "pills": ["<3-6 vendor-neutral labels, each 1-20 chars, ASCII only>"],
       "bullet": {
         "title": "<sentence-case phrase, 1-80 chars>",
         "body":  "<single sentence describing the category, 1-600 chars>"
@@ -82,7 +82,8 @@ Schema at `.github/schemas/classified.schema.json`. Required shape:
 **Hard rules:**
 
 - 5 ≤ rows ≤ 12. Each row is one table row, so more rows just means a taller table — choose N based on the data.
-- Each row: 3–6 pills. Each pill ≤ 16 chars — the schema enforces both, so violating them hard-fails validation. Chips sit in one table cell and wrap on narrow screens, so keep them short: `CF Workers` not `Cloudflare Workers`, `Doc Mgmt` not `Document Management`.
+- **Chips name capabilities, not vendors.** `Serverless Workers`, never `CF Workers` or `Lambda Functions`. `Edge SQL` not `D1`, `Object Storage` not `S3`/`R2`, `Edge Platform` not `Cloudflare`/`Vercel`, `Managed Postgres` not `RDS`/`Supabase`. Category names too: `SERVERLESS SAAS`, not `CLOUDFLARE SAAS`. This applies to `category` and `pills` **only** — the bullet prose should still name the real product, that is where the concrete detail belongs. The renderer rewrites the vendor names it knows and **hard-fails on any it does not**, so a run dies rather than shipping one.
+- Each row: 3–6 pills. Each pill ≤ 20 chars — the schema enforces both, so violating them hard-fails validation. Chips sit in one table cell and wrap on narrow screens, so keep them short: `CF Workers` not `Cloudflare Workers`, `Doc Mgmt` not `Document Management`.
 - Pills and categories are ASCII per the schema pattern, which excludes `|` — do not try to smuggle one in, it would break the markdown table.
 - `bullet.body` is **one sentence** describing what the category covers. Name concrete tech. Name concrete *public* projects where it sharpens the point. **Never name a private repo by name** — the per-repo findings include `is_public` for every repo; filter accordingly. Private work goes in as aggregated themes ("multi-tenant SaaS platforms across 10+ services") not specific repo names.
 - `currently_exploring` is a short phrase. No leading emoji (the renderer adds `📡`). Update only if findings show a clear new direction this week.
