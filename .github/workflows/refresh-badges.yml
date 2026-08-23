@@ -396,6 +396,10 @@ jobs:
     runs-on: arc-df-dustfeather
     steps:
       - uses: actions/checkout@v7
+        with:
+          # full history: the rebase in "Commit if changed" needs a merge base,
+          # which the default depth-1 clone does not have.
+          fetch-depth: 0
 
       - name: Download classified.json
         uses: actions/download-artifact@v8
@@ -436,4 +440,23 @@ jobs:
           DATE=$(date -u +%Y-%m-%d)
           git add README.md
           git commit -m "chore(badges): weekly refresh from inventory ${DATE}"
-          git push
+          # main can move while this run is in flight: the job checks out the
+          # triggering SHA and the pipeline takes ~12 minutes, so any push landing
+          # inside that window makes this a non-fast-forward. Rebase onto the new
+          # tip and retry rather than failing — a rejected push leaves the badge
+          # region stale until some later run happens to repair it, and there is
+          # no guarantee a later run exists.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected (attempt ${attempt}); rebasing onto origin/main"
+            git fetch origin main
+            if ! git rebase FETCH_HEAD; then
+              git rebase --abort || true
+              echo "::error::badge refresh conflicts with a concurrent README change on main"
+              exit 1
+            fi
+          done
+          echo "::error::could not push badge refresh after 3 rebase attempts"
+          exit 1
