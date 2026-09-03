@@ -1,5 +1,3 @@
-[![Checks](https://github.com/dustfeather/dustfeather/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/dustfeather/dustfeather/actions/workflows/pr-checks.yml)
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/dustfeather/dustfeather/main/name-light.svg" />
