@@ -11,27 +11,29 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Drizzle ORM</kbd> <kbd>Stripe</kbd> <kbd>Edge SQL</kbd> <kbd>Serverless Workers</kbd> |
-| **KUBERNETES PLATFORM** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>GitOps</kbd> <kbd>Docker</kbd> <kbd>Shell</kbd> |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>Vite</kbd> <kbd>esbuild</kbd> <kbd>Content Scripts</kbd> |
-| **DEVOPS &amp; TOOLING** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Python</kbd> <kbd>Kubernetes</kbd> <kbd>Shell</kbd> <kbd>YAML</kbd> |
-| **AUTOMATION &amp; AI** | <kbd>TypeScript</kbd> <kbd>Python</kbd> <kbd>Claude API</kbd> <kbd>SQLite</kbd> <kbd>Docker</kbd> <kbd>Telegram</kbd> |
-| **PERSONAL PROJECTS** | <kbd>TypeScript</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Cron Jobs</kbd> <kbd>REST APIs</kbd> |
-| **SECURITY** | <kbd>Rust</kbd> <kbd>TOML</kbd> <kbd>OSV Format</kbd> <kbd>Advisories</kbd> <kbd>cargo-audit</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Manifest V3</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>Vite</kbd> <kbd>esbuild</kbd> |
+| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Drizzle ORM</kbd> <kbd>Edge SQL</kbd> <kbd>Serverless Workers</kbd> <kbd>Stripe</kbd> |
+| **CORPORATE WEB &amp; TOOLS** | <kbd>Next.js</kbd> <kbd>TypeScript</kbd> <kbd>Claude API</kbd> <kbd>Edge Workers</kbd> <kbd>Multilingual</kbd> <kbd>Static Site</kbd> |
+| **SELF-HOSTED INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Kubernetes</kbd> <kbd>Docker</kbd> <kbd>Shell</kbd> <kbd>Backup</kbd> |
+| **CI/CD &amp; DEPLOYMENT** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Python</kbd> <kbd>Reusable Workflows</kbd> <kbd>Wrangler</kbd> <kbd>WASM</kbd> |
+| **AI WORKSPACE &amp; LLM** | <kbd>Python</kbd> <kbd>FastAPI</kbd> <kbd>RAG</kbd> <kbd>MCP</kbd> <kbd>Docker</kbd> <kbd>LLM Benchmarks</kbd> |
+| **AUTOMATION &amp; BOTS** | <kbd>Python</kbd> <kbd>TypeScript</kbd> <kbd>Telegram Bot</kbd> <kbd>SQLite</kbd> <kbd>Kubernetes</kbd> <kbd>Obsidian</kbd> |
+| **DEVELOPER TOOLS** | <kbd>TypeScript</kbd> <kbd>Node.js</kbd> <kbd>Markdown</kbd> <kbd>Rust</kbd> <kbd>CLI</kbd> <kbd>Security</kbd> |
 
 ---
 
-- **Full-stack SaaS products on serverless edge** - Three private commercial platforms — automotive fleet management with real-time vehicle tracking and Stripe payments, a Romanian business-registration SaaS in a Turborepo monorepo, and the ITGuys corporate website with 6-locale i18n and Claude-powered blog automation — all built on Next.js 16, Drizzle ORM, and Edge SQL databases.
-- **Self-hosted k3s homelab infrastructure** - Helmfile-managed k3s cluster running Nextcloud, Ollama LLM inference with NVIDIA GPU passthrough serving Qwen MoE models, and Vaultwarden with nightly age-encrypted backups pushed to a private git repo — all bootstrapped from versioned shell scripts, raw Kubernetes manifests, and pinned Helm releases.
-- **Six TypeScript MV3 browser extensions** - Full extension ecosystem covering productivity and privacy: chrome-group-discard pauses tab groups by discarding and restoring media position and form state; series-auto-skip auto-clicks skip intro/credits on Netflix and Plex; discord-purge and uninsta bulk-delete DMs on Discord and Instagram; filelist-ext tracks TV series torrents with desktop notifications; filelist-seed-purge automates qBittorrent cleanup against seed-ratio thresholds.
-- **Reusable CI/CD workflows and deployment tooling** - shared-workflows provides one-source-of-truth reusable GitHub Actions for Node/Python testing, browser-extension publishing, and Kubernetes and serverless deploys across all repos; paired with internal deployment configs for a LibreOffice WASM PDF service on serverless workers and a vanilla-JS internal app-directory site.
-- **Activity tracking, bots, and AI-assisted automation** - social-update collects daily events from GitHub, Obsidian, and Claude Code sessions into SQLite and drafts LinkedIn posts via Claude Opus running in-cluster; device-activity-telegram-bot (Python) monitors device login/unlock events and sends Telegram alerts with a remote /halt shutdown command; and a personal Obsidian vault maintained by a Claude Code vault-keeper pipeline.
-- **Personal finance tracker and gaming ROI tools** - A single-user monthly investment tracker with time-weighted return calculations, automated 30-minute balance syncs from multiple brokers, and 10-year forecasts; plus gw2roi — a Guild Wars 2 crafting ROI analyzer that fetches market data hourly, ranks top items by profit, and serves results on a public board.
-- **Open-source Rust crate security advisory database** - advisory-db maintains 900+ TOML security advisories for Rust crates published on crates.io, exported to OSV format for osv.dev integration and consumed downstream by cargo-audit, cargo-deny, trivy, and GitHub Dependabot.
+- **Six cross-browser MV3 extensions for privacy, productivity, and media** - Extensions for Chrome and Firefox handling tab-group snooze in chrome-group-discard, bulk unsend on Discord and Instagram via discord-purge and uninsta, torrent tracking and qBittorrent automation through filelist-ext and filelist-seed-purge, and intro/credit auto-skip on Netflix and Plex — all built with TypeScript and Vite or esbuild targeting Manifest V3.
+- **Edge-deployed SaaS products with payments, GPS, and market analysis** - Flotila (fleet management with GPS tracking, driver deadlines, and Stripe payments), dosar-rapid.ro (two-sided marketplace for Romanian business-registration documents), a personal investment tracker with eToro and Alpaca sync and TWR/Monte Carlo analysis, and gw2roi (Guild Wars 2 crafting ROI bot) — all deployed to serverless workers backed by edge SQL and object storage.
+- **Corporate website with AI-generated content and access-gated portal** - itguys.ro is a multilingual (6-locale) Next.js 16 corporate site deployed to serverless workers with automated blog generation via Claude API, JWT admin panel, and Turnstile CAPTCHA; apps-page is an access-gated static portal listing all IT Guys tools and infrastructure, gated via Google Workspace IdP.
+- **Self-hosted k3s cluster running Nextcloud, Vaultwarden, and CI runners** - Production 3-node k3s cluster running Nextcloud with Valkey cache, Vaultwarden with age-encrypted nightly backups, Prometheus/Grafana/Loki observability, cert-manager TLS, and 20 GitHub Actions runner pools — all declared in helmfile and raw Kubernetes manifests with automated drift-check validation.
+- **Reusable CI/CD workflows and edge deployment pipelines** - shared-workflows provides 10+ reusable GitHub Actions workflows for Node.js, Python, Kubernetes, Helm, and serverless deployments — including Claude Code automated PR review and Dependabot auto-merge; bentopdf is a dedicated deploy pipeline for BentoPDF that routes oversized WASM assets through object storage to stay within edge platform size limits.
+- **Self-hosted AI workspace and local LLM inference benchmarking** - Odysseus is a full-stack self-hosted AI workspace with chat, agents, RAG, email, calendar, and MCP integration, backed by FastAPI and ChromaDB with Docker Compose GPU support for NVIDIA/AMD; paired with empirical LLM inference benchmarking comparing Ollama, llama.cpp, and FreeToken throughput on an RTX 3070 with VRAM and PCIe analysis.
+- **Telegram bots and schedulers for device monitoring and content drafts** - device-activity-telegram-bot sends real-time login/unlock alerts and remote-shutdown commands across Windows and Linux; social-update collects Claude session summaries to SQLite and drafts LinkedIn posts, running on k3s with systemd timers; obsidian-sync maintains a PARA knowledge vault with automated inbox sorting, weekly digests, and Syncthing sync.
+- **CLI presentation tool and Rust security advisory database** - deckrun is a local-first Markdown presentation CLI for writing, presenting, and exporting slides with 14 themes, KaTeX equations, Mermaid diagrams, and Puppeteer PDF export; advisory-db mirrors the RustSec security advisory database in TOML/Markdown format with OSV export for cargo-audit, trivy, and GitHub Advisory Database integration.
 
 ---
 
-`📡 Currently exploring self-hosted LLM serving on k3s (Ollama + Qwen MoE with GPU passthrough) while weaving Claude API automation into web apps and personal scripts`
+`📡 Currently exploring Self-hosted AI workspace with MCP agents and RAG, alongside local LLM inference optimization on consumer GPU`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
