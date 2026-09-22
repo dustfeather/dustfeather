@@ -386,6 +386,21 @@ jobs:
             exit 1
           fi
 
+      # Install the Claude Code CLI this job invokes as `claude`.
+      # It was on PATH for free while the job ran on the ARC pool, whose image
+      # `npm install -g @anthropic-ai/claude-code` (shared-workflows
+      # runner-image/Dockerfile); ubuntu-latest has no such binary and the step
+      # below dies with `claude: command not found`, exit 127 — measured on
+      # run 35731415970, every matrix cell red.
+      #
+      # Unpinned on purpose, matching the image: it installs whatever is latest
+      # at build time, and an agent CLI that lags its own models is the worse
+      # failure. The version it resolved is printed, so a red run says which.
+      - name: Install the Claude Code CLI
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude --version
+
       - name: Consolidate with Claude (Sonnet)
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
