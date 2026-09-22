@@ -44,12 +44,28 @@ jobs:
   #    the App; no workflow edit.
   # ─────────────────────────────────────────────────────────────────────
   enumerate-repos:
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     outputs:
       repos:  ${{ steps.list.outputs.repos }}
       owners: ${{ steps.list.outputs.owners }}
       count:  ${{ steps.list.outputs.count }}
     steps:
+      # Install the Python packages this job's inline scripts import.
+      # They were on PATH for free while this job ran on the ARC pool,
+      # whose image pip-installs them (shared-workflows
+      # runner-image/Dockerfile); ubuntu-latest has neither. The failure
+      # without this is an ImportError inside an inline python script
+      # several steps in, not a missing-dependency error at the top.
+      # Versions mirror that Dockerfile's ARGs — bump both together.
+      # The verify line is not ceremony: the consumers below run as
+      # `python`, the install runs as `python3`, and if those ever resolve
+      # to different interpreters the install succeeds and the import
+      # still fails. Fail here, where the message names the cause.
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --quiet --break-system-packages "PyJWT==2.13.0" "cryptography==48.0.0"
+          python -c "import jwt, cryptography"
+
       - uses: actions/checkout@v7
 
       - id: list
@@ -174,7 +190,7 @@ jobs:
   #    effort — cold start (no prior) is a valid state.
   # ─────────────────────────────────────────────────────────────────────
   download-prior-findings:
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     outputs:
       has_prior: ${{ steps.stage.outputs.has_prior }}
     steps:
@@ -280,8 +296,24 @@ jobs:
   consolidate:
     needs: [enumerate-repos, download-prior-findings, classify-owner]
     if: always() && needs.enumerate-repos.result == 'success'
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     steps:
+      # Install the Python packages this job's inline scripts import.
+      # They were on PATH for free while this job ran on the ARC pool,
+      # whose image pip-installs them (shared-workflows
+      # runner-image/Dockerfile); ubuntu-latest has neither. The failure
+      # without this is an ImportError inside an inline python script
+      # several steps in, not a missing-dependency error at the top.
+      # Versions mirror that Dockerfile's ARGs — bump both together.
+      # The verify line is not ceremony: the consumers below run as
+      # `python`, the install runs as `python3`, and if those ever resolve
+      # to different interpreters the install succeeds and the import
+      # still fails. Fail here, where the message names the cause.
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --quiet --break-system-packages "jsonschema==4.26.0"
+          python -c "import jsonschema"
+
       - uses: actions/checkout@v7
 
       - name: Download all findings-* artifacts
@@ -420,7 +452,7 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────
   render-and-commit:
     needs: [consolidate]
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:

@@ -25,7 +25,7 @@ jobs:
   # Project the full enumeration down to this owner's subset so the
   # matrix only spawns cells for repos we actually care about in this wave.
   filter:
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     outputs:
       subset: ${{ steps.f.outputs.subset }}
       count:  ${{ steps.f.outputs.count }}
@@ -47,7 +47,7 @@ jobs:
   classify-repo:
     needs: filter
     if: needs.filter.outputs.count != '0'
-    runs-on: arc-df-dustfeather
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 30
@@ -56,9 +56,25 @@ jobs:
     continue-on-error: true
     # --max-turns is the only circuit breaker on the Claude step, so raising it
     # needs a real time bound behind it: this job hands an agent Bash/Read/Write
-    # on a self-hosted runner. A healthy cell takes ~1-2 min.
+    # on the runner. A healthy cell takes ~1-2 min.
     timeout-minutes: 10
     steps:
+      # Install the Python packages this job's inline scripts import.
+      # They were on PATH for free while this job ran on the ARC pool,
+      # whose image pip-installs them (shared-workflows
+      # runner-image/Dockerfile); ubuntu-latest has neither. The failure
+      # without this is an ImportError inside an inline python script
+      # several steps in, not a missing-dependency error at the top.
+      # Versions mirror that Dockerfile's ARGs — bump both together.
+      # The verify line is not ceremony: the consumers below run as
+      # `python`, the install runs as `python3`, and if those ever resolve
+      # to different interpreters the install succeeds and the import
+      # still fails. Fail here, where the message names the cause.
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --quiet --break-system-packages "jsonschema==4.26.0"
+          python -c "import jsonschema"
+
       - uses: actions/checkout@v7
 
       - name: Mint App token for ${{ matrix.repo.owner }}
