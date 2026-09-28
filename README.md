@@ -11,29 +11,27 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Manifest V3</kbd> <kbd>Chrome</kbd> <kbd>Firefox</kbd> <kbd>Vite</kbd> |
-| **SERVERLESS SAAS** | <kbd>TypeScript</kbd> <kbd>Next.js</kbd> <kbd>Hono</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> |
-| **EDGE UTILITIES** | <kbd>TypeScript</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Object Storage</kbd> <kbd>Bun</kbd> |
-| **KUBERNETES &amp; HOMELAB** | <kbd>k3s</kbd> <kbd>Kubernetes</kbd> <kbd>Helm</kbd> <kbd>Helmfile</kbd> <kbd>Shell</kbd> |
-| **LOCAL AI &amp; LLM** | <kbd>Python</kbd> <kbd>FastAPI</kbd> <kbd>Docker</kbd> <kbd>Local Models</kbd> <kbd>GPU Accel</kbd> |
-| **CI/CD &amp; AUTOMATION** | <kbd>GitHub Actions</kbd> <kbd>Shell</kbd> <kbd>Python</kbd> <kbd>Docker</kbd> <kbd>Automation</kbd> |
-| **DEVELOPER TOOLS** | <kbd>TypeScript</kbd> <kbd>Node.js</kbd> <kbd>Markdown</kbd> <kbd>KaTeX</kbd> <kbd>PDF Export</kbd> |
-| **SECURITY &amp; PRIVACY** | <kbd>Rust</kbd> <kbd>TOML</kbd> <kbd>OSV Format</kbd> <kbd>TypeScript</kbd> <kbd>GraphQL</kbd> |
+| **KUBERNETES INFRASTRUCTURE** | <kbd>Kubernetes</kbd> <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>GitOps</kbd> <kbd>Self-Hosted</kbd> |
+| **SERVERLESS WEB APPS** | <kbd>Next.js</kbd> <kbd>TypeScript</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Tailwind</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>Vite</kbd> <kbd>esbuild</kbd> |
+| **AI &amp; LOCAL INFERENCE** | <kbd>Python</kbd> <kbd>FastAPI</kbd> <kbd>RAG</kbd> <kbd>MCP</kbd> <kbd>Local Models</kbd> |
+| **CI/CD &amp; DEVOPS** | <kbd>GitHub Actions</kbd> <kbd>CI/CD</kbd> <kbd>Docker</kbd> <kbd>Kubernetes</kbd> <kbd>Node.js</kbd> <kbd>Python</kbd> |
+| **DEVELOPER TOOLS** | <kbd>TypeScript</kbd> <kbd>Node.js</kbd> <kbd>React</kbd> <kbd>Markdown</kbd> <kbd>Claude API</kbd> |
+| **SECURITY &amp; MONITORING** | <kbd>Python</kbd> <kbd>Rust</kbd> <kbd>OSV</kbd> <kbd>Telegram</kbd> <kbd>Monitoring</kbd> |
 
 ---
 
-- **Five production Manifest V3 browser extensions** - TypeScript extensions for Chrome and Firefox covering tab group memory management (chrome-group-discard), torrent monitoring and auto-cleanup on filelist.io (filelist-ext, filelist-seed-purge), media intro and credits auto-skip on Netflix and Plex (series-auto-skip), and bulk Instagram DM unsending with rate limiting (uninsta).
-- **Full-stack SaaS products on serverless infrastructure** - Multi-tenant TypeScript applications deployed on serverless Workers with Edge SQL persistence and Drizzle ORM migrations, covering fleet management with real-time notifications and Stripe payments, a legal-services marketplace, a personal investment tracker with TWR analysis and a live trading bot, and a multilingual corporate website with Claude API-powered blog automation.
-- **Lightweight serverless tools and utilities** - Smaller Workers-hosted utilities: gw2roi ranks Guild Wars 2 crafting recipes by profit margin on an hourly cron using the GW2 trading-post API; a WASM LibreOffice PDF toolkit with large assets streamed from object storage; and an identity-gated internal app directory for a managed-services team.
-- **Self-hosted k3s cluster and platform services** - Versioned infrastructure-as-code for a production-grade self-hosted k3s cluster with pinned Helm charts and raw manifests for cert-manager, monitoring, and ARC runners, managing self-hosted Nextcloud with mesh networking, age-encrypted nightly Vaultwarden backups committed to Git, and on-cluster GPU inference.
-- **Self-hosted AI workspace and LLM inference** - Odysseus is a Docker-deployed self-hosted AI workspace with local model agents, document management, email, calendar, and notes built on FastAPI, SQLAlchemy, and ChromaDB; a companion project benchmarks FreeToken mixture-of-experts inference against Ollama and llama.cpp on a consumer RTX 3070.
-- **Reusable CI/CD workflows and automation bots** - shared-workflows is a reusable GitHub Actions library covering Node.js/Python CI, Claude Code review, dependency auditing, and browser extension publishing; device-activity-telegram-bot fires a Telegram alert on every device login event; social-update collects daily Claude Code sessions, summarises them with llama.cpp, and generates LinkedIn drafts via a k3s-hosted Express and Vite UI.
-- **Local-first Markdown presentation tool** - deckrun is a local-first presentation tool supporting 14 themes, a live editor with localStorage autosave, KaTeX equation rendering, Mermaid diagrams, and PDF export — built entirely in TypeScript as a Node.js local server with a browser UI.
-- **Security advisories and privacy automation** - advisory-db contributes to the community RustSec advisory database for crates.io using TOML+Markdown advisories exported to OSV format and synced to the GitHub Advisory Database; uninsta is a browser extension and userscript that bulk-unsends Instagram DMs via the GraphQL API with rate limiting and IndexedDB-backed state persistence.
+- **Self-hosted k3s cluster running production and homelab workloads** - Maintains a k3s cluster with GitHub Actions Runner Controller for self-hosted CI, Helm-managed Nextcloud with Cert-Manager and object storage backend, and nightly Vaultwarden backups encrypted with age and versioned in git.
+- **Edge-hosted web products on Next.js and serverless workers** - Five Next.js applications deployed on serverless workers with edge SQL and Drizzle ORM — spanning a SaaS fleet management platform with Stripe payments, a two-sided marketplace for Romanian business registration, a corporate site with Claude-powered blog automation, an investment tracker, and gw2roi, a public Guild Wars 2 crafting ROI calculator with hourly data refreshes.
+- **Privacy and productivity extensions across Chrome and Firefox** - Five MV3 extensions — chrome-group-discard pauses tab groups by discarding tabs and restores media position on expand; discord-purge and uninsta bulk-delete DMs and Instagram messages; series-auto-skip auto-skips intros and credits on Plex and Netflix; filelist-ext monitors a torrent tracker for new releases.
+- **Self-hosted AI workspace and LLM inference tooling** - odysseus is a full-featured self-hosted AI workspace with RAG, MCP, and local model support via Ollama; social-update is a daily Claude agent that summarizes dev sessions into a SQLite log and generates LinkedIn drafts via a k3s-hosted web UI; and benchmarking work compares MoE inference (Qwen 35B) across FreeToken, llama.cpp, and Ollama on an RTX 3070.
+- **Shared CI/CD library and deployment automation** - shared-workflows is a central reusable GitHub Actions library covering Node.js and Python testing, Kubernetes and serverless deployments, browser extension publishing, and automated Claude PR review; private deployment configs cover a Workers-based PDF toolkit and an internal tool directory.
+- **Developer-facing utilities and personal knowledge tooling** - deckrun is a local-first Markdown presentation tool with 14+ themes, KaTeX equations, Mermaid diagrams, and PDF export; personal config tooling covers a Claude Code setup with custom skills, hooks, and memory, alongside an Obsidian vault following the PARA method and maintained by an automated Claude pipeline.
+- **Vulnerability tracking and device security monitoring** - advisory-db is a security advisory database for Rust crates with OSV-format export integrating with cargo-audit, cargo-deny, and Dependabot; device-activity-telegram-bot monitors login and unlock events and dispatches Telegram alerts with a remote shutdown command.
 
 ---
 
-`📡 Currently exploring self-hosted LLM inference benchmarking and AI workspace tooling with local GPU compute`
+`📡 Currently exploring integrating Claude Code agents into daily development and CI workflows`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
