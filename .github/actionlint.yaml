@@ -1,0 +1,12 @@
+self-hosted-runner:
+  labels:
+    - arc-df-dustfeather
+paths:
+  .github/workflows/**/*.{yml,yaml}:
+    ignore:
+      # actionlint's bundled action metadata predates create-github-app-token v3,
+      # which replaced app-id with client-id.
+      - 'missing input "app-id" which is required by action "actions/create-github-app-token@v3"'
+      - 'input "client-id" is not defined in action "actions/create-github-app-token@v3"'
+      # Info-level shellcheck notes only; warnings and errors still fail.
+      - 'SC\d+:info:'

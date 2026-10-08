@@ -71,8 +71,6 @@ README, copy the project to a temp dir first.
 
 ## Design context
 
-PROF-5 in Jira is the canonical spec. Short version:
-
 - **Claude = classification only.** Never writes markup. Never touches README directly.
 - **Renderer = pure template.** No judgment. Pure function of `classified.json`.
 - **Idempotence is structural:** same input → byte-identical output.
