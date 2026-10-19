@@ -44,16 +44,16 @@ jobs:
   #    the App; no workflow edit.
   # ─────────────────────────────────────────────────────────────────────
   enumerate-repos:
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     outputs:
       repos:  ${{ steps.list.outputs.repos }}
       owners: ${{ steps.list.outputs.owners }}
       count:  ${{ steps.list.outputs.count }}
     steps:
       # Install the Python packages this job's inline scripts import.
-      # They were on PATH for free while this job ran on the ARC pool,
-      # whose image pip-installs them (shared-workflows
-      # runner-image/Dockerfile); ubuntu-latest has neither. The failure
+      # The ARC image pip-installs them (shared-workflows
+      # runner-image/Dockerfile), but ubuntu-latest has neither, so the
+      # job installs them anyway to run on either. The failure
       # without this is an ImportError inside an inline python script
       # several steps in, not a missing-dependency error at the top.
       # Versions mirror that Dockerfile's ARGs — bump both together.
@@ -190,7 +190,7 @@ jobs:
   #    effort — cold start (no prior) is a valid state.
   # ─────────────────────────────────────────────────────────────────────
   download-prior-findings:
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     outputs:
       has_prior: ${{ steps.stage.outputs.has_prior }}
     steps:
@@ -296,12 +296,12 @@ jobs:
   consolidate:
     needs: [enumerate-repos, download-prior-findings, classify-owner]
     if: always() && needs.enumerate-repos.result == 'success'
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     steps:
       # Install the Python packages this job's inline scripts import.
-      # They were on PATH for free while this job ran on the ARC pool,
-      # whose image pip-installs them (shared-workflows
-      # runner-image/Dockerfile); ubuntu-latest has neither. The failure
+      # The ARC image pip-installs them (shared-workflows
+      # runner-image/Dockerfile), but ubuntu-latest has neither, so the
+      # job installs them anyway to run on either. The failure
       # without this is an ImportError inside an inline python script
       # several steps in, not a missing-dependency error at the top.
       # Versions mirror that Dockerfile's ARGs — bump both together.
@@ -467,7 +467,7 @@ jobs:
   # ─────────────────────────────────────────────────────────────────────
   render-and-commit:
     needs: [consolidate]
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     steps:
       - uses: actions/checkout@v7
         with:

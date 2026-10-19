@@ -25,7 +25,7 @@ jobs:
   # Project the full enumeration down to this owner's subset so the
   # matrix only spawns cells for repos we actually care about in this wave.
   filter:
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     outputs:
       subset: ${{ steps.f.outputs.subset }}
       count:  ${{ steps.f.outputs.count }}
@@ -47,7 +47,7 @@ jobs:
   classify-repo:
     needs: filter
     if: needs.filter.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: arc-df-dustfeather
     strategy:
       fail-fast: false
       max-parallel: 30
