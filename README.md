@@ -11,29 +11,31 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Manifest V3</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>Vite</kbd> |
-| **SERVERLESS SAAS** | <kbd>Next.js</kbd> <kbd>TypeScript</kbd> <kbd>Drizzle ORM</kbd> <kbd>Edge SQL</kbd> <kbd>Serverless Workers</kbd> |
-| **EDGE &amp; WEB APPS** | <kbd>Astro</kbd> <kbd>TypeScript</kbd> <kbd>React</kbd> <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> |
-| **SELF-HOSTED INFRA** | <kbd>k3s</kbd> <kbd>Kubernetes</kbd> <kbd>Helm</kbd> <kbd>Docker</kbd> <kbd>GitHub Actions</kbd> |
-| **AI WORKSPACE &amp; AGENTS** | <kbd>Python</kbd> <kbd>FastAPI</kbd> <kbd>RAG</kbd> <kbd>Local Models</kbd> <kbd>Claude API</kbd> |
-| **CI/CD &amp; DEVTOOLS** | <kbd>GitHub Actions</kbd> <kbd>Docker</kbd> <kbd>Claude Code</kbd> <kbd>TypeScript</kbd> <kbd>Python</kbd> |
-| **SECURITY &amp; MONITORING** | <kbd>Rust</kbd> <kbd>Python</kbd> <kbd>Telegram</kbd> <kbd>TOML</kbd> <kbd>OSV</kbd> |
-| **PERSONAL TOOLS** | <kbd>TypeScript</kbd> <kbd>Obsidian</kbd> <kbd>Markdown</kbd> <kbd>Syncthing</kbd> <kbd>Shell</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>TypeScript</kbd> <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>esbuild</kbd> <kbd>Vite</kbd> |
+| **SERVERLESS SAAS** | <kbd>Next.js</kbd> <kbd>TypeScript</kbd> <kbd>Hono</kbd> <kbd>Drizzle ORM</kbd> <kbd>Edge SQL</kbd> |
+| **WEB DEVELOPMENT** | <kbd>Astro</kbd> <kbd>TypeScript</kbd> <kbd>Tailwind</kbd> <kbd>Serverless Workers</kbd> <kbd>WASM</kbd> |
+| **KUBERNETES INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Docker</kbd> <kbd>Prometheus</kbd> <kbd>Helmfile</kbd> |
+| **AI &amp; LLM** | <kbd>Python</kbd> <kbd>Docker</kbd> <kbd>Claude API</kbd> <kbd>Ollama</kbd> <kbd>MCP</kbd> |
+| **CI/CD &amp; DEV TOOLS** | <kbd>GitHub Actions</kbd> <kbd>Python</kbd> <kbd>Docker</kbd> <kbd>TypeScript</kbd> <kbd>Markdown</kbd> |
+| **TRADING &amp; FINANCE** | <kbd>TypeScript</kbd> <kbd>Bun</kbd> <kbd>Edge SQL</kbd> <kbd>Drizzle ORM</kbd> <kbd>Cron Jobs</kbd> |
+| **SECURITY &amp; MONITORING** | <kbd>Python</kbd> <kbd>Markdown</kbd> <kbd>TOML</kbd> <kbd>Rust Ecosystem</kbd> <kbd>Telegram</kbd> |
+| **PERSONAL PRODUCTIVITY** | <kbd>TypeScript</kbd> <kbd>Obsidian</kbd> <kbd>Syncthing</kbd> <kbd>SQLite</kbd> <kbd>Claude API</kbd> |
 
 ---
 
-- **Five-extension MV3 suite for productivity and privacy** - Chrome and Firefox extensions in TypeScript and Vite: chrome-group-discard discards tab groups on collapse and restores media state; discord-purge bulk-deletes your own Discord DMs; uninsta bulk-unsends Instagram messages; series-auto-skip auto-clicks skip buttons on Netflix and Plex; filelist-ext notifies on new filelist.io torrents.
-- **Edge-deployed SaaS products with auth, payments, and multi-tenancy** - Two substantial Next.js multi-tenant products on serverless workers with Drizzle ORM over edge SQL — a fleet management platform for the Romanian market with GPS tracking, Stripe billing, and team deadline monitoring; and a two-sided B2B marketplace for business-registration document workflows with a Hono API backend and EU-pinned storage.
-- **Edge-hosted web apps from corporate sites to game tools** - A multilingual Astro corporate site with EmDash CMS and automated blog generation via Claude AI; a client-side PDF toolkit streamed from object storage to bypass worker size limits; and gw2roi, a Guild Wars 2 crafting ROI calculator that runs hourly scheduled jobs on serverless workers with edge SQL to serve a live rankings board.
-- **k3s homelab cluster with self-managed services and GitOps CI** - k3s cluster infrastructure managed via Helm charts and manifest GitOps, hosting Nextcloud with file data on object storage and nightly SQLite backups, age-encrypted Vaultwarden backup CronJobs, ARC runner pools for GitHub Actions self-hosted CI, and cert-manager with edge tunnel ingress.
-- **Self-hosted AI workspace, agents, and local LLM benchmarking** - odysseus is an open self-hosted AI workspace with FastAPI, ChromaDB RAG, MCP agents, and CalDAV/IMAP integration; social-update is a k3s-hosted daily agent that distills Claude Code sessions into LinkedIn drafts using local llama.cpp inference; a companion benchmark compares FreeToken, llama.cpp, and Ollama MoE decode/prefill performance on an RTX 3070.
-- **Centralized CI/CD workflows and personal developer tooling** - shared-workflows provides reusable GitHub Actions for multi-target deployments to k8s and serverless edge with Claude Code PR review across both accounts; deckrun is a Node.js CLI presentation tool published to npm with 19 themes, KaTeX, Mermaid, and Puppeteer PDF export; a personal Claude Code config repo wires steering, resident skills, hooks, and gitleaks secret scanning.
-- **Rust advisory database and device security monitoring** - advisory-db maintains TOML/OSV-format security advisories for Rust crates integrated with cargo-audit, cargo-deny, trivy, and GitHub Dependabot; device-activity-telegram-bot sends async Telegram alerts on device login and unlock events and enables remote shutdown via authenticated Python commands.
-- **Personal finance tracker and Obsidian knowledge base** - A TypeScript investment tracker on serverless workers computes time-weighted returns and syncs broker positions on a schedule with a Telegram-integrated dashboard; paired with an Obsidian PARA-structure vault maintained by a vault-keeper pipeline for inbox sorting and digest generation, synced cross-device via Syncthing.
+- **Five productivity and privacy browser extensions** - Five TypeScript MV3 extensions: chrome-group-discard saves and restores tab group state on collapse; discord-purge and uninsta bulk-delete your DMs on Discord and Instagram; filelist-ext tracks TV series on filelist.io with desktop notifications; series-auto-skip automatically dismisses intros, credits, and recaps on Plex and Netflix.
+- **Two full-stack SaaS products on serverless edge** - Two full-stack SaaS applications built on Next.js and deployed to Cloudflare Workers — a fleet management platform for vehicle tracking, real-time mapping, and payments, and a B2B marketplace for Romanian business registration services with a Next.js frontend and a Hono API layer.
+- **Corporate and internal web properties** - IT Guys web properties: a corporate website built with Astro 7 across six locales with an EmDash CMS backend, an internal tool directory served as static assets with access gating, and a client-side PDF toolkit using Cloudflare Workers and R2 streaming to handle large WASM assets.
+- **Self-hosted k3s cluster and services** - Self-hosted k3s cluster managed with Helmfile and raw manifests, running Nextcloud file storage with automated TLS over a WARP mesh network, age-encrypted nightly password manager backups with freshness monitoring, and bootstrap scripts for ARC runner pools.
+- **Self-hosted AI workspace and LLM tooling** - Odysseus is a self-hosted AI workspace covering chat, agents, research, documents, email, and calendar on Docker with GPU support; paired with MoE LLM inference benchmarks comparing FreeToken, llama.cpp, and Ollama on an RTX 3070, and a Claude Code configuration layer with steering rules and automation hooks.
+- **Reusable CI/CD workflows and developer utilities** - shared-workflows centralises 18+ reusable GitHub Actions for Node.js, Python, Cloudflare, k8s, Helm, and extension publishing across the portfolio; deckrun is a local-first Markdown presentation tool with a live editor, 14 themes, KaTeX equations, Mermaid diagrams, and PDF export.
+- **Investment tracking and automated market analysis** - Personal investment tracker with monthly contribution tracking, time-weighted return analysis, and a live SPX auto-trading bot running across three serverless workers; gw2roi fetches Guild Wars 2 Trading Post prices hourly, ranks crafting recipes by ROI, and renders results on a live web board.
+- **Security tooling and device monitoring** - advisory-db maintains a community Rust crate security advisory database in OSV format, used by cargo-audit, cargo-deny, trivy, and Dependabot; device-activity-telegram-bot notifies via Telegram on device login/unlock events and supports remote shutdown, built on Python 3.14 with asyncio and full mypy coverage.
+- **Personal knowledge management and AI-assisted journaling** - A PARA-structured Obsidian vault synced via Syncthing with an automated inbox pipeline, feeding into social-update — a k3s-deployed TypeScript agent that collects Claude Code session transcripts daily, summarises them with Haiku, and drafts LinkedIn posts using Claude Opus.
 
 ---
 
-`📡 Currently exploring AI-assisted content workflows and MoE inference benchmarking on self-hosted GPU`
+`📡 Currently exploring self-hosted MoE LLM inference and AI-assisted knowledge workflows`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
