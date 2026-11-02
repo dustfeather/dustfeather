@@ -407,7 +407,7 @@ jobs:
         run: |
           claude \
             --print \
-            --model claude-sonnet-4-6 \
+            --model sonnet \
             --max-turns 20 \
             --permission-mode acceptEdits \
             --allowedTools Bash Read Write \

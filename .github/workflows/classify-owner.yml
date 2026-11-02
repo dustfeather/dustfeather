@@ -135,7 +135,7 @@ jobs:
         run: |
           claude \
             --print \
-            --model claude-haiku-4-5 \
+            --model haiku \
             --max-turns 40 \
             --permission-mode acceptEdits \
             --allowedTools Bash Read Write \
