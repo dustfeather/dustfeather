@@ -11,29 +11,29 @@
 <!-- BADGE-BOT:START -->
 | Domain | Stack |
 | --- | --- |
-| **BROWSER EXTENSIONS** | <kbd>Chrome MV3</kbd> <kbd>Firefox MV3</kbd> <kbd>TypeScript</kbd> <kbd>Userscripts</kbd> <kbd>Vite/esbuild</kbd> |
-| **SERVERLESS SAAS** | <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Next.js</kbd> <kbd>Drizzle ORM</kbd> <kbd>Object Storage</kbd> <kbd>Hono</kbd> |
-| **DATA &amp; TRADING** | <kbd>Cron Pipelines</kbd> <kbd>Edge SQL</kbd> <kbd>Trading Bots</kbd> <kbd>Backtesting</kbd> <kbd>Python</kbd> |
-| **K3S &amp; SELF-HOSTING** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Prometheus</kbd> <kbd>Grafana</kbd> <kbd>Kubernetes</kbd> |
-| **CI/CD &amp; AUTOMATION** | <kbd>GitHub Actions</kbd> <kbd>Reusable CI</kbd> <kbd>Telegram Bot</kbd> <kbd>Python</kbd> <kbd>Shell</kbd> |
-| **AI &amp; LLM TOOLING** | <kbd>Claude Code</kbd> <kbd>Local LLMs</kbd> <kbd>FastAPI</kbd> <kbd>MCP</kbd> <kbd>llama.cpp</kbd> |
-| **MOBILE &amp; PROTOCOLS** | <kbd>Kotlin</kbd> <kbd>Android</kbd> <kbd>Compose</kbd> <kbd>Protobuf</kbd> <kbd>TLS</kbd> |
-| **DEV TOOLS &amp; SECURITY** | <kbd>Rust</kbd> <kbd>CLI</kbd> <kbd>Markdown</kbd> <kbd>OSV</kbd> <kbd>TypeScript</kbd> |
+| **BROWSER EXTENSIONS** | <kbd>Chrome MV3</kbd> <kbd>Firefox</kbd> <kbd>TypeScript</kbd> <kbd>Userscripts</kbd> <kbd>Vite/esbuild</kbd> |
+| **SERVERLESS SAAS** | <kbd>Serverless Workers</kbd> <kbd>Edge SQL</kbd> <kbd>Next.js</kbd> <kbd>Drizzle ORM</kbd> <kbd>Hono</kbd> |
+| **SELF-HOSTED INFRA** | <kbd>k3s</kbd> <kbd>Helm</kbd> <kbd>Prometheus</kbd> <kbd>Grafana</kbd> <kbd>Zero-Trust</kbd> |
+| **AI ENGINEERING** | <kbd>LLM Agents</kbd> <kbd>RAG</kbd> <kbd>MCP</kbd> <kbd>Local LLMs</kbd> <kbd>FastAPI</kbd> |
+| **DEVOPS &amp; CI** | <kbd>GitHub Actions</kbd> <kbd>Reusable CI</kbd> <kbd>Docker</kbd> <kbd>Helm</kbd> <kbd>Deploy Config</kbd> |
+| **DEVELOPER TOOLING** | <kbd>CLI</kbd> <kbd>Node.js</kbd> <kbd>Markdown</kbd> <kbd>Agent Hooks</kbd> <kbd>Rust</kbd> |
+| **MOBILE &amp; PROTOCOLS** | <kbd>Kotlin</kbd> <kbd>Android</kbd> <kbd>Compose</kbd> <kbd>Protobuf</kbd> <kbd>Car Apps</kbd> |
+| **AUTOMATION &amp; BOTS** | <kbd>Python</kbd> <kbd>Telegram Bot</kbd> <kbd>Cron Jobs</kbd> <kbd>Alerts</kbd> <kbd>Trading Bots</kbd> |
 
 ---
 
-- **Manifest V3 extensions and userscripts** - Ships TypeScript MV3 extensions and Tampermonkey userscripts such as chrome-group-discard, discord-purge, uninsta, filelist-ext and series-auto-skip, covering tab management, privacy cleanup and media automation.
-- **Edge-hosted SaaS and web platforms** - Builds multi-tenant SaaS, marketplace and corporate-site projects in TypeScript with Next.js, Astro, Hono and Drizzle ORM, deployed to Cloudflare Workers with D1 and R2 across roughly seven private services.
-- **Scheduled data pipelines and trading tools** - Runs scheduled data and finance tooling, including the public gw2roi Cron Worker that ranks Guild Wars 2 crafting profit into D1, plus a private personal-finance dashboard with a broker-sync worker, trading bot and backtester.
-- **Self-hosted Kubernetes platform** - Operates a self-hosted k3s cluster with Helmfile-managed infrastructure, Prometheus, Grafana and Loki observability, ARC runner pools, and GitOps deploys of services like Nextcloud and a Vaultwarden password manager with age-encrypted backups.
-- **Shared CI and personal automation** - Maintains shared-workflows, reusable GitHub Actions for Node and Python CI, Worker and Helm deploys and extension publishing, alongside automation like device-activity-telegram-bot and the social-update Claude Code session journal.
-- **Local and agentic AI workflows** - Works with local and API LLMs through Odysseus, a FastAPI self-hosted AI workspace with agents, MCP and ChromaDB research, plus private llama.cpp and Ollama benchmarking, and Claude Code configuration and note-vault automation.
-- **Android Auto reimplementation** - Develops AARE in Kotlin with Jetpack Compose, Media3 and Protobuf, an open-source reimplementation of the Android Auto phone-side projection protocol with car-screen UI, media, messaging and voice.
-- **Developer tools and security data** - Publishes deckrun, a TypeScript CLI and browser editor for Markdown slides with PDF export, and advisory-db, a curated Rust crates.io security advisory database exported to OSV.
+- **Browser extensions** - Manifest V3 extensions and userscripts in TypeScript for Chrome and Firefox, including chrome-group-discard, discord-purge, uninsta, filelist-ext and series-auto-skip.
+- **Serverless web apps and SaaS** - Multi-tenant and personal web products in TypeScript on Next.js, Astro and Hono, deployed to Cloudflare Workers with D1, including the public gw2roi crafting-profit board and private SaaS, marketplace, finance and corporate-site projects.
+- **Self-hosted Kubernetes platform** - A k3s homelab cluster managed with Helm and shell runbooks, observability via Prometheus, Grafana and Loki, and self-hosted services such as the public nextcloud GitOps deployment and a backed-up password manager.
+- **AI workspaces and local inference** - Self-hosted AI tooling including the public odysseus FastAPI workspace with RAG and MCP, the social-update LLM journal, and GPU-offload benchmarking of llama.cpp and Ollama for local models.
+- **CI/CD and deployment automation** - Reusable GitHub Actions workflows in shared-workflows covering Node, Python, extension publishing, Cloudflare and k3s deploys, plus deploy-only configs for static sites on edge Workers.
+- **Developer and productivity tools** - Local-first tools such as the deckrun Markdown slide CLI, the advisory-db Rust security advisory database, and versioned Claude Code config with hooks, skills and secret scanning.
+- **Android and automotive protocols** - AARE, an open-source Kotlin reimplementation of Android Auto's phone side that speaks the AAP protocol and runs Car App Library apps without Google Play Services.
+- **Bots and scheduled automation** - Python and TypeScript automation such as the device-activity-telegram-bot for login alerts and remote shutdown, plus cron-driven pipelines and a trading bot.
 
 ---
 
-`📡 Currently exploring Self-hosted LLM inference and agentic Claude Code workflows`
+`📡 Currently exploring Local LLM inference and self-hosted AI agents`
 <!-- BADGE-BOT:END -->
 
 [contact@itguys.ro](mailto:contact@itguys.ro)
