@@ -33,4 +33,5 @@ jobs:
     uses: dustfeather/shared-workflows/.github/workflows/claude.yml@v9
     with:
       runner: arc-df-dustfeather
-    secrets: inherit
+    secrets:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
