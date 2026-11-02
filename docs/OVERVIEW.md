@@ -16,7 +16,7 @@ Those badges and the README region are machine-written — never hand-edit them.
 - **Python** — `.github/scripts/render.py` does the deterministic SVG + README render and `jsonschema` validation (`requirements.txt`: `jsonschema==4.23.0`).
 - **GitHub Actions** — multi-job pipeline in `refresh-badges.yml` calling reusable `classify-owner.yml`, running on self-hosted ARC runners (`arc-df-dustfeather`).
 - **Claude Code CLI** — `claude --print` for classification: Haiku (`--model haiku`) per-repo findings, Sonnet (`--model sonnet`) consolidation. Aliases, not pinned IDs: the CLI resolves each to the latest model of that tier.
-- **APIs hit** — GitHub App auth via minted JWT (`/app/installations`, per-install access tokens), repo enumeration over the GitHub GraphQL API. Claude via `ANTHROPIC_API_KEY` (API billing) in the badge-bot jobs and in the `claude`/`pr-checks` shims, which pass it explicitly to `shared-workflows`.
+- **APIs hit** — GitHub App auth via minted JWT (`/app/installations`, per-install access tokens), repo enumeration over the GitHub GraphQL API. Claude via `ANTHROPIC_API_KEY` (org-scoped Console key, API billing) in the badge-bot jobs, which also send the `ANTHROPIC_WORKSPACE_ID` secret as an `anthropic-workspace-id` header through `ANTHROPIC_CUSTOM_HEADERS` (an org-scoped key gets a 400 without it), and in the `claude`/`pr-checks` shims, which pass it explicitly to `shared-workflows`.
 
 ## Repo
 

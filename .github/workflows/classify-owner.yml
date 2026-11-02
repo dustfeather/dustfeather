@@ -128,7 +128,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           # Org-scoped key: every request must name its workspace.
-          ANTHROPIC_CUSTOM_HEADERS: "anthropic-workspace-id: ${{ vars.ANTHROPIC_WORKSPACE_ID }}"
+          ANTHROPIC_CUSTOM_HEADERS: "anthropic-workspace-id: ${{ secrets.ANTHROPIC_WORKSPACE_ID }}"
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           REPO_OWNER: ${{ matrix.repo.owner }}
           REPO_NAME: ${{ matrix.repo.repo }}
