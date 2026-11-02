@@ -404,6 +404,8 @@ jobs:
       - name: Consolidate with Claude (Sonnet)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Org-scoped key: every request must name its workspace.
+          ANTHROPIC_CUSTOM_HEADERS: "anthropic-workspace-id: ${{ vars.ANTHROPIC_WORKSPACE_ID }}"
         run: |
           claude \
             --print \
